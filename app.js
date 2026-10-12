@@ -2,8 +2,7 @@
  * 6학년 · K-FOOD 소개하기 웹 앱
  * - 🍱 둘러보기 : 음식 카드(영어 + 한글 + 설명) · 종류별 보기 · 음식 고르기
  * - 🥕 재료·맛  : 정말 들어가는 재료 2~4개 + 어울리는 맛 1~2개 (재료 퀴즈 모드)
- * - 📝 소개글   : 이름 입력 → 6줄 소개글(영어 + 한글) · 전체 듣기 · 복사 · 인쇄 · 워크시트 표
- * - 🎤 발표 연습 : 줄마다 말하기 채점 + 전체 발표(차례로 마이크) + 짝 활동 카드
+ * - 🎤 발표 연습 : 이름 입력 → 6줄 소개글(영어 + 한글), 줄마다 말하기 채점 + 전체 발표(차례로 마이크) + 짝 활동 카드
  * - 음성 출력: Web Speech API (SpeechSynthesis) / 채점: SpeechRecognition
  * ========================================================= */
 
@@ -418,13 +417,12 @@ function updateBuildPreview(autoSpeak) {
   if (!f) status.textContent = "🍱 먼저 소개할 음식을 골라요.";
   else if (my.ingredients.length < ING_MIN) status.textContent = `1️⃣ ${koShort(f.ko)}에 들어가는 재료를 ${ING_MIN}~${ING_MAX}개 골라요 👆 (지금 ${my.ingredients.length}개)`;
   else if (!tasteOk()) status.textContent = `2️⃣ ${koShort(f.ko)}의 맛을 1~${TASTE_MAX}개 골라요 👆`;
-  else status.textContent = `✅ 완성! "${ing.en} ${ts.en}" · 📝 내 소개글에서 이름을 쓰고 전체 글을 봐요.`;
+  else status.textContent = `✅ 완성! "${ing.en} ${ts.en}" · 🎤 발표 연습에서 이름을 쓰고 소개글을 말해 봐요.`;
 
   document.getElementById("build-listen").disabled = !(ing || ts);
   document.getElementById("build-next").disabled = !done;
   document.getElementById("build-next").classList.toggle("primary", done);
   updateBuildBadge();
-  renderScript();
 
   if (autoSpeak) {
     const en = [ing && ing.en, ts && ts.en].filter(Boolean).join(" ");
@@ -458,112 +456,16 @@ document.getElementById("build-clear").addEventListener("click", () => {
   my.ingredients = []; my.tastes = []; lastBuildSpoken = "";
   cancelSpeech(); persist(); renderBuilder();
 });
-document.getElementById("build-next").addEventListener("click", () => goTab("intro"));
+document.getElementById("build-next").addEventListener("click", () => goTab("practice"));
 
-/* ===========================================================
- * 📝 내 소개글
- * =========================================================== */
+/* ---------- 🙋 내 이름 (발표 연습 탭) ---------- */
 const nameInput = document.getElementById("my-name");
 nameInput.value = my.name;
 nameInput.addEventListener("input", () => {
   my.name = nameInput.value.replace(/[^A-Za-z .'-]/g, "").slice(0, 24);
   if (nameInput.value !== my.name) nameInput.value = my.name;
-  persist(); renderScript();
+  persist(); renderPractice();
 });
-
-function renderScript() {
-  const box = document.getElementById("script-box");
-  if (!box) return;
-  box.innerHTML = "";
-  const f = findFood(my.food);
-  if (!f) {
-    box.innerHTML = `<div class="food-head-empty">아직 음식을 고르지 않았어요. <b>🍱 K-FOOD 둘러보기</b>에서 음식을 고르고, <b>🥕 재료 · 맛 고르기</b>를 해요.</div>`;
-    renderSheetSummary();
-    return;
-  }
-  const title = document.createElement("div"); title.className = "script-title";
-  title.innerHTML = `<span class="script-emoji">${f.emoji}</span> <b>${f.en}</b> <span class="food-ko">${f.ko}</span>`;
-  box.appendChild(title);
-  introLines().forEach((l, i) => {
-    const row = document.createElement("div"); row.className = "script-line";
-    const num = document.createElement("span"); num.className = "script-num"; num.textContent = i + 1;
-    const txt = document.createElement("div"); txt.className = "script-text";
-    const en = document.createElement("div"); en.className = "en"; en.appendChild(buildWords(l.en));
-    const ko = document.createElement("div"); ko.className = "ko"; ko.textContent = l.ko;
-    txt.append(en, ko);
-    const sp = document.createElement("button"); sp.className = "speak-btn small"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "이 줄 듣기");
-    sp.addEventListener("click", () => speak(l.en, null, () => row.classList.add("speaking"), () => row.classList.remove("speaking")));
-    row.append(num, txt, sp);
-    box.appendChild(row);
-  });
-  const missing = [];
-  if (!my.name.trim()) missing.push("🙋 이름");
-  if (!ingOk()) missing.push("🥕 재료 2~4개");
-  if (!tasteOk()) missing.push("😋 맛 1~2개");
-  const note = document.createElement("div"); note.className = "dlg-status" + (missing.length ? "" : " ok");
-  note.textContent = missing.length ? `아직 ${missing.join(" · ")}이 비어 있어요.` : "✅ 소개글 완성! 워크시트에 옮겨 적고 🎤 발표 연습으로 가요.";
-  box.appendChild(note);
-  renderSheetSummary();
-}
-
-document.getElementById("script-listen").addEventListener("click", () => {
-  if (!findFood(my.food)) return;
-  const rows = document.querySelectorAll("#script-box .script-line");
-  const lines = introLines();
-  let i = 0;
-  const step = () => {
-    rows.forEach(r => r.classList.remove("speaking"));
-    if (i >= lines.length) return;
-    const row = rows[i], en = lines[i].en; i++;
-    row && row.classList.add("speaking");
-    speakThen(en, () => setTimeout(step, 250));
-  };
-  cancelSpeech(); step();
-});
-document.getElementById("script-copy").addEventListener("click", async e => {
-  if (!findFood(my.food)) return;
-  const text = introText();
-  const btn = e.currentTarget;
-  try {
-    await navigator.clipboard.writeText(text);
-    btn.textContent = "✅ 복사했어요!";
-  } catch (err) {
-    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select();
-    try { document.execCommand("copy"); btn.textContent = "✅ 복사했어요!"; } catch (e2) { btn.textContent = "복사 실패"; }
-    ta.remove();
-  }
-  setTimeout(() => { btn.textContent = "📋 글 복사하기"; }, 1600);
-});
-document.getElementById("script-print").addEventListener("click", () => { if (findFood(my.food)) window.print(); });
-
-/* ---------- 📄 워크시트에 적기 ---------- */
-function sheetRow(label, en, ko) {
-  const row = document.createElement("div");
-  row.className = "sheet-row" + (en ? "" : " empty");
-  const lab = document.createElement("div"); lab.className = "sheet-label"; lab.textContent = label;
-  const val = document.createElement("div"); val.className = "sheet-val";
-  if (en) {
-    const e = document.createElement("div"); e.className = "en"; e.appendChild(buildWords(en));
-    const k = document.createElement("div"); k.className = "ko"; k.textContent = ko;
-    val.append(e, k);
-  } else val.textContent = "아직 고르지 않았어요";
-  const btn = document.createElement("button");
-  btn.className = "speak-btn small"; btn.textContent = "🔊"; btn.disabled = !en;
-  btn.addEventListener("click", () => en && speak(en));
-  row.append(lab, val, btn);
-  return row;
-}
-function renderSheetSummary() {
-  const box = document.getElementById("sheet-summary");
-  if (!box) return;
-  box.innerHTML = "";
-  const f = findFood(my.food);
-  const ing = ingSentence(), ts = tasteSentence();
-  box.appendChild(sheetRow("내가 고른 음식", f && `${f.en} (${f.ko})`, f && f.descKo));
-  box.appendChild(sheetRow("재료 (It has ~.)", ing && ing.en, ing && ing.ko));
-  box.appendChild(sheetRow("맛 (It's ~.)", ts && ts.en, ts && ts.ko));
-  box.appendChild(sheetRow("소개글 전체", f && introText().replace(/\n/g, " "), f && introLines().map(l => l.ko).join(" ")));
-}
 
 /* ===========================================================
  * 🎤 발표 연습 (음성 인식)
@@ -806,7 +708,6 @@ function goTab(name) {
   cancelSpeech(); hidePopup();
   if (name === "explore") renderFoods();
   if (name === "build") { lastBuildSpoken = ""; renderBuilder(); }
-  if (name === "intro") renderScript();
   if (name === "practice") renderPractice();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -815,4 +716,3 @@ document.getElementById("rate").addEventListener("input", e => { speakRate = par
 
 renderFoods();
 renderBuilder();
-renderScript();

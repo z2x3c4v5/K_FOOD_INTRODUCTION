@@ -295,7 +295,7 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .food-head-desc { font-size: 0.9rem; color: var(--muted); margin-top: 6px; line-height: 1.5; }
 .food-head-tools { display: flex; align-items: center; gap: 10px; }
 
-/* ===== 📝 내 소개글 ===== */
+/* ===== 🙋 내 이름 ===== */
 .name-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; }
 .name-row label { font-weight: 800; color: var(--primary-dark); }
 .name-row input {
@@ -304,37 +304,6 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
   background: #fff; outline: none;
 }
 .name-row input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
-.script-box { padding: 18px 20px; }
-.script-title { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; color: var(--primary-dark); margin-bottom: 10px; flex-wrap: wrap; }
-.script-title .food-ko { font-size: 1rem; color: var(--muted); }
-.script-emoji { font-size: 1.8rem; }
-.script-line {
-  display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px;
-  border-top: 1px dashed rgba(230, 57, 70, 0.18); transition: background 0.2s;
-}
-.script-line.speaking { background: #fff1e6; }
-.script-num {
-  flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
-  background: var(--primary); color: #fff; font-weight: 800; font-size: 0.9rem;
-}
-.script-text { flex: 1; min-width: 0; }
-.script-text .en { font-size: 1.4rem; font-weight: 800; color: var(--text); line-height: 1.4; }
-.script-text .ko { color: var(--muted); font-size: 0.95rem; margin-top: 2px; }
-.script-box .dlg-status { margin-top: 12px; }
-@media (max-width: 560px) { .script-text .en { font-size: 1.1rem; } }
-
-/* ===== 📄 워크시트에 적기 ===== */
-.sheet-table { display: flex; flex-direction: column; gap: 8px; }
-.sheet-row {
-  display: grid; grid-template-columns: 150px 1fr 40px; align-items: center; gap: 12px;
-  background: rgba(255,255,255,0.88); border: 1.5px solid rgba(230, 57, 70, 0.18);
-  border-radius: 14px; padding: 10px 14px;
-}
-.sheet-row.empty .sheet-val { color: var(--muted); font-style: italic; }
-.sheet-label { font-weight: 800; color: var(--primary-dark); font-size: 0.95rem; }
-.sheet-val .en { font-weight: 700; font-size: 1.1rem; color: var(--text); line-height: 1.5; }
-.sheet-val .ko { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
-@media (max-width: 560px) { .sheet-row { grid-template-columns: 1fr 40px; } .sheet-label { grid-column: 1 / -1; } }
 
 /* ===== 🎤 발표 연습 ===== */
 .practice-empty {
@@ -440,18 +409,3 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .speed-control { font-size: 0.85rem; color: var(--muted); display: flex; align-items: center; gap: 8px; }
 .speed-control input { accent-color: var(--primary); }
 .voice-status { font-size: 0.78rem; color: var(--muted); }
-
-/* ===== 🖨️ 인쇄: 소개글만 ===== */
-@media print {
-  body { background: #fff; color: #000; }
-  .app-header, .tabs, .toolbar, .app-footer, .hint, .fill-actions, .name-row, .speak-btn, .word-popup,
-  #tab-intro .section-block:nth-of-type(2) { display: none !important; }
-  .tab-panel { display: none !important; }
-  #tab-intro { display: block !important; }
-  .script-box { box-shadow: none; border: 1px solid #999; }
-  .script-text .en { font-size: 18pt; }
-  .script-text .ko { font-size: 10pt; color: #555; }
-  .script-num { background: #333; color: #fff; }
-  .word { border-bottom: none; }
-  .dlg-status { display: none !important; }
-}

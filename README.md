@@ -17,7 +17,7 @@ Would you like this (음식)? Bye.
 
 예) `Hello. I'm Minsu. I'd like to introduce tteokbokki to you. Tteokbokki is Korean food. It has rice cakes, fish cakes, and gochujang. It's spicy and sweet. Would you like this tteokbokki? Bye.`
 
-## 기능 (탭 4개)
+## 기능 (탭 3개)
 
 - 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글), 🔊 이름·설명 듣기, 단어 클릭 시 뜻 풍선 + 발음
   - 🍚 밥: Bibimbap · Gimbap · Kimchi fried rice · Gyeran-bap
@@ -31,8 +31,7 @@ Would you like this (음식)? Bye.
   - 🧩 **재료 퀴즈**: 다른 음식의 재료 3개 + 엉뚱한 재료(초콜릿·케첩 등) 2개를 섞어 보여 줌. **들어가지 않는 재료를 누르면 ❌ 안내가 나오고 소개글에 들어가지 않음**
   - 음식마다 어울리는 **맛** 중 **1~2개**를 고름 → `It's ___.` (맛 20가지: spicy · sweet · salty · sour · savory · nutty · hot · warm · cold · refreshing · crispy · crunchy · chewy · soft · juicy · mild · rich · fresh · healthy · delicious)
   - 고를 때마다 영어 문장 + 한글 뜻이 바로 채워지고 읽어 줌 · 🎲 무작위 채우기
-- 📝 **내 소개글** — 이름(영어)을 쓰면 **6줄 소개글**이 영어 + 한글로 완성됨. 한 줄씩 듣기 · 전체 듣기 · 📋 글 복사 · 🖨️ 인쇄(소개글만 인쇄) · **📄 워크시트에 적기** 표
-- 🎤 **발표 연습** — 줄마다 🎙️ 말하기 정확도 측정, **🎭 전체 발표하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 발표 점수) · 👫 **짝에게 소개하기** 카드(친구 대답: Yes, please. / No, thanks.)
+- 🎤 **발표 연습** — 이름(영어)을 쓰면 **6줄 소개글**이 영어 + 한글로 완성됨. 줄마다 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 전체 발표하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 발표 점수) · 👫 **짝에게 소개하기** 카드(친구 대답: Yes, please. / No, thanks.)
 - 말하기 **속도 조절** 슬라이더 · 로마자 음식 이름(tteokbokki 등)은 영어 음성이 비슷하게 읽도록 발음을 바꿔 읽음
 
 브라우저 내장 **Web Speech API**(음성 합성·음성 인식)를 사용합니다. (Chrome 권장)
@@ -49,7 +48,7 @@ Would you like this (음식)? Bye.
 | `index.html` | 화면 구조(탭·섹션) |
 | `style.css`  | 디자인·K-FOOD 테마 |
 | `data.js`    | 음식 34가지(이름·설명·재료·맛), 재료·맛 사전, 단어 뜻 사전 |
-| `app.js`     | 둘러보기·재료/맛 고르기·소개글·발표 연습·음성 기능 |
+| `app.js`     | 둘러보기·재료/맛 고르기·발표 연습·음성 기능 |
 | `worksheet_친구초대하기.hwpx` | (이전 단원 '친구 초대하기' 워크시트 · 이 앱과는 관계없음) |
 
 ## 음식·재료 추가하기

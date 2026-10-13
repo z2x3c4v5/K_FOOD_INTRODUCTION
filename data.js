@@ -167,10 +167,12 @@ const TASTES = [
 
 /* ===== 음식 30가지 =====
  *  en: 영어 이름(로마자) · ko: 한글 · say: 영어 음성이 더 비슷하게 읽도록 쓴 발음
+ *  wiki: 실제 사진을 가져올 영어 위키백과 문서 제목(앞에서부터 차례로 시도)
  *  desc.beginner / desc.intermediate: 한 줄 설명(초급 / 중급, 영어 + 한글) · ingredients: 정말 들어가는 재료 · tastes: 어울리는 맛 */
 const FOODS = [
   /* 🍚 밥 */
   { key: "bibimbap", en: "Bibimbap", ko: "비빔밥", say: "bee-bim-bahp", emoji: "🍚", cat: "rice",
+    wiki: ["Bibimbap"],
     desc: {
       beginner:     { en: "Rice with vegetables, meat and an egg.", ko: "채소, 고기, 달걀을 넣은 밥이에요." },
       intermediate: { en: "Rice mixed with vegetables, beef, an egg and gochujang.", ko: "밥 위에 채소·소고기·달걀을 얹고 고추장에 비벼 먹는 음식이에요." },
@@ -179,6 +181,7 @@ const FOODS = [
     options: ["beef", "tofu", "mushrooms", "soy sauce"],
     tastes: ["spicy", "savory", "nutty", "healthy", "delicious", "fresh"] },
   { key: "gimbap", en: "Gimbap", ko: "김밥", say: "kim-bahp", emoji: "🍙", cat: "rice",
+    wiki: ["Gimbap"],
     desc: {
       beginner:     { en: "Rice and vegetables in seaweed.", ko: "김 속에 밥과 채소를 넣은 음식이에요." },
       intermediate: { en: "Rice and vegetables rolled in dried seaweed.", ko: "김 위에 밥과 여러 재료를 올려 돌돌 말아 만든 음식이에요." },
@@ -187,6 +190,7 @@ const FOODS = [
     options: ["tuna", "cheese", "ham", "kimchi"],
     tastes: ["savory", "salty", "nutty", "soft", "delicious", "fresh"] },
   { key: "kimchi-fried-rice", en: "Kimchi fried rice", ko: "김치볶음밥", say: "kimchi fried rice", emoji: "🍳", cat: "rice",
+    wiki: ["Kimchi fried rice", "Kimchi-bokkeum-bap"],
     desc: {
       beginner:     { en: "Fried rice with kimchi and an egg.", ko: "김치와 달걀을 넣은 볶음밥이에요." },
       intermediate: { en: "Rice fried with kimchi, topped with a fried egg.", ko: "김치와 밥을 볶고 위에 달걀 프라이를 얹은 음식이에요." },
@@ -195,6 +199,7 @@ const FOODS = [
     options: ["cheese", "tuna", "ham", "egg"],
     tastes: ["spicy", "savory", "salty", "sour", "delicious", "hot"] },
   { key: "gyeran-bap", en: "Gyeran-bap", ko: "계란밥 (달걀밥)", say: "gyeh-rahn-bahp", emoji: "🥚", cat: "rice",
+    wiki: ["Gyeran-bap", "Gyeran bap"],
     desc: {
       beginner:     { en: "Rice with an egg and soy sauce.", ko: "달걀과 간장을 넣은 밥이에요." },
       intermediate: { en: "Warm rice mixed with a fried egg, soy sauce and sesame oil.", ko: "따뜻한 밥에 달걀 프라이, 간장, 참기름을 넣고 비벼 먹는 음식이에요." },
@@ -205,6 +210,7 @@ const FOODS = [
 
   /* 🍲 국·찌개 */
   { key: "kimchi-jjigae", en: "Kimchi jjigae", ko: "김치찌개", say: "kimchi jee-geh", emoji: "🍲", cat: "soup",
+    wiki: ["Kimchi-jjigae", "Kimchi jjigae"],
     desc: {
       beginner:     { en: "A spicy soup with kimchi and pork.", ko: "김치와 돼지고기를 넣은 매운 찌개예요." },
       intermediate: { en: "A hot and spicy stew made with kimchi, pork and tofu.", ko: "김치, 돼지고기, 두부를 넣고 끓인 뜨겁고 매운 찌개예요." },
@@ -213,6 +219,7 @@ const FOODS = [
     options: ["pork", "tuna", "ramyeon noodles", "tofu"],
     tastes: ["spicy", "hot", "salty", "sour", "savory", "rich"] },
   { key: "doenjang-jjigae", en: "Doenjang jjigae", ko: "된장찌개", say: "den-jahng jee-geh", emoji: "🥣", cat: "soup",
+    wiki: ["Doenjang-jjigae", "Doenjang jjigae"],
     desc: {
       beginner:     { en: "A soup with soybean paste and tofu.", ko: "된장과 두부를 넣은 찌개예요." },
       intermediate: { en: "A soybean paste stew with tofu and vegetables.", ko: "된장을 풀고 두부와 채소를 넣어 끓인 찌개예요." },
@@ -221,6 +228,7 @@ const FOODS = [
     options: ["tofu", "clams", "mushrooms", "beef"],
     tastes: ["savory", "salty", "hot", "healthy", "mild", "rich"] },
   { key: "sundubu-jjigae", en: "Sundubu jjigae", ko: "순두부찌개", say: "soon-doo-boo jee-geh", emoji: "🍲", cat: "soup",
+    wiki: ["Sundubu-jjigae", "Sundubu jjigae"],
     desc: {
       beginner:     { en: "A spicy soup with soft tofu.", ko: "순두부를 넣은 매운 찌개예요." },
       intermediate: { en: "A spicy stew with very soft tofu and an egg.", ko: "아주 부드러운 순두부와 달걀을 넣고 끓인 매운 찌개예요." },
@@ -229,6 +237,7 @@ const FOODS = [
     options: ["clams", "pork", "beef", "mushrooms"],
     tastes: ["spicy", "hot", "soft", "savory", "rich", "delicious"] },
   { key: "samgyetang", en: "Samgyetang", ko: "삼계탕", say: "sahm-gyeh-tahng", emoji: "🍗", cat: "soup",
+    wiki: ["Samgye-tang", "Samgyetang"],
     desc: {
       beginner:     { en: "A hot chicken soup with ginseng.", ko: "인삼을 넣은 뜨거운 닭 국이에요." },
       intermediate: { en: "A whole chicken soup with ginseng, rice and jujubes.", ko: "닭 한 마리 속에 인삼·찹쌀·대추를 넣고 푹 끓인 보양 음식이에요." },
@@ -237,6 +246,7 @@ const FOODS = [
     options: ["chestnuts", "jujubes", "glass noodles", "pine nuts"],
     tastes: ["hot", "healthy", "mild", "savory", "soft", "rich"] },
   { key: "tteokguk", en: "Tteokguk", ko: "떡국", say: "tuck-gook", emoji: "🥣", cat: "soup",
+    wiki: ["Tteokguk", "Tteok-guk"],
     desc: {
       beginner:     { en: "A rice cake soup for New Year's Day.", ko: "설날에 먹는 떡국이에요." },
       intermediate: { en: "Rice cake soup that Koreans eat on New Year's Day.", ko: "설날에 먹는 떡국이에요. 가래떡을 얇게 썰어 맑은 국에 끓여요." },
@@ -245,6 +255,7 @@ const FOODS = [
     options: ["dumplings", "egg", "beef", "dried seaweed"],
     tastes: ["mild", "soft", "warm", "savory", "chewy", "delicious"] },
   { key: "miyeokguk", en: "Miyeokguk", ko: "미역국", say: "mee-yuck-gook", emoji: "🌊", cat: "soup",
+    wiki: ["Miyeok-guk", "Miyeokguk"],
     desc: {
       beginner:     { en: "A seaweed soup for birthdays.", ko: "생일에 먹는 미역국이에요." },
       intermediate: { en: "Seaweed soup that Koreans eat on their birthday.", ko: "생일에 먹는 미역국이에요. 미역과 소고기를 넣고 끓여요." },
@@ -255,6 +266,7 @@ const FOODS = [
 
   /* 🍜 면 */
   { key: "japchae", en: "Japchae", ko: "잡채", say: "jop-cheh", emoji: "🍝", cat: "noodle",
+    wiki: ["Japchae"],
     desc: {
       beginner:     { en: "Glass noodles with vegetables and beef.", ko: "채소와 소고기를 넣은 당면 요리예요." },
       intermediate: { en: "Glass noodles stir-fried with vegetables and beef.", ko: "당면과 채소, 소고기를 간장 양념에 볶아 만든 음식이에요." },
@@ -263,6 +275,7 @@ const FOODS = [
     options: ["beef", "pork", "mushrooms", "egg"],
     tastes: ["sweet", "savory", "chewy", "nutty", "delicious", "salty"] },
   { key: "naengmyeon", en: "Naengmyeon", ko: "냉면", say: "neng-myun", emoji: "🍜", cat: "noodle",
+    wiki: ["Naengmyeon"],
     desc: {
       beginner:     { en: "Cold noodles in an icy soup.", ko: "얼음 국물에 든 차가운 국수예요." },
       intermediate: { en: "Cold buckwheat noodles in an icy broth.", ko: "얼음이 든 시원한 국물에 메밀 면을 넣어 먹는 차가운 국수예요." },
@@ -271,6 +284,7 @@ const FOODS = [
     options: ["cold soup", "spicy sauce", "boiled eggs", "pear"],
     tastes: ["cold", "refreshing", "chewy", "sour", "sweet", "delicious"] },
   { key: "kalguksu", en: "Kalguksu", ko: "칼국수", say: "kahl-gook-soo", emoji: "🍜", cat: "noodle",
+    wiki: ["Kal-guksu", "Kalguksu"],
     desc: {
       beginner:     { en: "A hot noodle soup with vegetables.", ko: "채소를 넣은 뜨거운 국수예요." },
       intermediate: { en: "Knife-cut noodles in a hot chicken or anchovy broth.", ko: "칼로 썬 면을 뜨거운 닭 육수나 멸치 육수에 넣어 끓인 국수예요." },
@@ -279,6 +293,7 @@ const FOODS = [
     options: ["chicken", "clams", "potatoes", "dumplings"],
     tastes: ["hot", "warm", "mild", "savory", "soft", "chewy"] },
   { key: "jajangmyeon", en: "Jajangmyeon", ko: "짜장면", say: "jah-jahng-myun", emoji: "🍝", cat: "noodle",
+    wiki: ["Jajangmyeon"],
     desc: {
       beginner:     { en: "Noodles with black bean sauce.", ko: "짜장 소스를 얹은 면이에요." },
       intermediate: { en: "Noodles with a thick black bean sauce.", ko: "면 위에 춘장으로 만든 걸쭉한 짜장 소스를 얹어 비벼 먹는 음식이에요." },
@@ -287,6 +302,7 @@ const FOODS = [
     options: ["pork", "squid", "egg", "cucumber"],
     tastes: ["sweet", "savory", "salty", "chewy", "delicious", "rich"] },
   { key: "ramyeon", en: "Ramyeon", ko: "라면", say: "rah-myun", emoji: "🍜", cat: "noodle",
+    wiki: ["Ramyeon", "Shin Ramyun"],
     desc: {
       beginner:     { en: "Spicy noodles in a hot soup.", ko: "뜨거운 국물에 든 매운 면이에요." },
       intermediate: { en: "Spicy instant noodles in a hot soup.", ko: "매운 수프와 함께 끓여 먹는 뜨거운 국물 면이에요." },
@@ -297,6 +313,7 @@ const FOODS = [
 
   /* 🥩 고기·반찬 */
   { key: "bulgogi", en: "Bulgogi", ko: "불고기", say: "bool-goh-ghee", emoji: "🥩", cat: "meat",
+    wiki: ["Bulgogi"],
     desc: {
       beginner:     { en: "Sweet beef with soy sauce.", ko: "간장 양념을 한 달콤한 소고기예요." },
       intermediate: { en: "Thin slices of beef in a sweet soy sauce marinade.", ko: "얇게 썬 소고기를 달콤한 간장 양념에 재워 구운 음식이에요." },
@@ -305,6 +322,7 @@ const FOODS = [
     options: ["beef", "pork", "mushrooms", "glass noodles"],
     tastes: ["sweet", "savory", "juicy", "soft", "delicious", "salty"] },
   { key: "galbi", en: "Galbi", ko: "갈비", say: "gahl-bee", emoji: "🍖", cat: "meat",
+    wiki: ["Galbi"],
     desc: {
       beginner:     { en: "Grilled ribs with a sweet sauce.", ko: "달콤한 양념을 한 구운 갈비예요." },
       intermediate: { en: "Grilled ribs in a sweet and savory sauce.", ko: "달콤 짭짤한 양념에 재운 갈비를 구워 먹는 음식이에요." },
@@ -313,6 +331,7 @@ const FOODS = [
     options: ["beef", "pork", "mushrooms", "onions"],
     tastes: ["sweet", "savory", "juicy", "salty", "delicious", "rich"] },
   { key: "samgyeopsal", en: "Samgyeopsal", ko: "삼겹살", say: "sahm-gyup-sahl", emoji: "🥓", cat: "meat",
+    wiki: ["Samgyeopsal"],
     desc: {
       beginner:     { en: "Grilled pork in lettuce.", ko: "상추에 싸 먹는 구운 돼지고기예요." },
       intermediate: { en: "Grilled pork belly wrapped in lettuce with ssamjang.", ko: "구운 삼겹살을 상추에 쌈장, 마늘과 함께 싸서 먹는 음식이에요." },
@@ -321,6 +340,7 @@ const FOODS = [
     options: ["lettuce", "perilla leaves", "kimchi", "garlic"],
     tastes: ["savory", "salty", "juicy", "crispy", "delicious", "rich"] },
   { key: "kimchi", en: "Kimchi", ko: "김치", say: "kimchi", emoji: "🥬", cat: "meat",
+    wiki: ["Kimchi"],
     desc: {
       beginner:     { en: "Spicy cabbage. Koreans eat it every day.", ko: "매운 배추 반찬이에요. 한국 사람들은 매일 먹어요." },
       intermediate: { en: "Spicy fermented cabbage, the most famous Korean side dish.", ko: "배추를 고춧가루 양념에 절여 익힌, 가장 유명한 한국 반찬이에요." },
@@ -329,6 +349,7 @@ const FOODS = [
     options: ["cabbage", "radish", "cucumber", "green onions"],
     tastes: ["spicy", "sour", "salty", "crunchy", "healthy", "refreshing"] },
   { key: "pajeon", en: "Pajeon", ko: "파전", say: "pah-jun", emoji: "🥞", cat: "meat",
+    wiki: ["Pajeon"],
     desc: {
       beginner:     { en: "A pancake with green onions.", ko: "파를 넣은 전이에요." },
       intermediate: { en: "A crispy green onion pancake.", ko: "파를 듬뿍 넣어 바삭하게 부친 전이에요." },
@@ -337,6 +358,7 @@ const FOODS = [
     options: ["squid", "kimchi", "cheese", "chili peppers"],
     tastes: ["crispy", "savory", "salty", "soft", "nutty", "delicious"] },
   { key: "dakgalbi", en: "Dakgalbi", ko: "닭갈비", say: "dahk-gahl-bee", emoji: "🍗", cat: "meat",
+    wiki: ["Dak-galbi", "Dakgalbi"],
     desc: {
       beginner:     { en: "Spicy chicken with cabbage and rice cakes.", ko: "양배추와 떡을 넣은 매운 닭 요리예요." },
       intermediate: { en: "Spicy stir-fried chicken with cabbage and rice cakes.", ko: "닭고기를 고추장 양념에 양배추, 떡과 함께 볶은 음식이에요." },
@@ -345,6 +367,7 @@ const FOODS = [
     options: ["cheese", "rice cakes", "sweet potatoes", "ramyeon noodles"],
     tastes: ["spicy", "sweet", "savory", "hot", "delicious", "juicy"] },
   { key: "korean-fried-chicken", en: "Korean fried chicken", ko: "치킨 (한국식 치킨)", say: "Korean fried chicken", emoji: "🍗", cat: "meat",
+    wiki: ["Korean fried chicken"],
     desc: {
       beginner:     { en: "Crispy chicken with a sweet and spicy sauce.", ko: "달콤하고 매운 소스를 묻힌 바삭한 치킨이에요." },
       intermediate: { en: "Crispy fried chicken with a sweet and spicy sauce.", ko: "바삭하게 튀긴 닭에 달콤하고 매운 양념을 묻힌 음식이에요." },
@@ -355,6 +378,7 @@ const FOODS = [
 
   /* 🍢 분식·간식 */
   { key: "tteokbokki", en: "Tteokbokki", ko: "떡볶이", say: "tuck-boke-kee", emoji: "🌶️", cat: "street",
+    wiki: ["Tteok-bokki", "Tteokbokki"],
     desc: {
       beginner:     { en: "Rice cakes in a spicy red sauce.", ko: "매운 빨간 소스에 든 떡이에요." },
       intermediate: { en: "Chewy rice cakes in a sweet and spicy red sauce.", ko: "쫄깃한 떡을 달콤하고 매운 고추장 소스에 볶은 음식이에요." },
@@ -363,6 +387,7 @@ const FOODS = [
     options: ["cheese", "ramyeon noodles", "fish cakes", "boiled eggs", "dumplings"],
     tastes: ["spicy", "sweet", "chewy", "hot", "salty", "delicious"] },
   { key: "mandu", en: "Mandu", ko: "만두", say: "mahn-doo", emoji: "🥟", cat: "street",
+    wiki: ["Mandu (food)", "Mandu"],
     desc: {
       beginner:     { en: "Dumplings with meat and vegetables.", ko: "고기와 채소를 넣은 만두예요." },
       intermediate: { en: "Korean dumplings filled with meat, tofu and vegetables.", ko: "고기, 두부, 채소를 넣고 만두피로 감싼 한국식 만두예요." },
@@ -371,6 +396,7 @@ const FOODS = [
     options: ["kimchi", "pork", "shrimp", "vegetables"],
     tastes: ["savory", "juicy", "soft", "hot", "delicious", "salty"] },
   { key: "eomuk", en: "Eomuk", ko: "어묵", say: "uh-mook", emoji: "🍢", cat: "street",
+    wiki: ["Eomuk", "Eomuk-tang"],
     desc: {
       beginner:     { en: "Fish cakes on a stick in a hot soup.", ko: "뜨거운 국물에 든 꼬치 어묵이에요." },
       intermediate: { en: "Fish cake skewers in a warm broth.", ko: "꼬치에 꿴 어묵을 따뜻한 국물과 함께 먹는 간식이에요." },
@@ -379,6 +405,7 @@ const FOODS = [
     options: ["soy sauce", "spicy sauce", "radish", "chili peppers"],
     tastes: ["hot", "warm", "salty", "savory", "soft", "mild"] },
   { key: "hotteok", en: "Hotteok", ko: "호떡", say: "ho-tuck", emoji: "🥞", cat: "street",
+    wiki: ["Hotteok"],
     desc: {
       beginner:     { en: "A sweet pancake with sugar inside.", ko: "안에 설탕이 든 달콤한 호떡이에요." },
       intermediate: { en: "A sweet pancake filled with brown sugar and nuts.", ko: "흑설탕과 견과류를 넣어 노릇하게 구운 달콤한 간식이에요." },
@@ -387,6 +414,7 @@ const FOODS = [
     options: ["nuts", "cheese", "vegetables", "honey"],
     tastes: ["sweet", "crispy", "hot", "nutty", "soft", "chewy"] },
   { key: "bungeoppang", en: "Bungeoppang", ko: "붕어빵", say: "boong-uh-pahng", emoji: "🐟", cat: "street",
+    wiki: ["Bungeo-ppang", "Bungeoppang"],
     desc: {
       beginner:     { en: "A fish-shaped bread with red beans.", ko: "팥이 든 물고기 모양 빵이에요." },
       intermediate: { en: "A fish-shaped bread filled with sweet red bean paste.", ko: "물고기 모양 틀에 반죽을 붓고 팥앙금을 넣어 구운 겨울 간식이에요." },
@@ -395,6 +423,7 @@ const FOODS = [
     options: ["red bean paste", "custard cream", "sweet potatoes", "cheese"],
     tastes: ["sweet", "warm", "crispy", "soft", "delicious", "nutty"] },
   { key: "gyeran-ppang", en: "Gyeran-ppang", ko: "계란빵", say: "gyeh-rahn-pahng", emoji: "🧁", cat: "street",
+    wiki: ["Gyeran-ppang"],
     desc: {
       beginner:     { en: "A small bread with an egg on top.", ko: "위에 달걀을 올린 작은 빵이에요." },
       intermediate: { en: "A small sweet bread with a whole egg on top.", ko: "작은 빵 반죽 위에 달걀 한 개를 올려 구운 길거리 간식이에요." },
@@ -403,6 +432,7 @@ const FOODS = [
     options: ["cheese", "ham", "corn", "green onions"],
     tastes: ["sweet", "salty", "soft", "warm", "nutty", "delicious"] },
   { key: "dalgona", en: "Dalgona", ko: "달고나", say: "dahl-go-nah", emoji: "🍬", cat: "street",
+    wiki: ["Dalgona"],
     desc: {
       beginner:     { en: "A sugar candy with a shape in it.", ko: "모양이 찍힌 설탕 과자예요." },
       intermediate: { en: "A thin honeycomb candy with a shape pressed in the middle.", ko: "설탕과 베이킹 소다로 만든 얇은 설탕 과자예요. 가운데 모양을 찍어요." },
@@ -413,6 +443,7 @@ const FOODS = [
 
   /* 🍧 디저트·음료 */
   { key: "bingsu", en: "Bingsu", ko: "빙수", say: "bing-soo", emoji: "🍧", cat: "dessert",
+    wiki: ["Bingsu", "Patbingsu"],
     desc: {
       beginner:     { en: "Shaved ice with red beans and fruit.", ko: "팥과 과일을 얹은 얼음 디저트예요." },
       intermediate: { en: "Shaved ice topped with red beans, fruit and ice cream.", ko: "곱게 간 얼음 위에 팥, 과일, 아이스크림 등을 얹은 여름 디저트예요." },
@@ -421,6 +452,7 @@ const FOODS = [
     options: ["red beans", "mango", "strawberries", "ice cream"],
     tastes: ["cold", "sweet", "refreshing", "soft", "delicious", "fresh"] },
   { key: "songpyeon", en: "Songpyeon", ko: "송편", say: "song-pyun", emoji: "🍡", cat: "dessert",
+    wiki: ["Songpyeon"],
     desc: {
       beginner:     { en: "Half-moon rice cakes for Chuseok.", ko: "추석에 먹는 반달 모양 떡이에요." },
       intermediate: { en: "Half-moon rice cakes that Koreans eat on Chuseok.", ko: "추석에 먹는 반달 모양 떡이에요. 쌀가루 반죽 속에 달콤한 소를 넣어요." },
@@ -429,6 +461,7 @@ const FOODS = [
     options: ["sesame seeds", "beans", "chestnuts", "honey"],
     tastes: ["sweet", "chewy", "soft", "nutty", "delicious", "mild"] },
   { key: "yakgwa", en: "Yakgwa", ko: "약과", say: "yahk-gwah", emoji: "🍪", cat: "dessert",
+    wiki: ["Yakgwa"],
     desc: {
       beginner:     { en: "A sweet honey cookie.", ko: "달콤한 꿀 과자예요." },
       intermediate: { en: "A traditional honey cookie with ginger and cinnamon.", ko: "밀가루 반죽을 튀겨 꿀에 재운 전통 과자예요. 생강과 계피 향이 나요." },
@@ -437,6 +470,7 @@ const FOODS = [
     options: ["honey", "sugar", "ginger", "nuts"],
     tastes: ["sweet", "soft", "chewy", "nutty", "rich", "delicious"] },
   { key: "sikhye", en: "Sikhye", ko: "식혜", say: "shik-hyeh", emoji: "🥤", cat: "dessert",
+    wiki: ["Sikhye"],
     desc: {
       beginner:     { en: "A sweet rice drink.", ko: "달콤한 쌀 음료예요." },
       intermediate: { en: "A sweet rice drink with floating rice grains.", ko: "엿기름으로 만든 달콤한 전통 음료예요. 밥알이 동동 떠 있어요." },
@@ -445,6 +479,7 @@ const FOODS = [
     options: ["pine nuts", "jujubes", "ice", "sugar"],
     tastes: ["sweet", "cold", "refreshing", "mild", "delicious"] },
   { key: "sujeonggwa", en: "Sujeonggwa", ko: "수정과", say: "soo-jung-gwah", emoji: "🍵", cat: "dessert",
+    wiki: ["Sujeonggwa"],
     desc: {
       beginner:     { en: "A sweet cinnamon drink.", ko: "달콤한 계피 음료예요." },
       intermediate: { en: "A cinnamon and ginger punch with dried persimmons.", ko: "계피와 생강을 끓여 만든 전통 음료예요. 곶감과 잣을 띄워 마셔요." },

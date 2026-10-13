@@ -21,7 +21,7 @@ Would you like this (음식)? Bye.
 
 ## 기능 (탭 3개: 둘러보기 → 재료·맛 고르기 → 내가 고른 문장들 연습하기)
 
-- 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 설명 문장은 **초급**(짧고 쉬운 문장) / **중급**(조금 더 자세한 문장) 중 고를 수 있음. 이름·설명 문장은 옆의 🔊로 **문장 전체** 듣기, 영어 **단어를 누르면 그 단어만** 들리고 뜻 풍선이 뜸
+- 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. **실제 음식 사진**(인터넷 연결 시 영어 위키백과 대표 사진을 자동으로 가져옴 → 없으면 AI 사진 → 그래도 없으면 이모지, 🖼️ 사진/😀 이모지 전환 가능) + 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 설명 문장은 **초급**(짧고 쉬운 문장) / **중급**(조금 더 자세한 문장) 중 고를 수 있음. 이름·설명 문장은 옆의 🔊로 **문장 전체** 듣기, 영어 **단어를 누르면 그 단어만** 들리고 뜻 풍선이 뜸
   - 🍚 밥: Bibimbap · Gimbap · Kimchi fried rice · Gyeran-bap
   - 🍲 국·찌개: Kimchi jjigae · Doenjang jjigae · Sundubu jjigae · Samgyetang · Tteokguk · Miyeokguk
   - 🍜 면: Japchae · Naengmyeon · Kalguksu · Jajangmyeon · Ramyeon
@@ -38,6 +38,7 @@ Would you like this (음식)? Bye.
 - 말하기 **속도 조절** 슬라이더 · 로마자 음식 이름(tteokbokki 등)은 영어 음성이 비슷하게 읽도록 발음을 바꿔 읽음
 
 브라우저 내장 **Web Speech API**(음성 합성·음성 인식)를 사용합니다. (Chrome 권장)
+음식 사진은 **Wikipedia · Wikimedia Commons**의 자유 이용 사진(각 문서 대표 사진)을 브라우저에서 바로 불러오며, 한 번 받은 사진 주소는 브라우저에 저장됩니다. 인터넷이 없으면 이모지로 보입니다.
 고른 음식·재료·맛·이름과 연습 기록은 브라우저(localStorage)에 저장됩니다.
 
 ## 사용 방법
@@ -57,4 +58,4 @@ Would you like this (음식)? Bye.
 ## 음식·재료 추가하기
 
 `data.js`의 `FOODS` 배열에 항목을 추가하면 됩니다. `ingredients`는 `INGREDIENTS`의 `en`, `options`는 `INGREDIENTS` 또는 `CHOICES`의 `en`, `tastes`는 `TASTES`의 `en` 값을 씁니다.
-설명 문장은 `desc.beginner`(초급)와 `desc.intermediate`(중급)에 영어·한글을 각각 씁니다. 새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.
+설명 문장은 `desc.beginner`(초급)와 `desc.intermediate`(중급)에 영어·한글을 각각 쓰고, `wiki`에는 사진을 가져올 영어 위키백과 문서 제목을 적습니다(앞에서부터 차례로 시도). 새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.

@@ -179,7 +179,7 @@ function chosenLines() {
   const d = descOf(f);
   const ing = ingSentence(), opt = optSentence(), ts = tasteSentence();
   const lines = [
-    { en: d.en, ko: d.ko, tag: `📖 소개 문장 · ${LEVEL_LABEL[descLevel]}` },
+    { en: d.practiceEn, ko: `${josa(koShort(f.ko), "은", "는")} ${d.ko}`, tag: `📖 소개 문장 · ${LEVEL_LABEL[descLevel]}` },
     Object.assign(ing ? ing : { en: "It has ________.", ko: "________이 들어 있어요." }, { tag: "🥕 재료" }),
   ];
   if (opt) lines.push(Object.assign(opt, { tag: "🔀 골라 먹기" }));

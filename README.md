@@ -7,13 +7,13 @@
 ## 연습하는 문장 (워크시트)
 
 ```
-(둘러보기에서 고른 음식 소개 문장 · 초급/중급)
+(고른 음식 설명을 주어·동사가 있는 완전한 문장으로 연습 · 초급/중급)
 It has (재료들).
 You can choose (선택 1) or (선택 2).   ← 골라 먹을 수 있는 것 (2개 고르면 들어감)
 It's (맛).
 ```
 
-예) `Rice cakes in a spicy red sauce. It has rice cakes, fish cakes, and gochujang. You can choose cheese or ramyeon noodles. It's spicy and sweet.`
+예) `Tteokbokki is a rice cake dish with a spicy red sauce. It has rice cakes, fish cakes, and gochujang. You can choose cheese or ramyeon noodles. It's spicy and sweet.`
 
 ## 기능 (탭 3개: 둘러보기 → 재료·맛 고르기 → 내가 고른 문장들 연습하기)
 
@@ -59,3 +59,5 @@ It's (맛).
 ## 사진 갱신
 
 `python scripts/download-food-photos.py`로 출처 manifest에 기록된 사진을 다시 내려받습니다(Node.js, Python, Pillow 필요). 모든 음식은 기존에 선택한 사진을 유지합니다. 사진이나 출처가 바뀌면 `photo-credits.html`도 맞춰 수정해야 합니다.
+
+음식 설명의 `en`은 둘러보기용 짧은 설명이고, `practiceEn`은 듣기·말하기 연습용 완전한 문장입니다. 초급·중급 모두 `practiceEn`을 작성해야 합니다. 복수 음식명(Mandu, Songpyeon)은 `are`를 사용합니다.

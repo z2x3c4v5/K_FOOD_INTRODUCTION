@@ -11,15 +11,16 @@ Hello. I'm ________.
 I'd like to introduce (음식) to you.
 (음식) is Korean food.
 It has (재료들).
+You can choose (선택 1) or (선택 2).   ← 골라 먹을 수 있는 것 (2개 고르면 들어감)
 It's (맛).
 Would you like this (음식)? Bye.
 ```
 
-예) `Hello. I'm Minsu. I'd like to introduce tteokbokki to you. Tteokbokki is Korean food. It has rice cakes, fish cakes, and gochujang. It's spicy and sweet. Would you like this tteokbokki? Bye.`
+예) `Hello. I'm Minsu. I'd like to introduce tteokbokki to you. Tteokbokki is Korean food. It has rice cakes, fish cakes, and gochujang. You can choose cheese or ramyeon noodles. It's spicy and sweet. Would you like this tteokbokki? Bye.`
 
 ## 기능 (탭 3개)
 
-- 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글), 🔊 이름·설명 듣기, 단어 클릭 시 뜻 풍선 + 발음
+- 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 이름·설명 모두 🔊로 들을 수 있고, 영어 단어를 누르면 뜻 풍선 + 발음
   - 🍚 밥: Bibimbap · Gimbap · Kimchi fried rice · Gyeran-bap
   - 🍲 국·찌개: Kimchi jjigae · Doenjang jjigae · Sundubu jjigae · Samgyetang · Tteokguk · Miyeokguk
   - 🍜 면: Japchae · Naengmyeon · Kalguksu · Jajangmyeon · Ramyeon
@@ -27,11 +28,12 @@ Would you like this (음식)? Bye.
   - 🍢 분식·간식: Tteokbokki · Mandu · Eomuk · Hotteok · Bungeoppang · Gyeran-ppang · Dalgona
   - 🍧 디저트·음료: Bingsu · Songpyeon · Yakgwa · Sikhye · Sujeonggwa
   - **👉 이 음식 소개하기**를 누르면 그 음식으로 재료·맛 고르기로 넘어감
-- 🥕 **재료 · 맛 고르기** — 고른 음식에 **정말 들어가는 재료**만 보여 주고 그중 **2~4개**를 고름 → `It has ___.`
+- 🥕 **재료 · 맛 고르기** — 위쪽에 고른 음식의 이름·영어 설명·한글 설명이 그대로 보임(🔊·단어 뜻). **정말 들어가는 재료**만 보여 주고 그중 **2~4개**를 고름 → `It has ___.`
   - 🧩 **재료 퀴즈**: 다른 음식의 재료 3개 + 엉뚱한 재료(초콜릿·케첩 등) 2개를 섞어 보여 줌. **들어가지 않는 재료를 누르면 ❌ 안내가 나오고 소개글에 들어가지 않음**
+  - **골라 먹을 수 있는 것**(토핑·바꿀 수 있는 재료·모양 등) 중 **2개**를 고름 → `You can choose ___ or ___.` (안 고르면 이 문장은 빠짐)
   - 음식마다 어울리는 **맛** 중 **1~2개**를 고름 → `It's ___.` (맛 20가지: spicy · sweet · salty · sour · savory · nutty · hot · warm · cold · refreshing · crispy · crunchy · chewy · soft · juicy · mild · rich · fresh · healthy · delicious)
   - 고를 때마다 영어 문장 + 한글 뜻이 바로 채워지고 읽어 줌 · 🎲 무작위 채우기
-- 🎤 **발표 연습** — 이름(영어)을 쓰면 **6줄 소개글**이 영어 + 한글로 완성됨. 줄마다 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 전체 발표하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 발표 점수) · 👫 **짝에게 소개하기** 카드(친구 대답: Yes, please. / No, thanks.)
+- 🎤 **발표 연습** — 이름(영어)을 쓰면 **6~7줄 소개글**이 영어 + 한글로 완성됨. 줄마다 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 전체 발표하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 발표 점수) · 👫 **짝에게 소개하기** 카드(친구 대답: Yes, please. / No, thanks.)
 - 말하기 **속도 조절** 슬라이더 · 로마자 음식 이름(tteokbokki 등)은 영어 음성이 비슷하게 읽도록 발음을 바꿔 읽음
 
 브라우저 내장 **Web Speech API**(음성 합성·음성 인식)를 사용합니다. (Chrome 권장)
@@ -47,11 +49,11 @@ Would you like this (음식)? Bye.
 |------|------|
 | `index.html` | 화면 구조(탭·섹션) |
 | `style.css`  | 디자인·K-FOOD 테마 |
-| `data.js`    | 음식 34가지(이름·설명·재료·맛), 재료·맛 사전, 단어 뜻 사전 |
+| `data.js`    | 음식 34가지(이름·설명·재료·골라 먹기·맛), 재료·선택지·맛 사전, 단어 뜻 사전 |
 | `app.js`     | 둘러보기·재료/맛 고르기·발표 연습·음성 기능 |
 | `worksheet_친구초대하기.hwpx` | (이전 단원 '친구 초대하기' 워크시트 · 이 앱과는 관계없음) |
 
 ## 음식·재료 추가하기
 
-`data.js`의 `FOODS` 배열에 항목을 추가하면 됩니다. `ingredients`는 `INGREDIENTS`의 `en`, `tastes`는 `TASTES`의 `en` 값을 씁니다.
+`data.js`의 `FOODS` 배열에 항목을 추가하면 됩니다. `ingredients`는 `INGREDIENTS`의 `en`, `options`는 `INGREDIENTS` 또는 `CHOICES`의 `en`, `tastes`는 `TASTES`의 `en` 값을 씁니다.
 새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.

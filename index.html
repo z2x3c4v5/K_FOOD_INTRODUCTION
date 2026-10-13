@@ -46,8 +46,8 @@
     <!-- ===== 🥕 재료 · 맛 고르기 ===== -->
     <section id="tab-build" class="tab-panel">
       <div class="section-block">
-        <h2>🥕 재료 · 맛 고르기 <span class="count">재료 2~4개 · 맛 1~2개</span></h2>
-        <p class="hint">내가 고른 음식에 <b>정말 들어가는 재료</b> 중에서 소개글에 쓸 재료를 <b>2~4개</b> 고르고, 어울리는 <b>맛</b>을 <b>1~2개</b> 골라요. <b>🧩 재료 퀴즈</b>를 켜면 다른 음식의 재료와 엉뚱한 재료가 섞여 나와요. 들어가지 않는 재료를 누르면 ❌가 뜨고 소개글에는 들어가지 않아요!</p>
+        <h2>🥕 재료 · 맛 고르기 <span class="count">재료 2~4개 · 골라 먹기 2개 · 맛 1~2개</span></h2>
+        <p class="hint">내가 고른 음식에 <b>정말 들어가는 재료</b> 중에서 소개글에 쓸 재료를 <b>2~4개</b> 고르고, <b>골라 먹을 수 있는 것 2개</b>(You can choose ___ or ___.)와 어울리는 <b>맛 1~2개</b>를 골라요. 문장은 🔊로 전부 들을 수 있고, 단어를 누르면 뜻이 나와요. <b>🧩 재료 퀴즈</b>를 켜면 다른 음식의 재료와 엉뚱한 재료가 섞여 나와요. 들어가지 않는 재료를 누르면 ❌가 뜨고 소개글에는 들어가지 않아요!</p>
 
         <div class="fill-box food-head" id="food-head"></div>
 
@@ -68,7 +68,18 @@
         </div>
 
         <div class="build-step">
-          <h3 class="build-label">2️⃣ 맛 고르기 <span class="build-sub">It's ___.</span></h3>
+          <h3 class="build-label">2️⃣ 골라 먹을 수 있는 것 <span class="build-sub">You can choose ___ or ___.</span></h3>
+          <p class="step-hint">이 음식을 먹을 때 <b>골라서 넣거나 바꿀 수 있는 것</b>이에요. 두 가지를 고르면 문장이 완성돼요. (고르지 않으면 이 문장은 소개글에서 빠져요)</p>
+          <div id="opt-chips" class="chip-row wrap"></div>
+          <div class="preview-line">
+            <div class="br-sentence">You can choose <span class="blank" id="opt-blank1">________</span> or <span class="blank" id="opt-blank2">________</span>.</div>
+            <div class="br-ko" id="opt-ko">________이나 ________을 고를 수 있어요.</div>
+            <button class="speak-btn small" id="opt-speak" aria-label="듣기">🔊</button>
+          </div>
+        </div>
+
+        <div class="build-step">
+          <h3 class="build-label">3️⃣ 맛 고르기 <span class="build-sub">It's ___.</span></h3>
           <div id="taste-chips" class="chip-row wrap"></div>
           <div class="preview-line">
             <div class="br-sentence">It's <span class="blank" id="taste-blank">________</span>.</div>
@@ -79,7 +90,7 @@
 
         <div class="dlg-status" id="build-status"></div>
         <div class="fill-actions">
-          <button id="build-listen" class="btn primary" disabled>🔊 두 문장 듣기</button>
+          <button id="build-listen" class="btn primary" disabled>🔊 고른 문장 모두 듣기</button>
           <button id="build-random" class="btn ghost">🎲 무작위로 채우기</button>
           <button id="build-clear" class="btn ghost">🧹 비우기</button>
           <button id="build-next" class="btn" disabled>🎤 발표 연습으로 ➜</button>
@@ -91,7 +102,7 @@
     <section id="tab-practice" class="tab-panel">
       <div class="section-block">
         <h2>🎤 발표 연습 <span class="count">한 줄씩 · 전체</span></h2>
-        <p class="hint">이름을 영어로 쓰면 소개글 6줄이 완성돼요. 줄마다 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 전체 발표하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 발표 점수가 나와요. 짝에게 소개할 때는 <b>👫 짝에게 소개하기</b> 카드를 보여 주며 말해요. (Chrome 권장)</p>
+        <p class="hint">이름을 영어로 쓰면 소개글이 완성돼요(골라 먹기 문장을 넣으면 7줄). 줄마다 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 전체 발표하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 발표 점수가 나와요. 짝에게 소개할 때는 <b>👫 짝에게 소개하기</b> 카드를 보여 주며 말해요. (Chrome 권장)</p>
         <div class="name-row">
           <label for="my-name">🙋 내 이름 (영어로)</label>
           <input id="my-name" type="text" maxlength="24" placeholder="예: Minsu, Seoyeon" autocomplete="off" />

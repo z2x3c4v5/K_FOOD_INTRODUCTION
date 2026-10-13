@@ -185,7 +185,9 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .speak-btn.small { width: 38px; height: 38px; font-size: 1rem; }
 
 /* 음식 설명 */
-.food-desc { margin-top: 10px; padding: 0 4px; flex: 1; }
+.food-desc { margin-top: 10px; padding: 0 4px; flex: 1; display: flex; align-items: center; gap: 8px; }
+.food-desc .desc-text { flex: 1; min-width: 0; }
+.step-hint { margin: -4px 0 10px; font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
 .desc-en { font-size: 0.98rem; line-height: 1.5; color: var(--text); }
 .desc-ko { font-size: 0.86rem; color: var(--muted); margin-top: 4px; line-height: 1.5; }
 .food-ings { margin-top: 10px; font-size: 0.82rem; color: var(--muted); background: rgba(255,255,255,0.6); border-radius: 10px; padding: 6px 10px; }
@@ -237,6 +239,7 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .chip:hover { border-color: var(--primary); }
 .chip:active { transform: scale(0.95); }
 .chip.ing.on { background: linear-gradient(135deg, #34d399, #059669); color: #fff; border-color: transparent; }
+.chip.opt.on { background: linear-gradient(135deg, #38bdf8, #0284c7); color: #fff; border-color: transparent; }
 .chip.taste.on { background: linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; border-color: transparent; }
 /* 퀴즈 모드에서는 진짜 재료와 엉뚱한 재료를 똑같이 보여 줌 (정답 힌트 없음) */
 .chip.wrong { background: #fee2e2; border-color: var(--neg); color: var(--neg); animation: shake 0.45s ease; }
@@ -292,7 +295,10 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .food-head-text { flex: 1; min-width: 200px; }
 .food-head-en { font-size: 1.8rem; font-weight: 800; color: var(--primary-dark); line-height: 1.3; }
 .food-head-ko { font-size: 1.15rem; font-weight: 700; margin-top: 2px; }
-.food-head-desc { font-size: 0.9rem; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.food-head-desc { display: flex; align-items: center; gap: 10px; margin-top: 8px; background: rgba(255,255,255,0.8); border-radius: 14px; padding: 8px 12px; }
+.food-head-desc .desc-text { flex: 1; min-width: 0; }
+.food-head-desc .desc-en { font-size: 1.02rem; }
+.food-head-desc .desc-ko { font-size: 0.88rem; }
 .food-head-tools { display: flex; align-items: center; gap: 10px; }
 
 /* ===== 🙋 내 이름 ===== */

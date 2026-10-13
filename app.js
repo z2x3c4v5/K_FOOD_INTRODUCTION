@@ -1,7 +1,7 @@
 /* =========================================================
  * 6학년 · K-FOOD 소개하기 웹 앱
  * - 🍱 둘러보기 : 음식 카드(영어 + 한글 + 설명) · 종류별 보기 · 음식 고르기
- * - 🥕 재료·맛  : 정말 들어가는 재료 2~4개 + 어울리는 맛 1~2개 (재료 퀴즈 모드)
+ * - 🥕 재료·맛  : 정말 들어가는 재료 2~4개 + 골라 먹을 수 있는 것 2개 + 어울리는 맛 1~2개 (재료 퀴즈 모드)
  * - 🎤 발표 연습 : 이름 입력 → 6줄 소개글(영어 + 한글), 줄마다 말하기 채점 + 전체 발표(차례로 마이크) + 짝 활동 카드
  * - 음성 출력: Web Speech API (SpeechSynthesis) / 채점: SpeechRecognition
  * ========================================================= */
@@ -111,6 +111,7 @@ function koShort(ko) { return ko.replace(/\s*\(.*\)$/, ""); }   // "밥 (쌀)" �
 const findFood = key => FOODS.find(f => f.key === key) || null;
 const findIng  = en => INGREDIENTS.find(i => i.en === en) || null;
 const findTaste = en => TASTES.find(t => t.en === en) || null;
+const findOpt  = en => findIng(en) || CHOICES.find(c => c.en === en) || null;
 function joinEn(list) {
   if (list.length <= 1) return list.join("");
   if (list.length === 2) return `${list[0]} and ${list[1]}`;
@@ -124,8 +125,8 @@ function lowerName(food) {
 /* ===========================================================
  * 상태 (localStorage)
  * =========================================================== */
-const ING_MIN = 2, ING_MAX = 4, TASTE_MAX = 2;
-let my = { food: null, ingredients: [], tastes: [], name: "" };
+const ING_MIN = 2, ING_MAX = 4, TASTE_MAX = 2, OPT_COUNT = 2;
+let my = { food: null, ingredients: [], options: [], tastes: [], name: "" };
 let ingMode = "real";
 let stats = {};
 
@@ -134,6 +135,7 @@ try {
   if (saved && typeof saved === "object") {
     my.food = findFood(saved.food) ? saved.food : null;
     my.ingredients = Array.isArray(saved.ingredients) ? saved.ingredients.filter(findIng) : [];
+    my.options = Array.isArray(saved.options) ? saved.options.filter(findOpt) : [];
     my.tastes = Array.isArray(saved.tastes) ? saved.tastes.filter(findTaste) : [];
     my.name = typeof saved.name === "string" ? saved.name : "";
   }
@@ -147,6 +149,7 @@ function persist() {
   } catch (e) {}
 }
 function ingOk() { return my.ingredients.length >= ING_MIN && my.ingredients.length <= ING_MAX; }
+function optOk() { return my.options.length === OPT_COUNT; }
 function tasteOk() { return my.tastes.length >= 1 && my.tastes.length <= TASTE_MAX; }
 function introComplete() { return !!(findFood(my.food) && ingOk() && tasteOk()); }
 
@@ -157,6 +160,12 @@ function ingSentence() {
   const en = `It has ${joinEn(items.map(i => i.en))}.`;
   const koList = items.map(i => koShort(i.ko)).join(", ");
   return { en, ko: `${josa(koList, "이", "가")} 들어 있어요.` };
+}
+function optSentence() {
+  const items = my.options.map(findOpt).filter(Boolean);
+  if (items.length !== OPT_COUNT) return null;
+  const [a, b] = items;
+  return { en: `You can choose ${a.en} or ${b.en}.`, ko: `${josa(koShort(a.ko), "이나", "나")} ${josa(koShort(b.ko), "을", "를")} 고를 수 있어요.` };
 }
 function tasteSentence() {
   const items = my.tastes.map(findTaste).filter(Boolean);
@@ -169,16 +178,18 @@ function introLines() {
   const f = findFood(my.food);
   if (!f) return [];
   const name = my.name.trim() || "________";
-  const ing = ingSentence(), ts = tasteSentence();
+  const ing = ingSentence(), opt = optSentence(), ts = tasteSentence();
   const ln = lowerName(f), ko = koShort(f.ko);
-  return [
+  const lines = [
     { en: `Hello. I'm ${name}.`, ko: `안녕. 나는 ${josa(name, "이야", "야")}.` },
     { en: `I'd like to introduce ${ln} to you.`, ko: `여러분에게 ${josa(ko, "을", "를")} 소개할게요.` },
     { en: `${f.en} is Korean food.`, ko: `${josa(ko, "은", "는")} 한국 음식이에요.` },
     ing ? ing : { en: "It has ________.", ko: "________이 들어 있어요." },
-    ts ? ts : { en: "It's ________.", ko: "________." },
-    { en: `Would you like this ${ln}? Bye.`, ko: `이 ${ko} 먹어 볼래요? 안녕.` },
   ];
+  if (opt) lines.push(opt);
+  lines.push(ts ? ts : { en: "It's ________.", ko: "________." });
+  lines.push({ en: `Would you like this ${ln}? Bye.`, ko: `이 ${ko} 먹어 볼래요? 안녕.` });
+  return lines;
 }
 function introText() { return introLines().map(l => l.en).join("\n"); }
 
@@ -186,6 +197,22 @@ function introText() { return introLines().map(l => l.en).join("\n"); }
  * 🍱 K-FOOD 둘러보기
  * =========================================================== */
 let currentCat = "all";
+
+/* 음식 설명 (영어 단어 클릭 + 한글 + 🔊 문장 듣기) — 카드와 재료·맛 페이지 머리에 같이 씀 */
+function descBlock(food, hostEl) {
+  const desc = document.createElement("div"); desc.className = "food-desc";
+  const txt = document.createElement("div"); txt.className = "desc-text";
+  const dEn = document.createElement("div"); dEn.className = "desc-en"; dEn.appendChild(buildWords(food.desc));
+  const dKo = document.createElement("div"); dKo.className = "desc-ko"; dKo.textContent = food.descKo;
+  txt.append(dEn, dKo);
+  const sp = document.createElement("button"); sp.className = "speak-btn small"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "설명 듣기");
+  sp.addEventListener("click", e => {
+    e.stopPropagation();
+    speak(food.desc, null, () => hostEl && hostEl.classList.add("speaking"), () => hostEl && hostEl.classList.remove("speaking"));
+  });
+  desc.append(txt, sp);
+  return desc;
+}
 
 function makeFoodCard(food, i) {
   const div = document.createElement("div");
@@ -219,10 +246,7 @@ function makeFoodCard(food, i) {
   });
   nameBox.append(txt, speakBtn);
 
-  const desc = document.createElement("div"); desc.className = "food-desc";
-  const dEn = document.createElement("div"); dEn.className = "desc-en"; dEn.appendChild(buildWords(food.desc));
-  const dKo = document.createElement("div"); dKo.className = "desc-ko"; dKo.textContent = food.descKo;
-  desc.append(dEn, dKo);
+  const desc = descBlock(food, div);
 
   const ingLine = document.createElement("div"); ingLine.className = "food-ings";
   ingLine.textContent = "🥕 " + food.ingredients.slice(0, 4).map(k => { const g = findIng(k); return g ? g.emoji + " " + koShort(g.ko) : k; }).join(" · ") + (food.ingredients.length > 4 ? " …" : "");
@@ -267,7 +291,7 @@ function renderFoods() {
 
 function chooseFood(key) {
   if (my.food !== key) {
-    my.food = key; my.ingredients = []; my.tastes = [];
+    my.food = key; my.ingredients = []; my.options = []; my.tastes = [];
     lastBuildSpoken = "";
   }
   persist();
@@ -306,7 +330,7 @@ function seededShuffle(arr, seed) {
 }
 /* 퀴즈 모드: 진짜 재료 + 다른 음식 재료 3개 + 엉뚱한 재료 2개 를 섞음 */
 function quizPool(food) {
-  const real = new Set(food.ingredients);
+  const real = new Set(food.ingredients.concat(food.options || []));
   const others = INGREDIENTS.filter(i => !real.has(i.en));
   const seed = quizSeed + food.key.length * 7;
   const picked = seededShuffle(others, seed).slice(0, 3).concat(seededShuffle(SILLY_INGREDIENTS, seed + 1).slice(0, 2));
@@ -330,7 +354,7 @@ function renderFoodHead() {
   const txt = document.createElement("div"); txt.className = "food-head-text";
   const en = document.createElement("div"); en.className = "food-head-en"; en.appendChild(buildWords(f.en));
   const ko = document.createElement("div"); ko.className = "food-head-ko"; ko.textContent = f.ko;
-  const d = document.createElement("div"); d.className = "food-head-desc"; d.textContent = f.descKo;
+  const d = descBlock(f, head); d.classList.add("food-head-desc");
   txt.append(en, ko, d);
   const tools = document.createElement("div"); tools.className = "food-head-tools";
   const sp = document.createElement("button"); sp.className = "speak-btn"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "이름 듣기");
@@ -346,8 +370,9 @@ function renderBuilder() {
   const f = findFood(my.food);
   const ingRow = document.getElementById("ing-chips");
   const tasteRow = document.getElementById("taste-chips");
+  const optRow = document.getElementById("opt-chips");
   const fb = document.getElementById("ing-feedback");
-  ingRow.innerHTML = ""; tasteRow.innerHTML = "";
+  ingRow.innerHTML = ""; tasteRow.innerHTML = ""; optRow.innerHTML = "";
   fb.className = "quiz-feedback"; fb.textContent = "";
   document.querySelectorAll("#ing-mode .cat-btn").forEach(b => b.classList.toggle("active", b.dataset.mode === ingMode));
 
@@ -380,6 +405,17 @@ function renderBuilder() {
       if (ingMode === "quiz" && !real.has(g.en)) chip.classList.add("maybe");
       ingRow.appendChild(chip);
     });
+    (f.options || []).map(findOpt).filter(Boolean).forEach(o => {
+      const on = my.options.includes(o.en);
+      optRow.appendChild(makeChip(`${o.emoji} ${o.en} · ${koShort(o.ko)}`, "opt", on, () => {
+        if (on) my.options = my.options.filter(x => x !== o.en);
+        else {
+          if (my.options.length >= OPT_COUNT) my.options = my.options.slice(1);
+          my.options.push(o.en);
+        }
+        persist(); renderBuilder(); updateBuildPreview(true);
+      }));
+    });
     f.tastes.map(findTaste).forEach(t => {
       const on = my.tastes.includes(t.en);
       tasteRow.appendChild(makeChip(`${t.emoji} ${t.en} · ${koShort(t.ko)}`, "taste", on, () => {
@@ -407,6 +443,11 @@ function updateBuildPreview(autoSpeak) {
   const items = my.ingredients.map(findIng).filter(Boolean);
   setBlank("ing-blank", items.length ? joinEn(items.map(i => i.en)) : null);
   document.getElementById("ing-ko").textContent = ing ? ing.ko : "________이 들어 있어요.";
+  const oItems = my.options.map(findOpt).filter(Boolean);
+  const opt = optSentence();
+  setBlank("opt-blank1", oItems[0] ? oItems[0].en : null);
+  setBlank("opt-blank2", oItems[1] ? oItems[1].en : null);
+  document.getElementById("opt-ko").textContent = opt ? opt.ko : `${oItems[0] ? koShort(oItems[0].ko) : "________"}이나 ${oItems[1] ? koShort(oItems[1].ko) : "________"}을 고를 수 있어요.`;
   const tItems = my.tastes.map(findTaste).filter(Boolean);
   setBlank("taste-blank", tItems.length ? joinEn(tItems.map(t => t.en)) : null);
   document.getElementById("taste-ko").textContent = ts ? ts.ko : "________.";
@@ -416,16 +457,17 @@ function updateBuildPreview(autoSpeak) {
   status.className = "dlg-status" + (done ? " ok" : "");
   if (!f) status.textContent = "🍱 먼저 소개할 음식을 골라요.";
   else if (my.ingredients.length < ING_MIN) status.textContent = `1️⃣ ${koShort(f.ko)}에 들어가는 재료를 ${ING_MIN}~${ING_MAX}개 골라요 👆 (지금 ${my.ingredients.length}개)`;
-  else if (!tasteOk()) status.textContent = `2️⃣ ${koShort(f.ko)}의 맛을 1~${TASTE_MAX}개 골라요 👆`;
-  else status.textContent = `✅ 완성! "${ing.en} ${ts.en}" · 🎤 발표 연습에서 이름을 쓰고 소개글을 말해 봐요.`;
+  else if (!tasteOk()) status.textContent = `3️⃣ ${koShort(f.ko)}의 맛을 1~${TASTE_MAX}개 골라요 👆 ${optOk() ? "" : "(2️⃣ 골라 먹을 수 있는 것도 2개 고르면 문장이 하나 더 생겨요)"}`;
+  else if (!optOk()) status.textContent = `✅ 완성! 2️⃣ 골라 먹을 수 있는 것을 2개 고르면 "You can choose ___ or ___." 문장도 들어가요. · 🎤 발표 연습에서 이름을 쓰고 말해 봐요.`;
+  else status.textContent = `✅ 완성! "${ing.en} ${opt.en} ${ts.en}" · 🎤 발표 연습에서 이름을 쓰고 소개글을 말해 봐요.`;
 
-  document.getElementById("build-listen").disabled = !(ing || ts);
+  document.getElementById("build-listen").disabled = !(ing || opt || ts);
   document.getElementById("build-next").disabled = !done;
   document.getElementById("build-next").classList.toggle("primary", done);
   updateBuildBadge();
 
   if (autoSpeak) {
-    const en = [ing && ing.en, ts && ts.en].filter(Boolean).join(" ");
+    const en = [ing && ing.en, opt && opt.en, ts && ts.en].filter(Boolean).join(" ");
     if (en && en !== lastBuildSpoken) { lastBuildSpoken = en; speak(en); }
   }
 }
@@ -439,9 +481,10 @@ document.querySelectorAll("#ing-mode .cat-btn").forEach(btn => {
 });
 document.getElementById("ing-speak").addEventListener("click", () => { const s = ingSentence(); if (s) speak(s.en); });
 document.getElementById("taste-speak").addEventListener("click", () => { const s = tasteSentence(); if (s) speak(s.en); });
+document.getElementById("opt-speak").addEventListener("click", () => { const s = optSentence(); if (s) speak(s.en); });
 document.getElementById("build-listen").addEventListener("click", () => {
-  const ing = ingSentence(), ts = tasteSentence();
-  const en = [ing && ing.en, ts && ts.en].filter(Boolean).join(" ");
+  const ing = ingSentence(), opt = optSentence(), ts = tasteSentence();
+  const en = [ing && ing.en, opt && opt.en, ts && ts.en].filter(Boolean).join(" ");
   if (en) speak(en);
 });
 function pickN(arr, n) { return seededShuffle(arr, Math.floor(Math.random() * 100000)).slice(0, n); }
@@ -449,11 +492,12 @@ document.getElementById("build-random").addEventListener("click", () => {
   let f = findFood(my.food);
   if (!f) { f = FOODS[Math.floor(Math.random() * FOODS.length)]; my.food = f.key; renderFoods(); }
   my.ingredients = pickN(f.ingredients, Math.min(f.ingredients.length, 2 + Math.floor(Math.random() * 3)));
+  my.options = pickN(f.options || [], OPT_COUNT);
   my.tastes = pickN(f.tastes, 1 + Math.floor(Math.random() * 2));
   persist(); renderBuilder(); updateBuildPreview(true);
 });
 document.getElementById("build-clear").addEventListener("click", () => {
-  my.ingredients = []; my.tastes = []; lastBuildSpoken = "";
+  my.ingredients = []; my.options = []; my.tastes = []; lastBuildSpoken = "";
   cancelSpeech(); persist(); renderBuilder();
 });
 document.getElementById("build-next").addEventListener("click", () => goTab("practice"));
@@ -491,7 +535,7 @@ function wordsClose(a, b) {
   if (a.length >= 4 && b.length >= 4 && (a.startsWith(b) || b.startsWith(a))) return true;
   return Math.abs(a.length - b.length) <= 1 && levenshtein(a, b) <= 1;
 }
-const STOPWORDS = new Set(["a", "an", "the", "to", "of", "on", "in", "at", "for", "but", "i", "i'm", "i'd", "it", "it's", "is", "and", "this"]);
+const STOPWORDS = new Set(["a", "an", "the", "to", "of", "on", "in", "at", "for", "but", "i", "i'm", "i'd", "it", "it's", "is", "and", "or", "this"]);
 /* 로마자 한국어 단어(음식·재료 이름)는 음성 인식이 잘 못 알아듣기 때문에,
  * 비슷한 소리가 들리면 맞은 것으로, 아예 없으면 채점에서 빼 줌 */
 const KOREAN_WORDS = new Set(Object.keys(SAY_MAP).flatMap(k => k.split("-")));

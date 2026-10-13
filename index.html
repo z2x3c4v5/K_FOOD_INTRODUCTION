@@ -35,10 +35,15 @@
     <section id="tab-explore" class="tab-panel active">
       <div class="section-block">
         <h2>🍱 다양한 한국 음식 <span class="count" id="food-count"></span></h2>
+        <div class="level-switch" id="desc-level">
+          <span class="level-label">설명 문장</span>
+          <button class="level-btn active" data-level="beginner">초급</button>
+          <button class="level-btn" data-level="intermediate">중급</button>
+        </div>
         <div class="cat-switch" id="food-cats">
           <button class="cat-btn active" data-cat="all">전체</button>
         </div>
-        <p class="hint">한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 단어를 누르면 뜻과 발음이 나와요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p>
+        <p class="hint">한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 설명 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장) 중에서 고를 수 있어요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p>
         <div id="food-grid" class="card-grid five"></div>
       </div>
     </section>

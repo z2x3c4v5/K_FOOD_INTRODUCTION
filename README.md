@@ -20,7 +20,7 @@ Would you like this (음식)? Bye.
 
 ## 기능 (탭 3개)
 
-- 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 이름·설명 모두 🔊로 들을 수 있고, 영어 단어를 누르면 뜻 풍선 + 발음
+- 🍱 **K-FOOD 둘러보기** — 한국 음식 **34가지** 카드. 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 설명 문장은 **초급**(짧고 쉬운 문장) / **중급**(조금 더 자세한 문장) 중 고를 수 있음. 이름·설명 문장은 옆의 🔊로 **문장 전체** 듣기, 영어 **단어를 누르면 그 단어만** 들리고 뜻 풍선이 뜸
   - 🍚 밥: Bibimbap · Gimbap · Kimchi fried rice · Gyeran-bap
   - 🍲 국·찌개: Kimchi jjigae · Doenjang jjigae · Sundubu jjigae · Samgyetang · Tteokguk · Miyeokguk
   - 🍜 면: Japchae · Naengmyeon · Kalguksu · Jajangmyeon · Ramyeon
@@ -49,11 +49,11 @@ Would you like this (음식)? Bye.
 |------|------|
 | `index.html` | 화면 구조(탭·섹션) |
 | `style.css`  | 디자인·K-FOOD 테마 |
-| `data.js`    | 음식 34가지(이름·설명·재료·골라 먹기·맛), 재료·선택지·맛 사전, 단어 뜻 사전 |
+| `data.js`    | 음식 34가지(이름·설명 초급/중급·재료·골라 먹기·맛), 재료·선택지·맛 사전, 단어 뜻 사전 |
 | `app.js`     | 둘러보기·재료/맛 고르기·발표 연습·음성 기능 |
 | `worksheet_친구초대하기.hwpx` | (이전 단원 '친구 초대하기' 워크시트 · 이 앱과는 관계없음) |
 
 ## 음식·재료 추가하기
 
 `data.js`의 `FOODS` 배열에 항목을 추가하면 됩니다. `ingredients`는 `INGREDIENTS`의 `en`, `options`는 `INGREDIENTS` 또는 `CHOICES`의 `en`, `tastes`는 `TASTES`의 `en` 값을 씁니다.
-새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.
+설명 문장은 `desc.beginner`(초급)와 `desc.intermediate`(중급)에 영어·한글을 각각 씁니다. 새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.

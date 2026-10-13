@@ -33,7 +33,9 @@ function ttsText(text) {
   }).join("");
 }
 
+let speakSeq = 0;   // speak() 가 불릴 때마다 1씩 증가 → 이어 읽기 체인이 끊겼는지 확인용
 function speak(text, rate, onStart, onEnd) {
+  speakSeq++;
   if (!synth) { onEnd && onEnd(); return; }
   synth.cancel();
   const u = new SpeechSynthesisUtterance(ttsText(text));
@@ -45,7 +47,7 @@ function speak(text, rate, onStart, onEnd) {
   if (onEnd) u.onend = onEnd;
   synth.speak(u);
 }
-function cancelSpeech() { if (synth) synth.cancel(); }
+function cancelSpeech() { speakSeq++; if (synth) synth.cancel(); }
 
 /* ---------- 단어 뜻 풍선(popup) ---------- */
 const popup = document.createElement("div");
@@ -76,7 +78,7 @@ function showWordPopup(wordEl, rawWord) {
   left = Math.max(8, Math.min(left, window.innerWidth - pw - 8));
   popup.style.left = left + "px";
   popup.style.top = (r.bottom + 8 + window.scrollY) + "px";
-  speak(key || rawWord, 0.8);
+  speak(key || rawWord, 0.8);   // 단어만 읽음 (문장 이어 읽기는 speakSeq 로 끊김)
 }
 function hidePopup() { popup.classList.add("hidden"); }
 document.addEventListener("click", e => {
@@ -197,18 +199,32 @@ function introText() { return introLines().map(l => l.en).join("\n"); }
  * 🍱 K-FOOD 둘러보기
  * =========================================================== */
 let currentCat = "all";
+let descLevel = "beginner";   // 음식 설명 문장 난이도: beginner(초급) / intermediate(중급)
+try { const lv = localStorage.getItem("kfood_desc_level"); if (lv === "beginner" || lv === "intermediate") descLevel = lv; } catch (e) {}
+const LEVEL_LABEL = { beginner: "초급", intermediate: "중급" };
+function descOf(food) { return food.desc[descLevel] || food.desc.beginner; }
+function setDescLevel(lv) {
+  descLevel = lv;
+  try { localStorage.setItem("kfood_desc_level", lv); } catch (e) {}
+  document.querySelectorAll(".level-switch .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === lv));
+  cancelSpeech(); hidePopup();
+  renderFoods(); renderFoodHead();
+}
+document.querySelectorAll("#desc-level .level-btn").forEach(btn => btn.addEventListener("click", () => setDescLevel(btn.dataset.level)));
 
 /* 음식 설명 (영어 단어 클릭 + 한글 + 🔊 문장 듣기) — 카드와 재료·맛 페이지 머리에 같이 씀 */
 function descBlock(food, hostEl) {
+  const d = descOf(food);
   const desc = document.createElement("div"); desc.className = "food-desc";
   const txt = document.createElement("div"); txt.className = "desc-text";
-  const dEn = document.createElement("div"); dEn.className = "desc-en"; dEn.appendChild(buildWords(food.desc));
-  const dKo = document.createElement("div"); dKo.className = "desc-ko"; dKo.textContent = food.descKo;
-  txt.append(dEn, dKo);
-  const sp = document.createElement("button"); sp.className = "speak-btn small"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "설명 듣기");
+  const tag = document.createElement("span"); tag.className = "desc-level-tag"; tag.textContent = `${LEVEL_LABEL[descLevel]} 설명`;
+  const dEn = document.createElement("div"); dEn.className = "desc-en"; dEn.appendChild(buildWords(d.en));
+  const dKo = document.createElement("div"); dKo.className = "desc-ko"; dKo.textContent = d.ko;
+  txt.append(tag, dEn, dKo);
+  const sp = document.createElement("button"); sp.className = "speak-btn small"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "설명 문장 듣기"); sp.title = "설명 문장 전체 듣기";
   sp.addEventListener("click", e => {
     e.stopPropagation();
-    speak(food.desc, null, () => hostEl && hostEl.classList.add("speaking"), () => hostEl && hostEl.classList.remove("speaking"));
+    speak(d.en, null, () => hostEl && hostEl.classList.add("speaking"), () => hostEl && hostEl.classList.remove("speaking"));
   });
   desc.append(txt, sp);
   return desc;
@@ -227,7 +243,7 @@ function makeFoodCard(food, i) {
   listenAll.className = "listen-all"; listenAll.textContent = "설명 듣기 ▶";
   listenAll.addEventListener("click", e => {
     e.stopPropagation();
-    speak(`${food.en}. ${food.desc}`, null, () => div.classList.add("speaking"), () => div.classList.remove("speaking"));
+    speak(`${food.en}. ${descOf(food).en}`, null, () => div.classList.add("speaking"), () => div.classList.remove("speaking"));
   });
   top.append(tag, listenAll);
 
@@ -361,7 +377,13 @@ function renderFoodHead() {
   sp.addEventListener("click", () => speak(f.en, 0.8));
   const ch = document.createElement("button"); ch.className = "btn small ghost"; ch.textContent = "🔁 다른 음식";
   ch.addEventListener("click", () => goTab("explore"));
-  tools.append(sp, ch);
+  const lvl = document.createElement("div"); lvl.className = "level-switch small";
+  ["beginner", "intermediate"].forEach(lv => {
+    const b = document.createElement("button"); b.className = "level-btn" + (descLevel === lv ? " active" : ""); b.dataset.level = lv; b.textContent = LEVEL_LABEL[lv];
+    b.addEventListener("click", () => setDescLevel(lv));
+    lvl.appendChild(b);
+  });
+  tools.append(sp, ch, lvl);
   head.append(em, txt, tools);
 }
 
@@ -583,11 +605,15 @@ function practiceAttempt(target, cb) {
   };
   try { rec.start(); } catch (e) { recBusy = false; cb.onend && cb.onend(); }
 }
+/* 문장을 읽고 나서 cb 실행. 그 사이에 다른 speak()(예: 단어 클릭)가 있었으면 체인을 멈춰
+ * 단어만 들리고 다음 문장이 이어서 나오지 않게 함 */
 function speakThen(text, cb) {
   let done = false;
-  const finish = () => { if (!done) { done = true; cb(); } };
-  const timer = setTimeout(finish, Math.min(9000, 1500 + text.length * 90));
-  speak(text, null, null, () => { clearTimeout(timer); finish(); });
+  const mySeq = speakSeq + 1;          // 바로 아래 speak() 가 올릴 번호
+  let timer = null;
+  const finish = () => { if (done) return; done = true; clearTimeout(timer); if (speakSeq === mySeq) cb(); };
+  timer = setTimeout(finish, Math.min(9000, 1500 + text.length * 90));
+  speak(text, null, null, finish);
 }
 function statsText(en, last) {
   const s = stats[en] || { attempts: 0, best: 0 };
@@ -729,7 +755,13 @@ function renderPairCard() {
   card.appendChild(head);
   const me = document.createElement("div"); me.className = "pair-line me";
   me.innerHTML = `<div class="pair-who">🙋 나</div>`;
-  introLines().forEach(l => { const d = document.createElement("div"); d.className = "pair-en"; d.appendChild(buildWords(l.en)); me.appendChild(d); });
+  introLines().forEach(l => {
+    const row = document.createElement("div"); row.className = "pair-en-row";
+    const d = document.createElement("div"); d.className = "pair-en"; d.appendChild(buildWords(l.en));
+    const sp = document.createElement("button"); sp.className = "speak-btn small"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "이 문장 듣기");
+    sp.addEventListener("click", () => speak(l.en));
+    row.append(d, sp); me.appendChild(row);
+  });
   const friend = document.createElement("div"); friend.className = "pair-line friend";
   friend.innerHTML = `<div class="pair-who">🙆 친구 (Would you like this ${lowerName(f)}?)</div>
     <div class="pair-choice"><span class="pair-ok">○ Yes, please. It looks delicious!</span><span class="pair-no">× No, thanks. I don't like spicy food.</span></div>`;
@@ -758,5 +790,6 @@ function goTab(name) {
 document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => goTab(btn.dataset.tab)));
 document.getElementById("rate").addEventListener("input", e => { speakRate = parseFloat(e.target.value); });
 
+document.querySelectorAll("#desc-level .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === descLevel));
 renderFoods();
 renderBuilder();

@@ -20,7 +20,7 @@
   <nav class="tabs">
     <button class="tab-btn active" data-tab="explore">🍱 K-FOOD 둘러보기</button>
     <button class="tab-btn" data-tab="build">🥕 재료 · 맛 고르기 <span id="build-count" class="tab-count">0/2</span></button>
-    <button class="tab-btn" data-tab="practice">🎤 발표 연습</button>
+    <button class="tab-btn" data-tab="practice">🎤 내가 고른 문장들 연습하기</button>
   </nav>
 
   <div class="toolbar">
@@ -43,7 +43,7 @@
         <div class="cat-switch" id="food-cats">
           <button class="cat-btn active" data-cat="all">전체</button>
         </div>
-        <p class="hint">한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 설명 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장) 중에서 고를 수 있어요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p>
+        <p class="hint">한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장) 중에서 골라요. 고른 소개 문장은 재료·맛 문장과 함께 <b>🎤 내가 고른 문장들 연습하기</b>에 들어가요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p>
         <div id="food-grid" class="card-grid five"></div>
       </div>
     </section>
@@ -98,22 +98,22 @@
           <button id="build-listen" class="btn primary" disabled>🔊 고른 문장 모두 듣기</button>
           <button id="build-random" class="btn ghost">🎲 무작위로 채우기</button>
           <button id="build-clear" class="btn ghost">🧹 비우기</button>
-          <button id="build-next" class="btn" disabled>🎤 발표 연습으로 ➜</button>
+          <button id="build-next" class="btn" disabled>🎤 내가 고른 문장들 연습하러 가기 ➜</button>
         </div>
       </div>
     </section>
 
-    <!-- ===== 🎤 발표 연습 ===== -->
+    <!-- ===== 🎤 내가 고른 문장들 연습하기 ===== -->
     <section id="tab-practice" class="tab-panel">
       <div class="section-block">
-        <h2>🎤 발표 연습 <span class="count">한 줄씩 · 전체</span></h2>
-        <p class="hint">이름을 영어로 쓰면 소개글이 완성돼요(골라 먹기 문장을 넣으면 7줄). 줄마다 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 전체 발표하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 발표 점수가 나와요. 짝에게 소개할 때는 <b>👫 짝에게 소개하기</b> 카드를 보여 주며 말해요. (Chrome 권장)</p>
+        <h2>🎤 내가 고른 문장들 연습하기 <span class="count">한 줄씩 · 전체</span></h2>
+        <p class="hint">내가 고른 <b>음식</b>, <b>소개 문장(초급/중급)</b>, <b>재료</b>, <b>골라 먹기</b>, <b>맛</b> 문장이 한 편의 소개글로 모여요. 이름을 영어로 쓰면 완성돼요. 줄마다 🔊로 듣고 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 처음부터 끝까지 말하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 점수가 나와요. 짝에게 소개할 때는 <b>👫 짝에게 소개하기</b> 카드를 보여 주며 말해요. (Chrome 권장)</p>
         <div class="name-row">
           <label for="my-name">🙋 내 이름 (영어로)</label>
           <input id="my-name" type="text" maxlength="24" placeholder="예: Minsu, Seoyeon" autocomplete="off" />
         </div>
         <p id="practice-empty" class="practice-empty">
-          아직 소개글이 없어요! <b>🍱 K-FOOD 둘러보기</b>에서 음식을 고르고 <b>🥕 재료 · 맛 고르기</b>를 먼저 해요.
+          아직 고른 문장이 없어요! <b>🍱 K-FOOD 둘러보기</b>에서 음식과 소개 문장(초급/중급)을 고르고 <b>🥕 재료 · 맛 고르기</b>를 먼저 해요.
         </p>
         <div id="practice-list" class="practice-list"></div>
       </div>

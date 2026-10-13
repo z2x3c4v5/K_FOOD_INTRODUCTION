@@ -2,7 +2,8 @@
  * 6학년 · K-FOOD 소개하기 웹 앱
  * - 🍱 둘러보기 : 음식 카드(영어 + 한글 + 설명) · 종류별 보기 · 음식 고르기
  * - 🥕 재료·맛  : 정말 들어가는 재료 2~4개 + 골라 먹을 수 있는 것 2개 + 어울리는 맛 1~2개 (재료 퀴즈 모드)
- * - 🎤 발표 연습 : 이름 입력 → 6줄 소개글(영어 + 한글), 줄마다 말하기 채점 + 전체 발표(차례로 마이크) + 짝 활동 카드
+ * - 🎤 내가 고른 문장들 연습하기 : 음식·소개 문장(초급/중급)·재료·골라 먹기·맛 문장을 한 편의 소개글로 모아
+ *                 줄마다 말하기 채점 + 처음부터 끝까지 말하기(차례로 마이크) + 짝 활동 카드
  * - 음성 출력: Web Speech API (SpeechSynthesis) / 채점: SpeechRecognition
  * ========================================================= */
 
@@ -176,6 +177,13 @@ function tasteSentence() {
   const ko = items.length === 1 ? `${items[0].koEnd}.` : `${items[0].koMid} ${items[1].koEnd}.`;
   return { en, ko };
 }
+/* 둘러보기에서 고른 소개 문장(초급/중급)을 "It is ~." 문장으로 */
+const KEEP_CAPITAL = /^(Korean|Koreans|Chuseok|New)\b/;
+function descSentence(food) {
+  const d = descOf(food);
+  const body = KEEP_CAPITAL.test(d.en) ? d.en : d.en.replace(/^[A-Z]/, c => c.toLowerCase());
+  return { en: `It is ${body}`, ko: d.ko, tag: `📖 소개 문장 · ${LEVEL_LABEL[descLevel]}` };
+}
 function introLines() {
   const f = findFood(my.food);
   if (!f) return [];
@@ -183,14 +191,15 @@ function introLines() {
   const ing = ingSentence(), opt = optSentence(), ts = tasteSentence();
   const ln = lowerName(f), ko = koShort(f.ko);
   const lines = [
-    { en: `Hello. I'm ${name}.`, ko: `안녕. 나는 ${josa(name, "이야", "야")}.` },
-    { en: `I'd like to introduce ${ln} to you.`, ko: `여러분에게 ${josa(ko, "을", "를")} 소개할게요.` },
-    { en: `${f.en} is Korean food.`, ko: `${josa(ko, "은", "는")} 한국 음식이에요.` },
-    ing ? ing : { en: "It has ________.", ko: "________이 들어 있어요." },
+    { en: `Hello. I'm ${name}.`, ko: `안녕. 나는 ${josa(name, "이야", "야")}.`, tag: "👋 인사" },
+    { en: `I'd like to introduce ${ln} to you.`, ko: `여러분에게 ${josa(ko, "을", "를")} 소개할게요.`, tag: "🍱 내가 고른 음식" },
+    { en: `${f.en} is Korean food.`, ko: `${josa(ko, "은", "는")} 한국 음식이에요.`, tag: "🍱 내가 고른 음식" },
+    descSentence(f),
+    Object.assign(ing ? ing : { en: "It has ________.", ko: "________이 들어 있어요." }, { tag: "🥕 재료" }),
   ];
-  if (opt) lines.push(opt);
-  lines.push(ts ? ts : { en: "It's ________.", ko: "________." });
-  lines.push({ en: `Would you like this ${ln}? Bye.`, ko: `이 ${ko} 먹어 볼래요? 안녕.` });
+  if (opt) lines.push(Object.assign(opt, { tag: "🔀 골라 먹기" }));
+  lines.push(Object.assign(ts ? ts : { en: "It's ________.", ko: "________." }, { tag: "😋 맛" }));
+  lines.push({ en: `Would you like this ${ln}? Bye.`, ko: `이 ${ko} 먹어 볼래요? 안녕.`, tag: "👋 마무리" });
   return lines;
 }
 function introText() { return introLines().map(l => l.en).join("\n"); }
@@ -209,6 +218,7 @@ function setDescLevel(lv) {
   document.querySelectorAll(".level-switch .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === lv));
   cancelSpeech(); hidePopup();
   renderFoods(); renderFoodHead();
+  if (document.getElementById("tab-practice").classList.contains("active")) renderPractice();
 }
 document.querySelectorAll("#desc-level .level-btn").forEach(btn => btn.addEventListener("click", () => setDescLevel(btn.dataset.level)));
 
@@ -269,7 +279,7 @@ function makeFoodCard(food, i) {
 
   const pickBtn = document.createElement("button");
   pickBtn.className = "select-btn" + (my.food === food.key ? " on" : "");
-  pickBtn.textContent = my.food === food.key ? "✅ 내가 고른 음식 · 재료 고르기 ➜" : "👉 이 음식 소개하기";
+  pickBtn.textContent = my.food === food.key ? `✅ 내가 고른 음식 (${LEVEL_LABEL[descLevel]} 문장) · 재료 고르기 ➜` : `👉 이 음식 · ${LEVEL_LABEL[descLevel]} 문장 고르기`;
   pickBtn.addEventListener("click", e => {
     e.stopPropagation();
     chooseFood(food.key);
@@ -480,8 +490,8 @@ function updateBuildPreview(autoSpeak) {
   if (!f) status.textContent = "🍱 먼저 소개할 음식을 골라요.";
   else if (my.ingredients.length < ING_MIN) status.textContent = `1️⃣ ${koShort(f.ko)}에 들어가는 재료를 ${ING_MIN}~${ING_MAX}개 골라요 👆 (지금 ${my.ingredients.length}개)`;
   else if (!tasteOk()) status.textContent = `3️⃣ ${koShort(f.ko)}의 맛을 1~${TASTE_MAX}개 골라요 👆 ${optOk() ? "" : "(2️⃣ 골라 먹을 수 있는 것도 2개 고르면 문장이 하나 더 생겨요)"}`;
-  else if (!optOk()) status.textContent = `✅ 완성! 2️⃣ 골라 먹을 수 있는 것을 2개 고르면 "You can choose ___ or ___." 문장도 들어가요. · 🎤 발표 연습에서 이름을 쓰고 말해 봐요.`;
-  else status.textContent = `✅ 완성! "${ing.en} ${opt.en} ${ts.en}" · 🎤 발표 연습에서 이름을 쓰고 소개글을 말해 봐요.`;
+  else if (!optOk()) status.textContent = `✅ 완성! 2️⃣ 골라 먹을 수 있는 것을 2개 고르면 "You can choose ___ or ___." 문장도 들어가요. · 🎤 내가 고른 문장들 연습하기에서 이름을 쓰고 말해 봐요.`;
+  else status.textContent = `✅ 완성! "${ing.en} ${opt.en} ${ts.en}" · 🎤 내가 고른 문장들 연습하기에서 이름을 쓰고 말해 봐요.`;
 
   document.getElementById("build-listen").disabled = !(ing || opt || ts);
   document.getElementById("build-next").disabled = !done;
@@ -524,7 +534,7 @@ document.getElementById("build-clear").addEventListener("click", () => {
 });
 document.getElementById("build-next").addEventListener("click", () => goTab("practice"));
 
-/* ---------- 🙋 내 이름 (발표 연습 탭) ---------- */
+/* ---------- 🙋 내 이름 (연습하기 탭) ---------- */
 const nameInput = document.getElementById("my-name");
 nameInput.value = my.name;
 nameInput.addEventListener("input", () => {
@@ -534,7 +544,7 @@ nameInput.addEventListener("input", () => {
 });
 
 /* ===========================================================
- * 🎤 발표 연습 (음성 인식)
+ * 🎤 내가 고른 문장들 연습하기 (음성 인식)
  * =========================================================== */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 const srSupported = !!SR;
@@ -632,7 +642,7 @@ function feedbackHtml(score, heard) {
   return ["bad", `🔁 다시 또박또박! ${score}% ${h}`];
 }
 
-function makeSpeakRow(en, ko, idx) {
+function makeSpeakRow(en, ko, idx, tag) {
   const row = document.createElement("div");
   row.className = "prow";
   const speakBtn = document.createElement("button");
@@ -640,6 +650,7 @@ function makeSpeakRow(en, ko, idx) {
   speakBtn.addEventListener("click", () => speak(en));
   const txt = document.createElement("div"); txt.className = "prow-text";
   const w = document.createElement("span"); w.className = "prow-who"; w.textContent = `${idx + 1}줄`; txt.appendChild(w);
+  if (tag) { const t = document.createElement("span"); t.className = "prow-tag"; t.textContent = tag; txt.appendChild(t); }
   const enEl = document.createElement("div"); enEl.className = "en"; enEl.appendChild(buildWords(en));
   const koEl = document.createElement("div"); koEl.className = "ko"; koEl.textContent = ko;
   txt.append(enEl, koEl);
@@ -684,7 +695,7 @@ function renderPractice() {
   const f = findFood(my.food);
   if (!f || !introComplete()) {
     empty.style.display = "block"; pairBlock.style.display = "none";
-    if (f) empty.innerHTML = `소개글이 아직 완성되지 않았어요! <b>🥕 재료 · 맛 고르기</b>에서 재료 ${ING_MIN}~${ING_MAX}개와 맛 1~${TASTE_MAX}개를 골라요.`;
+    if (f) empty.innerHTML = `${f.emoji} <b>${f.en} (${koShort(f.ko)})</b> · ${LEVEL_LABEL[descLevel]} 문장을 골랐어요. 이제 <b>🥕 재료 · 맛 고르기</b>에서 재료 ${ING_MIN}~${ING_MAX}개와 맛 1~${TASTE_MAX}개를 골라야 문장이 모여요.`;
     return;
   }
   empty.style.display = "none"; pairBlock.style.display = "block";
@@ -692,12 +703,12 @@ function renderPractice() {
   const card = document.createElement("div"); card.className = "pcard pcard-dialog";
   const top = document.createElement("div"); top.className = "card-top";
   const left = document.createElement("div"); left.className = "ptag-left";
-  const tag = document.createElement("span"); tag.className = "card-tag tag-combo"; tag.textContent = "📝 내 소개글";
+  const tag = document.createElement("span"); tag.className = "card-tag tag-combo"; tag.textContent = "📌 내가 고른 문장들";
   const title = document.createElement("span"); title.className = "pset-title"; title.textContent = `${f.emoji} ${f.en} (${f.ko})`;
   left.append(tag, title); top.append(left); card.appendChild(top);
 
   const body = document.createElement("div");
-  const rows = introLines().map((l, i) => makeSpeakRow(l.en, l.ko, i));
+  const rows = introLines().map((l, i) => makeSpeakRow(l.en, l.ko, i, l.tag));
   rows.forEach(r => body.appendChild(r));
   const tools = document.createElement("div"); tools.className = "ptools";
   const note = document.createElement("div"); note.className = "role-note";
@@ -712,7 +723,7 @@ function renderPractice() {
     };
     cancelSpeech(); step();
   });
-  const presentBtn = document.createElement("button"); presentBtn.className = "btn small primary"; presentBtn.textContent = "🎭 전체 발표하기 (차례로 말하기)";
+  const presentBtn = document.createElement("button"); presentBtn.className = "btn small primary"; presentBtn.textContent = "🎭 처음부터 끝까지 말하기 (차례로 마이크)";
   let playing = false;
   presentBtn.addEventListener("click", () => {
     if (playing || recBusy) return;
@@ -727,7 +738,7 @@ function renderPractice() {
         const valid = scores.filter(s => s != null);
         const avg = valid.length ? Math.round(valid.reduce((a, b) => a + b, 0) / valid.length) : 0;
         const stars = avg >= 75 ? "⭐⭐⭐" : avg >= 45 ? "⭐⭐" : "⭐";
-        note.textContent = `🎉 발표 끝! 발표 점수 ${avg}% ${stars} ${avg >= 75 ? "정말 멋진 발표였어요!" : "한 번 더 연습해 볼까요?"}`;
+        note.textContent = `🎉 다 말했어요! 점수 ${avg}% ${stars} ${avg >= 75 ? "정말 잘했어요!" : "한 번 더 연습해 볼까요?"}`;
         return;
       }
       const r = rows[i]; i++;

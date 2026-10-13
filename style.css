@@ -349,6 +349,7 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .prow-text { flex: 1; min-width: 0; }
 .prow-text .en { font-weight: 700; font-size: 1.15rem; line-height: 1.4; color: var(--text); }
 .prow-text .ko { color: var(--muted); font-size: 0.9rem; margin-top: 2px; }
+.prow-tag { display: inline-block; font-size: 0.75rem; font-weight: 800; color: #b45309; background: #fff3c4; padding: 1px 8px; border-radius: 999px; margin: 0 0 2px 6px; }
 .prow-who { display: inline-block; font-size: 0.75rem; font-weight: 800; color: #fff; padding: 1px 8px; border-radius: 999px; margin-bottom: 2px; background: var(--primary); }
 .mic-btn {
   width: auto; height: 42px; border-radius: 999px; padding: 0 14px; border: none; cursor: pointer;

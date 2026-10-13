@@ -1,6 +1,6 @@
 /* =========================================================
  * 6학년 · K-FOOD 소개하기 데이터
- *  - 음식 30가지 (영어 이름 + 한글 표기 + 한 줄 설명)
+ *  - 음식 42가지 (영어 이름 + 한글 표기 + 한 줄 설명)
  *  - 음식마다 "정말 들어가는 재료" 목록 + 어울리는 맛 목록
  *  - 재료 사전 · 맛 사전 · 단어 뜻 사전
  *
@@ -104,6 +104,10 @@ const INGREDIENTS = [
   { en: "vinegar",           ko: "식초",               emoji: "🧴" },
   { en: "mustard",           ko: "겨자",               emoji: "💛" },
   { en: "oil",               ko: "식용유 (기름)",       emoji: "🫗" },
+  {"en": "glutinous rice", "ko": "찹쌀", "emoji": "🍚"},
+  {"en": "beef bones", "ko": "소뼈", "emoji": "🦴"},
+  {"en": "water", "ko": "물", "emoji": "💧"},
+  {"en": "roasted soybean powder", "ko": "볶은 콩가루", "emoji": "🫘"},
 ];
 
 /* 재료 퀴즈용 "절대 안 들어가는" 엉뚱한 재료 (소개글에는 넣을 수 없음) */
@@ -165,7 +169,7 @@ const TASTES = [
   { en: "delicious",  ko: "맛있는",           koEnd: "맛있어요",      koMid: "맛있고",      emoji: "😍" },
 ];
 
-/* ===== 음식 30가지 =====
+/* ===== 음식 42가지 =====
  *  en: 영어 이름(로마자) · ko: 한글 · say: 영어 음성이 더 비슷하게 읽도록 쓴 발음
  *  wiki: 실제 사진을 가져올 영어 위키백과 문서 제목(앞에서부터 차례로 시도)
  *  desc.beginner / desc.intermediate: 한 줄 설명(en + ko) · practiceEn: 주어·동사를 갖춘 연습 문장 · ingredients: 정말 들어가는 재료 · tastes: 어울리는 맛 */
@@ -208,6 +212,33 @@ const FOODS = [
     options: ["butter", "sesame oil", "dried seaweed", "cheese"],
     tastes: ["nutty", "savory", "salty", "soft", "warm", "delicious"] },
 
+  { key: "jumeokbap", en: "Jumeokbap", ko: "주먹밥", say: "joo-muck-bahp", emoji: "🍙", cat: "rice",
+    wiki: ["Jumeok-bap", "Jumeokbap"],
+    desc: {
+      beginner: { en: "A rice ball with vegetables.", practiceEn: "Jumeokbap is a rice ball with vegetables.", ko: "밥과 채소를 뭉친 음식이에요." },
+      intermediate: { en: "A rice ball made with rice, vegetables and dried seaweed.", practiceEn: "Jumeokbap is a rice ball made with rice, vegetables and dried seaweed.", ko: "밥, 채소, 김을 넣고 동그랗게 뭉친 음식이에요." },
+    },
+    ingredients: ["rice", "vegetables", "dried seaweed", "sesame oil", "sesame seeds", "carrots"],
+    options: ["tuna", "kimchi", "cheese", "dried seaweed"],
+    tastes: ["savory", "nutty", "soft", "delicious"] },
+  { key: "kongnamul-bap", en: "Kongnamul-bap", ko: "콩나물밥", say: "kong-nah-mool-bahp", emoji: "🍚", cat: "rice",
+    wiki: ["Kongnamul-bap"],
+    desc: {
+      beginner: { en: "Rice with bean sprouts.", practiceEn: "Kongnamul-bap is rice with bean sprouts.", ko: "콩나물을 넣어 지은 밥이에요." },
+      intermediate: { en: "Rice cooked with bean sprouts and served with soy sauce.", practiceEn: "Kongnamul-bap is rice cooked with bean sprouts and served with soy sauce.", ko: "콩나물을 넣고 지은 밥에 간장 양념을 곁들여 먹어요." },
+    },
+    ingredients: ["rice", "bean sprouts", "soy sauce", "sesame oil", "green onions", "garlic"],
+    options: ["beef", "mushrooms", "soy sauce", "chili peppers"],
+    tastes: ["savory", "nutty", "mild", "healthy", "delicious"] },
+  { key: "yaksik", en: "Yaksik", ko: "약식", say: "yahk-shik", emoji: "🍚", cat: "rice",
+    wiki: ["Yaksik"],
+    desc: {
+      beginner: { en: "Sweet rice with nuts.", practiceEn: "Yaksik is sweet rice with nuts.", ko: "견과류가 들어간 달콤한 밥이에요." },
+      intermediate: { en: "Sweet sticky rice with chestnuts, jujubes and pine nuts.", practiceEn: "Yaksik is sweet sticky rice with chestnuts, jujubes and pine nuts.", ko: "찹쌀에 밤, 대추, 잣을 넣어 달콤하게 만든 음식이에요." },
+    },
+    ingredients: ["glutinous rice", "chestnuts", "jujubes", "pine nuts", "honey", "soy sauce", "sesame oil", "brown sugar"],
+    options: ["chestnuts", "pine nuts", "nuts", "jujubes"],
+    tastes: ["sweet", "nutty", "chewy", "soft", "delicious"] },
   /* 🍲 국·찌개 */
   { key: "kimchi-jjigae", en: "Kimchi jjigae", ko: "김치찌개", say: "kimchi jee-geh", emoji: "🍲", cat: "soup",
     wiki: ["Kimchi-jjigae", "Kimchi jjigae"],
@@ -264,6 +295,15 @@ const FOODS = [
     options: ["beef", "clams", "tuna", "tofu"],
     tastes: ["savory", "mild", "healthy", "soft", "warm", "nutty"] },
 
+  { key: "seolleongtang", en: "Seolleongtang", ko: "설렁탕", say: "sull-lung-tahng", emoji: "🍲", cat: "soup",
+    wiki: ["Seolleongtang"],
+    desc: {
+      beginner: { en: "A warm beef soup.", practiceEn: "Seolleongtang is a warm beef soup.", ko: "따뜻한 소고기 국물이에요." },
+      intermediate: { en: "A milky beef soup made with beef bones and green onions.", practiceEn: "Seolleongtang is a milky beef soup made with beef bones and green onions.", ko: "소뼈를 오래 끓인 뽀얀 국물에 소고기와 파를 넣은 음식이에요." },
+    },
+    ingredients: ["beef", "beef bones", "green onions", "salt", "water"],
+    options: ["rice", "noodles", "green onions", "salt"],
+    tastes: ["hot", "savory", "mild", "rich", "delicious"] },
   /* 🍜 면 */
   { key: "japchae", en: "Japchae", ko: "잡채", say: "jop-cheh", emoji: "🍝", cat: "noodle",
     wiki: ["Japchae"],
@@ -311,6 +351,24 @@ const FOODS = [
     options: ["cheese", "egg", "rice cakes", "dumplings"],
     tastes: ["spicy", "hot", "salty", "chewy", "delicious", "rich"] },
 
+  { key: "bibim-guksu", en: "Bibim-guksu", ko: "비빔국수", say: "bee-bim-gook-soo", emoji: "🍜", cat: "noodle",
+    wiki: ["Bibim-guksu"],
+    desc: {
+      beginner: { en: "A spicy noodle dish.", practiceEn: "Bibim-guksu is a spicy noodle dish.", ko: "매운 양념에 비벼 먹는 국수예요." },
+      intermediate: { en: "A cold noodle dish with gochujang, cucumber and a boiled egg.", practiceEn: "Bibim-guksu is a cold noodle dish with gochujang, cucumber and a boiled egg.", ko: "차가운 국수에 고추장 양념, 오이, 삶은 달걀을 넣어 비벼 먹어요." },
+    },
+    ingredients: ["noodles", "gochujang", "cucumber", "boiled eggs", "sugar", "vinegar", "sesame oil", "sesame seeds"],
+    options: ["cucumber", "boiled eggs", "kimchi", "vegetables"],
+    tastes: ["spicy", "sweet", "sour", "cold", "delicious"] },
+  { key: "kongguksu", en: "Kongguksu", ko: "콩국수", say: "kong-gook-soo", emoji: "🍜", cat: "noodle",
+    wiki: ["Kong-guksu", "Kongguksu"],
+    desc: {
+      beginner: { en: "A cold noodle soup with beans.", practiceEn: "Kongguksu is a cold noodle soup with beans.", ko: "시원한 콩 국물에 국수를 넣은 음식이에요." },
+      intermediate: { en: "A cold noodle soup made with beans and topped with cucumber.", practiceEn: "Kongguksu is a cold noodle soup made with beans and topped with cucumber.", ko: "콩을 갈아 만든 시원한 국물에 국수를 넣고 오이를 얹은 음식이에요." },
+    },
+    ingredients: ["noodles", "beans", "water", "cucumber", "salt", "sesame seeds"],
+    options: ["salt", "sugar", "cucumber", "sesame seeds"],
+    tastes: ["cold", "nutty", "mild", "refreshing", "delicious"] },
   /* 🥩 고기·반찬 */
   { key: "bulgogi", en: "Bulgogi", ko: "불고기", say: "bool-goh-ghee", emoji: "🥩", cat: "meat",
     wiki: ["Bulgogi"],
@@ -487,6 +545,25 @@ const FOODS = [
     ingredients: ["cinnamon", "ginger", "dried persimmons", "sugar", "pine nuts"],
     options: ["dried persimmons", "pine nuts", "nuts", "ice"],
     tastes: ["sweet", "cold", "refreshing", "rich", "delicious"] },
+  { key: "injeolmi", en: "Injeolmi", ko: "인절미", say: "in-jull-mee", emoji: "🍡", cat: "dessert",
+    wiki: ["Injeolmi"],
+    desc: {
+      beginner: { en: "A chewy rice cake.", practiceEn: "Injeolmi is a chewy rice cake.", ko: "쫄깃한 떡이에요." },
+      intermediate: { en: "A chewy rice cake covered with roasted soybean powder.", practiceEn: "Injeolmi is a chewy rice cake covered with roasted soybean powder.", ko: "찹쌀로 만든 쫄깃한 떡에 볶은 콩가루를 묻힌 음식이에요." },
+    },
+    ingredients: ["glutinous rice", "roasted soybean powder", "water", "salt", "sugar"],
+    options: ["roasted soybean powder", "sesame seeds", "red bean paste", "honey"],
+    tastes: ["chewy", "nutty", "soft", "sweet", "delicious"] },
+  { key: "dasik", en: "Dasik", ko: "다식", say: "dah-shik", emoji: "🍪", cat: "dessert",
+    wiki: ["Dasik"],
+    desc: {
+      beginner: { en: "A small sweet cookie.", practiceEn: "Dasik is a small sweet cookie.", ko: "작고 달콤한 전통 과자예요." },
+      intermediate: { en: "A traditional cookie made with grain powder and honey.", practiceEn: "Dasik is a traditional cookie made with grain powder and honey.", ko: "곡물 가루와 꿀을 섞어 모양을 찍어 만든 전통 과자예요." },
+    },
+    ingredients: ["rice flour", "roasted soybean powder", "sesame seeds", "honey"],
+    options: ["roasted soybean powder", "sesame seeds", "pine nuts", "rice flour"],
+    tastes: ["sweet", "nutty", "soft", "delicious"] },
+
 ];
 
 /* ===== 로마자 음식·재료 이름 → 영어 음성 발음 (speak 할 때만 바꿈) ===== */
@@ -504,6 +581,14 @@ const SAY_MAP = {
   bingsu: "bing-soo", songpyeon: "song-pyun", yakgwa: "yahk-gwah",
   sikhye: "shik-hyeh", sujeonggwa: "soo-jung-gwah",
   gochujang: "go-choo-jahng", ssamjang: "sahm-jahng", kimchi: "kimchi",
+  "jumeokbap": "joo-muck-bahp",
+  "kongnamul-bap": "kong-nah-mool-bahp",
+  "yaksik": "yahk-shik",
+  "seolleongtang": "sull-lung-tahng",
+  "bibim-guksu": "bee-bim-gook-soo",
+  "kongguksu": "kong-gook-soo",
+  "injeolmi": "in-jull-mee",
+  "dasik": "dah-shik",
 };
 
 /* ===== 단어 뜻 사전 ===== */
@@ -599,4 +684,24 @@ const WORD_MEANINGS = {
   "birthdays": "생일 (여러 번)", "icy": "얼음같이 찬", "hot": "뜨거운; 매운", "floating": "떠 있는", "grains": "알갱이 (rice grains: 밥알)", "punch": "펀치 (과일 음료)",
   "chocolate": "초콜릿", "ketchup": "케첩", "jelly": "젤리", "cola": "콜라", "bubble": "거품 (bubble gum: 풍선껌)",
   "gum": "껌", "pizza": "피자", "donuts": "도넛",
+  "jumeokbap": "주먹밥",
+  "kongnamul-bap": "콩나물밥",
+  "yaksik": "약식",
+  "seolleongtang": "설렁탕",
+  "bibim-guksu": "비빔국수",
+  "kongguksu": "콩국수",
+  "injeolmi": "인절미",
+  "dasik": "다식",
+  "glutinous": "찹쌀의",
+  "bones": "뼈",
+  "water": "물",
+  "roasted": "볶은",
+  "powder": "가루",
+  "served": "차려진, 제공된",
+  "cooked": "익힌",
+  "covered": "덮인, 묻힌",
+  "grain": "곡물",
+  "ball": "공, 동그란 덩어리",
+  "sticky": "찰진",
+  "milky": "우유처럼 뽀얀",
 };

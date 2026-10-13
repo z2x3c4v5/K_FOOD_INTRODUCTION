@@ -330,7 +330,7 @@ function renderFoods() {
   const wrap = document.getElementById("food-cats");
   FOOD_CATS.forEach(c => {
     const b = document.createElement("button");
-    b.className = "cat-btn"; b.dataset.cat = c.key; b.textContent = c.label;
+    b.className = "cat-btn"; b.dataset.cat = c.key; b.textContent = `${c.label} · ${FOODS.filter(f => f.cat === c.key).length}`;
     wrap.appendChild(b);
   });
   wrap.querySelectorAll(".cat-btn").forEach(btn => {
@@ -346,7 +346,6 @@ function renderFoods() {
 function chooseFood(key) {
   if (my.food !== key) {
     my.food = key; my.ingredients = []; my.options = []; my.tastes = [];
-    lastBuildSpoken = "";
   }
   persist();
   renderFoods();
@@ -356,7 +355,6 @@ function chooseFood(key) {
 /* ===========================================================
  * 🥕 재료 · 맛 고르기
  * =========================================================== */
-let lastBuildSpoken = "";
 let quizSeed = 0;
 
 function makeChip(text, cls, isOn, onClick) {
@@ -442,12 +440,12 @@ function renderBuilder() {
     pool.forEach(g => {
       const on = my.ingredients.includes(g.en);
       const chip = makeChip(`${g.emoji} ${g.en} · ${koShort(g.ko)}`, "ing", on, () => {
+        speak(g.en, 0.8);
         if (!real.has(g.en)) {
           chip.classList.add("wrong");
           setTimeout(() => chip.classList.remove("wrong"), 600);
           fb.className = "quiz-feedback bad";
           fb.textContent = `❌ ${koShort(g.ko)}(${g.en})은(는) ${koShort(f.ko)}에 들어가지 않아요!`;
-          speak(`No! ${f.en} doesn't have ${g.en}.`);
           return;
         }
         if (on) my.ingredients = my.ingredients.filter(x => x !== g.en);
@@ -460,7 +458,7 @@ function renderBuilder() {
           my.ingredients.push(g.en);
           if (ingMode === "quiz") { fb.className = "quiz-feedback good"; fb.textContent = `✅ 맞아요! ${koShort(f.ko)}에는 ${koShort(g.ko)}(${g.en})이(가) 들어가요.`; }
         }
-        persist(); renderBuilder(); updateBuildPreview(true);
+        persist(); renderBuilder();
       });
       if (ingMode === "quiz" && !real.has(g.en)) chip.classList.add("maybe");
       ingRow.appendChild(chip);
@@ -468,23 +466,25 @@ function renderBuilder() {
     (f.options || []).map(findOpt).filter(Boolean).forEach(o => {
       const on = my.options.includes(o.en);
       optRow.appendChild(makeChip(`${o.emoji} ${o.en} · ${koShort(o.ko)}`, "opt", on, () => {
+        speak(o.en, 0.8);
         if (on) my.options = my.options.filter(x => x !== o.en);
         else {
           if (my.options.length >= OPT_COUNT) my.options = my.options.slice(1);
           my.options.push(o.en);
         }
-        persist(); renderBuilder(); updateBuildPreview(true);
+        persist(); renderBuilder();
       }));
     });
     f.tastes.map(findTaste).forEach(t => {
       const on = my.tastes.includes(t.en);
       tasteRow.appendChild(makeChip(`${t.emoji} ${t.en} · ${koShort(t.ko)}`, "taste", on, () => {
+        speak(t.en, 0.8);
         if (on) my.tastes = my.tastes.filter(x => x !== t.en);
         else {
           if (my.tastes.length >= TASTE_MAX) my.tastes = my.tastes.slice(1);
           my.tastes.push(t.en);
         }
-        persist(); renderBuilder(); updateBuildPreview(true);
+        persist(); renderBuilder();
       }));
     });
   }
@@ -497,7 +497,7 @@ function updateBuildBadge() {
   if (c) c.textContent = findFood(my.food) ? `${n}/2` : "–";
 }
 
-function updateBuildPreview(autoSpeak) {
+function updateBuildPreview() {
   const f = findFood(my.food);
   const ing = ingSentence(), ts = tasteSentence();
   const items = my.ingredients.map(findIng).filter(Boolean);
@@ -526,10 +526,7 @@ function updateBuildPreview(autoSpeak) {
   document.getElementById("build-next").classList.toggle("primary", done);
   updateBuildBadge();
 
-  if (autoSpeak) {
-    const en = [ing && ing.en, opt && opt.en, ts && ts.en].filter(Boolean).join(" ");
-    if (en && en !== lastBuildSpoken) { lastBuildSpoken = en; speak(en); }
-  }
+
 }
 
 document.querySelectorAll("#ing-mode .cat-btn").forEach(btn => {
@@ -554,10 +551,10 @@ document.getElementById("build-random").addEventListener("click", () => {
   my.ingredients = pickN(f.ingredients, Math.min(f.ingredients.length, 2 + Math.floor(Math.random() * 3)));
   my.options = pickN(f.options || [], OPT_COUNT);
   my.tastes = pickN(f.tastes, 1 + Math.floor(Math.random() * 2));
-  persist(); renderBuilder(); updateBuildPreview(true);
+  persist(); renderBuilder();
 });
 document.getElementById("build-clear").addEventListener("click", () => {
-  my.ingredients = []; my.options = []; my.tastes = []; lastBuildSpoken = "";
+  my.ingredients = []; my.options = []; my.tastes = [];
   cancelSpeech(); persist(); renderBuilder();
 });
 document.getElementById("build-next").addEventListener("click", () => goTab("practice"));
@@ -780,7 +777,7 @@ function goTab(name) {
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "tab-" + name));
   cancelSpeech(); hidePopup();
   if (name === "explore") renderFoods();
-  if (name === "build") { lastBuildSpoken = ""; renderBuilder(); }
+  if (name === "build") { renderBuilder(); }
   if (name === "practice") renderPractice();
   window.scrollTo({ top: document.querySelector(".app-header").offsetHeight, behavior: "smooth" });
 }

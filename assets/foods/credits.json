@@ -372,5 +372,93 @@
     "license": "CC BY-SA 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
     "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "jumeokbap",
+    "name": "Jumeokbap",
+    "path": "assets/foods/jumeokbap.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Jumeok-bap.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Jumeok-bap.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Chloe Lim",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "kongnamul-bap",
+    "name": "Kongnamul-bap",
+    "path": "assets/foods/kongnamul-bap.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Kongnamulbap.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Kongnamulbap.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "빙고",
+    "license": "CC BY 2.5",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "yaksik",
+    "name": "Yaksik",
+    "path": "assets/foods/yaksik.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Yaksik.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Yaksik.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Hyeon-Jeong Suk",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "seolleongtang",
+    "name": "Seolleongtang",
+    "path": "assets/foods/seolleongtang.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Seolleongtang2024.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Seolleongtang2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "Kimhs5400",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "bibim-guksu",
+    "name": "Bibim-guksu",
+    "path": "assets/foods/bibim-guksu.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Bibim-guksu.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/88/Bibim-guksu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "JeongHO Suh (daecheonnet)",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "kongguksu",
+    "name": "Kongguksu",
+    "path": "assets/foods/kongguksu.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Korean_noodles-Kongguksu-01.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Korean_noodles-Kongguksu-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "egg (Hong, Yun Seon)",
+    "license": "CC BY 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "injeolmi",
+    "name": "Injeolmi",
+    "path": "assets/foods/injeolmi.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Injeolmi_(tteok)_(rice_cake).jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Injeolmi_%28tteok%29_%28rice_cake%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "LeeSeungHwan",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
+  },
+  {
+    "key": "dasik",
+    "name": "Dasik",
+    "path": "assets/foods/dasik.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Hangeul_Letters_Exhibition_23.jpg",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/0/06/Hangeul_Letters_Exhibition_23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "author": "KOREA.NET",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "changes": "Resized to at most 800 × 600 pixels; converted to JPEG."
   }
 ]

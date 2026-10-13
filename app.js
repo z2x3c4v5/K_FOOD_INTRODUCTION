@@ -2,8 +2,8 @@
  * 6학년 · K-FOOD 소개하기 웹 앱
  * - 🍱 둘러보기 : 음식 카드(영어 + 한글 + 설명) · 종류별 보기 · 음식 고르기
  * - 🥕 재료·맛  : 정말 들어가는 재료 2~4개 + 골라 먹을 수 있는 것 2개 + 어울리는 맛 1~2개 (재료 퀴즈 모드)
- * - 🎤 내가 고른 문장들 연습하기 : 음식·소개 문장(초급/중급)·재료·골라 먹기·맛 문장을 한 편의 소개글로 모아
- *                 줄마다 말하기 채점 + 처음부터 끝까지 말하기(차례로 마이크) + 짝 활동 카드
+ * - 🎤 내가 고른 문장들 연습하기 : 소개 문장(초급/중급) · It has ~ · You can choose ~ · It's ~ 네 문장만
+ *                 줄마다 말하기 채점 + 처음부터 끝까지 말하기(차례로 마이크)
  * - 음성 출력: Web Speech API (SpeechSynthesis) / 채점: SpeechRecognition
  * ========================================================= */
 
@@ -120,16 +120,12 @@ function joinEn(list) {
   if (list.length === 2) return `${list[0]} and ${list[1]}`;
   return `${list.slice(0, -1).join(", ")}, and ${list[list.length - 1]}`;
 }
-function lowerName(food) {
-  // 문장 가운데에 들어갈 때: 고유 이름은 소문자, "Korean fried chicken"의 Korean은 대문자 유지
-  return food.en.replace(/^[A-Z]/, c => c.toLowerCase()).replace(/\bkorean\b/g, "Korean");
-}
 
 /* ===========================================================
  * 상태 (localStorage)
  * =========================================================== */
 const ING_MIN = 2, ING_MAX = 4, TASTE_MAX = 2, OPT_COUNT = 2;
-let my = { food: null, ingredients: [], options: [], tastes: [], name: "" };
+let my = { food: null, ingredients: [], options: [], tastes: [] };
 let ingMode = "real";
 let stats = {};
 
@@ -140,7 +136,6 @@ try {
     my.ingredients = Array.isArray(saved.ingredients) ? saved.ingredients.filter(findIng) : [];
     my.options = Array.isArray(saved.options) ? saved.options.filter(findOpt) : [];
     my.tastes = Array.isArray(saved.tastes) ? saved.tastes.filter(findTaste) : [];
-    my.name = typeof saved.name === "string" ? saved.name : "";
   }
 } catch (e) {}
 try { stats = JSON.parse(localStorage.getItem("kfood_stats") || "{}") || {}; } catch (e) {}
@@ -177,32 +172,20 @@ function tasteSentence() {
   const ko = items.length === 1 ? `${items[0].koEnd}.` : `${items[0].koMid} ${items[1].koEnd}.`;
   return { en, ko };
 }
-/* 둘러보기에서 고른 소개 문장(초급/중급)을 "It is ~." 문장으로 */
-const KEEP_CAPITAL = /^(Korean|Koreans|Chuseok|New)\b/;
-function descSentence(food) {
-  const d = descOf(food);
-  const body = KEEP_CAPITAL.test(d.en) ? d.en : d.en.replace(/^[A-Z]/, c => c.toLowerCase());
-  return { en: `It is ${body}`, ko: d.ko, tag: `📖 소개 문장 · ${LEVEL_LABEL[descLevel]}` };
-}
-function introLines() {
+/* 🎤 연습할 문장: 소개 문장(초급/중급) · It has ~ · You can choose ~ · It's ~ */
+function chosenLines() {
   const f = findFood(my.food);
   if (!f) return [];
-  const name = my.name.trim() || "________";
+  const d = descOf(f);
   const ing = ingSentence(), opt = optSentence(), ts = tasteSentence();
-  const ln = lowerName(f), ko = koShort(f.ko);
   const lines = [
-    { en: `Hello. I'm ${name}.`, ko: `안녕. 나는 ${josa(name, "이야", "야")}.`, tag: "👋 인사" },
-    { en: `I'd like to introduce ${ln} to you.`, ko: `여러분에게 ${josa(ko, "을", "를")} 소개할게요.`, tag: "🍱 내가 고른 음식" },
-    { en: `${f.en} is Korean food.`, ko: `${josa(ko, "은", "는")} 한국 음식이에요.`, tag: "🍱 내가 고른 음식" },
-    descSentence(f),
+    { en: d.en, ko: d.ko, tag: `📖 소개 문장 · ${LEVEL_LABEL[descLevel]}` },
     Object.assign(ing ? ing : { en: "It has ________.", ko: "________이 들어 있어요." }, { tag: "🥕 재료" }),
   ];
   if (opt) lines.push(Object.assign(opt, { tag: "🔀 골라 먹기" }));
   lines.push(Object.assign(ts ? ts : { en: "It's ________.", ko: "________." }, { tag: "😋 맛" }));
-  lines.push({ en: `Would you like this ${ln}? Bye.`, ko: `이 ${ko} 먹어 볼래요? 안녕.`, tag: "👋 마무리" });
   return lines;
 }
-function introText() { return introLines().map(l => l.en).join("\n"); }
 
 /* ===========================================================
  * 🖼️ 실제 음식 사진
@@ -558,8 +541,8 @@ function updateBuildPreview(autoSpeak) {
   if (!f) status.textContent = "🍱 먼저 소개할 음식을 골라요.";
   else if (my.ingredients.length < ING_MIN) status.textContent = `1️⃣ ${koShort(f.ko)}에 들어가는 재료를 ${ING_MIN}~${ING_MAX}개 골라요 👆 (지금 ${my.ingredients.length}개)`;
   else if (!tasteOk()) status.textContent = `3️⃣ ${koShort(f.ko)}의 맛을 1~${TASTE_MAX}개 골라요 👆 ${optOk() ? "" : "(2️⃣ 골라 먹을 수 있는 것도 2개 고르면 문장이 하나 더 생겨요)"}`;
-  else if (!optOk()) status.textContent = `✅ 완성! 2️⃣ 골라 먹을 수 있는 것을 2개 고르면 "You can choose ___ or ___." 문장도 들어가요. · 🎤 내가 고른 문장들 연습하기에서 이름을 쓰고 말해 봐요.`;
-  else status.textContent = `✅ 완성! "${ing.en} ${opt.en} ${ts.en}" · 🎤 내가 고른 문장들 연습하기에서 이름을 쓰고 말해 봐요.`;
+  else if (!optOk()) status.textContent = `✅ 완성! 2️⃣ 골라 먹을 수 있는 것을 2개 고르면 "You can choose ___ or ___." 문장도 들어가요. · 🎤 내가 고른 문장들 연습하기로 가요.`;
+  else status.textContent = `✅ 완성! "${ing.en} ${opt.en} ${ts.en}" · 🎤 내가 고른 문장들 연습하기로 가요.`;
 
   document.getElementById("build-listen").disabled = !(ing || opt || ts);
   document.getElementById("build-next").disabled = !done;
@@ -601,15 +584,6 @@ document.getElementById("build-clear").addEventListener("click", () => {
   cancelSpeech(); persist(); renderBuilder();
 });
 document.getElementById("build-next").addEventListener("click", () => goTab("practice"));
-
-/* ---------- 🙋 내 이름 (연습하기 탭) ---------- */
-const nameInput = document.getElementById("my-name");
-nameInput.value = my.name;
-nameInput.addEventListener("input", () => {
-  my.name = nameInput.value.replace(/[^A-Za-z .'-]/g, "").slice(0, 24);
-  if (nameInput.value !== my.name) nameInput.value = my.name;
-  persist(); renderPractice();
-});
 
 /* ===========================================================
  * 🎤 내가 고른 문장들 연습하기 (음성 인식)
@@ -758,15 +732,14 @@ function makeSpeakRow(en, ko, idx, tag) {
 function renderPractice() {
   const empty = document.getElementById("practice-empty");
   const list = document.getElementById("practice-list");
-  const pairBlock = document.getElementById("pair-block");
   list.innerHTML = "";
   const f = findFood(my.food);
   if (!f || !introComplete()) {
-    empty.style.display = "block"; pairBlock.style.display = "none";
+    empty.style.display = "block";
     if (f) empty.innerHTML = `${f.emoji} <b>${f.en} (${koShort(f.ko)})</b> · ${LEVEL_LABEL[descLevel]} 문장을 골랐어요. 이제 <b>🥕 재료 · 맛 고르기</b>에서 재료 ${ING_MIN}~${ING_MAX}개와 맛 1~${TASTE_MAX}개를 골라야 문장이 모여요.`;
     return;
   }
-  empty.style.display = "none"; pairBlock.style.display = "block";
+  empty.style.display = "none";
 
   const card = document.createElement("div"); card.className = "pcard pcard-dialog";
   const top = document.createElement("div"); top.className = "card-top";
@@ -776,7 +749,7 @@ function renderPractice() {
   left.append(tag, title); top.append(left); card.appendChild(top);
 
   const body = document.createElement("div");
-  const rows = introLines().map((l, i) => makeSpeakRow(l.en, l.ko, i, l.tag));
+  const rows = chosenLines().map((l, i) => makeSpeakRow(l.en, l.ko, i, l.tag));
   rows.forEach(r => body.appendChild(r));
   const tools = document.createElement("div"); tools.className = "ptools";
   const note = document.createElement("div"); note.className = "role-note";
@@ -820,38 +793,6 @@ function renderPractice() {
   tools.append(allBtn, presentBtn);
   card.append(body, tools, note);
   list.appendChild(card);
-  renderPairCard();
-}
-
-function renderPairCard() {
-  const box = document.getElementById("pair-card");
-  box.innerHTML = "";
-  const f = findFood(my.food);
-  if (!f) return;
-  const card = document.createElement("div"); card.className = "pair-card tone-1";
-  const head = document.createElement("div"); head.className = "pair-head";
-  head.innerHTML = `<span class="card-tag tag-combo">👫 짝 활동</span><span class="pair-emoji">${f.emoji}</span>`;
-  card.appendChild(head);
-  const me = document.createElement("div"); me.className = "pair-line me";
-  me.innerHTML = `<div class="pair-who">🙋 나</div>`;
-  introLines().forEach(l => {
-    const row = document.createElement("div"); row.className = "pair-en-row";
-    const d = document.createElement("div"); d.className = "pair-en"; d.appendChild(buildWords(l.en));
-    const sp = document.createElement("button"); sp.className = "speak-btn small"; sp.textContent = "🔊"; sp.setAttribute("aria-label", "이 문장 듣기");
-    sp.addEventListener("click", () => speak(l.en));
-    row.append(d, sp); me.appendChild(row);
-  });
-  const friend = document.createElement("div"); friend.className = "pair-line friend";
-  friend.innerHTML = `<div class="pair-who">🙆 친구 (Would you like this ${lowerName(f)}?)</div>
-    <div class="pair-choice"><span class="pair-ok">○ Yes, please. It looks delicious!</span><span class="pair-no">× No, thanks. I don't like spicy food.</span></div>`;
-  const tools = document.createElement("div"); tools.className = "ptools";
-  const b1 = document.createElement("button"); b1.className = "btn small primary"; b1.textContent = "🔊 소개글 듣기";
-  b1.addEventListener("click", () => speak(introText().replace(/\n/g, " ")));
-  const b2 = document.createElement("button"); b2.className = "btn small"; b2.textContent = "🔊 친구 대답 듣기";
-  b2.addEventListener("click", () => speak("Yes, please. It looks delicious! ... No, thanks. I don't like spicy food."));
-  tools.append(b1, b2);
-  card.append(me, friend, tools);
-  box.appendChild(card);
 }
 
 /* ===========================================================

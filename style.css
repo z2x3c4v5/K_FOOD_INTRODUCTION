@@ -119,9 +119,6 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .level-switch.small .level-btn { padding: 5px 12px; font-size: 0.8rem; box-shadow: none; border: 1.5px solid rgba(230, 57, 70, 0.25); }
 .level-switch.small .level-btn.active { border-color: transparent; }
 .desc-level-tag { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #b45309; background: #fff3c4; border-radius: 999px; padding: 1px 8px; margin-bottom: 4px; }
-.pair-en-row { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
-.pair-en-row .pair-en { flex: 1; min-width: 0; }
-.pair-en-row .speak-btn { width: 32px; height: 32px; font-size: 0.85rem; }
 
 /* ===== 종류 선택 ===== */
 .cat-switch { display: flex; gap: 8px; margin: 10px 0 4px; flex-wrap: wrap; }
@@ -332,15 +329,6 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
 .food-head-desc .desc-ko { font-size: 0.88rem; }
 .food-head-tools { display: flex; align-items: center; gap: 10px; }
 
-/* ===== 🙋 내 이름 ===== */
-.name-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 0 14px; }
-.name-row label { font-weight: 800; color: var(--primary-dark); }
-.name-row input {
-  flex: 1; min-width: 200px; max-width: 360px; padding: 12px 16px; border-radius: 14px;
-  border: 2px solid rgba(230, 57, 70, 0.3); font-size: 1.15rem; font-weight: 700; color: var(--text);
-  background: #fff; outline: none;
-}
-.name-row input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--ring); }
 
 /* ===== 🎤 발표 연습 ===== */
 .practice-empty {
@@ -400,18 +388,6 @@ main { max-width: 1040px; margin: 0 auto; padding: 0 16px 50px; }
   .pstats { flex: 1; }
   .mic-feedback { margin-left: 0; }
 }
-
-/* ===== 👫 짝 활동 카드 ===== */
-.pair-card { border-radius: 22px; padding: 16px 18px; box-shadow: var(--shadow-sm); border: 1.5px solid rgba(255,255,255,0.8); background: #fff7d6; }
-.pair-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.pair-emoji { font-size: 2rem; }
-.pair-line { background: rgba(255,255,255,0.88); border-radius: 14px; padding: 10px 14px; margin-top: 8px; }
-.pair-line.friend { background: #fff1e6; }
-.pair-who { font-size: 0.8rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 4px; }
-.pair-en { font-weight: 800; font-size: 1.2rem; line-height: 1.5; color: var(--text); }
-.pair-choice { display: flex; flex-direction: column; gap: 4px; font-weight: 700; font-size: 1rem; }
-.pair-ok { color: var(--pos); } .pair-no { color: var(--neg); }
-.pair-card .ptools { border-top: none; padding-top: 0; }
 
 /* ===== 클릭 가능한 단어 · 뜻 풍선 ===== */
 .word {

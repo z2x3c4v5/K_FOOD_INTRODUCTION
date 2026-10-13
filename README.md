@@ -2,22 +2,18 @@
 
 6학년 영어 **음식 소개하기** 활동용 웹앱입니다.
 **다양한 한국 음식(K-FOOD) 34가지**를 영어 이름과 한글 이름으로 함께 보고,
-그 음식에 **정말 들어가는 재료**와 **어울리는 맛**을 골라 아래 형식의 소개글을 완성한 뒤 영어로 발표합니다.
+그 음식에 **정말 들어가는 재료**와 **어울리는 맛**을 골라 아래 문장들을 완성한 뒤 영어로 말하기 연습을 합니다.
 
-## 소개글 형식 (워크시트)
+## 연습하는 문장 (워크시트)
 
 ```
-Hello. I'm ________.
-I'd like to introduce (음식) to you.
-(음식) is Korean food.
-It is (둘러보기에서 고른 소개 문장 · 초급/중급).
+(둘러보기에서 고른 음식 소개 문장 · 초급/중급)
 It has (재료들).
 You can choose (선택 1) or (선택 2).   ← 골라 먹을 수 있는 것 (2개 고르면 들어감)
 It's (맛).
-Would you like this (음식)? Bye.
 ```
 
-예) `Hello. I'm Minsu. I'd like to introduce tteokbokki to you. Tteokbokki is Korean food. It is rice cakes in a spicy red sauce. It has rice cakes, fish cakes, and gochujang. You can choose cheese or ramyeon noodles. It's spicy and sweet. Would you like this tteokbokki? Bye.`
+예) `Rice cakes in a spicy red sauce. It has rice cakes, fish cakes, and gochujang. You can choose cheese or ramyeon noodles. It's spicy and sweet.`
 
 ## 기능 (탭 3개: 둘러보기 → 재료·맛 고르기 → 내가 고른 문장들 연습하기)
 
@@ -34,12 +30,12 @@ Would you like this (음식)? Bye.
   - **골라 먹을 수 있는 것**(토핑·바꿀 수 있는 재료·모양 등) 중 **2개**를 고름 → `You can choose ___ or ___.` (안 고르면 이 문장은 빠짐)
   - 음식마다 어울리는 **맛** 중 **1~2개**를 고름 → `It's ___.` (맛 20가지: spicy · sweet · salty · sour · savory · nutty · hot · warm · cold · refreshing · crispy · crunchy · chewy · soft · juicy · mild · rich · fresh · healthy · delicious)
   - 고를 때마다 영어 문장 + 한글 뜻이 바로 채워지고 읽어 줌 · 🎲 무작위 채우기
-- 🎤 **내가 고른 문장들 연습하기** — 둘러보기에서 고른 음식·소개 문장(초급/중급), 재료·골라 먹기·맛 문장이 한 편의 소개글(**7~8줄**)로 모임. 줄마다 어떤 문장인지 표시(🍱 음식 · 📖 소개 문장 · 🥕 재료 · 🔀 골라 먹기 · 😋 맛). 이름(영어)을 쓰면 완성. 줄마다 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 처음부터 끝까지 말하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 점수) · 👫 **짝에게 소개하기** 카드(친구 대답: Yes, please. / No, thanks.)
+- 🎤 **내가 고른 문장들 연습하기** — 고른 **소개 문장(초급/중급)**, **It has ~.**, **You can choose ~ or ~.**, **It's ~.** 네 문장만 모아 연습. 줄마다 어떤 문장인지 표시(📖 소개 문장 · 🥕 재료 · 🔀 골라 먹기 · 😋 맛), 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 처음부터 끝까지 말하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 점수)
 - 말하기 **속도 조절** 슬라이더 · 로마자 음식 이름(tteokbokki 등)은 영어 음성이 비슷하게 읽도록 발음을 바꿔 읽음
 
 브라우저 내장 **Web Speech API**(음성 합성·음성 인식)를 사용합니다. (Chrome 권장)
 음식 사진은 **Wikipedia · Wikimedia Commons**의 자유 이용 사진(각 문서 대표 사진)을 브라우저에서 바로 불러오며, 한 번 받은 사진 주소는 브라우저에 저장됩니다. 인터넷이 없으면 이모지로 보입니다.
-고른 음식·재료·맛·이름과 연습 기록은 브라우저(localStorage)에 저장됩니다.
+고른 음식·재료·맛과 연습 기록은 브라우저(localStorage)에 저장됩니다.
 
 ## 사용 방법
 

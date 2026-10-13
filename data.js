@@ -172,7 +172,7 @@ const TASTES = [
 /* ===== 음식 42가지 =====
  *  en: 영어 이름(로마자) · ko: 한글 · say: 영어 음성이 더 비슷하게 읽도록 쓴 발음
  *  wiki: 실제 사진을 가져올 영어 위키백과 문서 제목(앞에서부터 차례로 시도)
- *  desc.beginner / desc.intermediate: 한 줄 설명(en + ko) · practiceEn: 주어·동사를 갖춘 연습 문장 · ingredients: 정말 들어가는 재료 · tastes: 어울리는 맛 */
+ *  desc.beginner / desc.intermediate / desc.advanced: 한 줄 설명(en + ko) · practiceEn: 주어·동사를 갖춘 연습 문장 · ingredients: 정말 들어가는 재료 · tastes: 어울리는 맛 */
 const FOODS = [
   /* 🍚 밥 */
   { key: "bibimbap", en: "Bibimbap", ko: "비빔밥", say: "bee-bim-bahp", emoji: "🍚", cat: "rice",
@@ -180,6 +180,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Rice with vegetables, meat and an egg.", practiceEn: "Bibimbap is rice with vegetables, meat and an egg.", ko: "채소, 고기, 달걀을 넣은 밥이에요." },
       intermediate: { en: "Rice mixed with vegetables, beef, an egg and gochujang.", practiceEn: "Bibimbap is rice mixed with vegetables, beef, an egg and gochujang.", ko: "밥 위에 채소·소고기·달걀을 얹고 고추장에 비벼 먹는 음식이에요." },
+      advanced: { en: "Bibimbap is a colorful rice dish that combines vegetables, beef and an egg with gochujang, so you can enjoy many flavors in one bowl.", practiceEn: "Bibimbap is a colorful rice dish that combines vegetables, beef and an egg with gochujang, so you can enjoy many flavors in one bowl.", ko: "채소, 소고기, 달걀을 고추장과 함께 비벼 한 그릇에서 여러 가지 맛을 즐기는 알록달록한 밥 요리예요." },
     },
     ingredients: ["rice", "vegetables", "beef", "egg", "gochujang", "sesame oil", "bean sprouts", "spinach", "carrots"],
     options: ["beef", "tofu", "mushrooms", "soy sauce"],
@@ -189,6 +190,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Rice and vegetables in seaweed.", practiceEn: "Gimbap is rice and vegetables in seaweed.", ko: "김 속에 밥과 채소를 넣은 음식이에요." },
       intermediate: { en: "Rice and vegetables rolled in dried seaweed.", practiceEn: "Gimbap is rice and vegetables rolled in dried seaweed.", ko: "김 위에 밥과 여러 재료를 올려 돌돌 말아 만든 음식이에요." },
+      advanced: { en: "Gimbap is made by rolling rice, vegetables and an egg in dried seaweed, then cutting the roll into small pieces that are easy to eat.", practiceEn: "Gimbap is made by rolling rice, vegetables and an egg in dried seaweed, then cutting the roll into small pieces that are easy to eat.", ko: "밥, 채소, 달걀을 김으로 말고 먹기 좋은 작은 크기로 썰어 만든 음식이에요." },
     },
     ingredients: ["rice", "dried seaweed", "egg", "carrots", "spinach", "pickled radish", "ham", "sesame oil", "cucumber"],
     options: ["tuna", "cheese", "ham", "kimchi"],
@@ -198,6 +200,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Fried rice with kimchi and an egg.", practiceEn: "Kimchi fried rice is fried rice with kimchi and an egg.", ko: "김치와 달걀을 넣은 볶음밥이에요." },
       intermediate: { en: "Rice fried with kimchi, topped with a fried egg.", practiceEn: "Kimchi fried rice is rice fried with kimchi, topped with a fried egg.", ko: "김치와 밥을 볶고 위에 달걀 프라이를 얹은 음식이에요." },
+      advanced: { en: "Kimchi fried rice is made by frying rice with kimchi and green onions, then adding a fried egg to balance the spicy and savory flavors.", practiceEn: "Kimchi fried rice is made by frying rice with kimchi and green onions, then adding a fried egg to balance the spicy and savory flavors.", ko: "밥을 김치, 파와 함께 볶고 달걀 프라이를 올려 매콤한 맛과 감칠맛이 어우러지게 만든 음식이에요." },
     },
     ingredients: ["rice", "kimchi", "egg", "green onions", "ham", "sesame oil", "onions", "cheese"],
     options: ["cheese", "tuna", "ham", "egg"],
@@ -207,6 +210,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Rice with an egg and soy sauce.", practiceEn: "Gyeran-bap is rice with an egg and soy sauce.", ko: "달걀과 간장을 넣은 밥이에요." },
       intermediate: { en: "Warm rice mixed with a fried egg, soy sauce and sesame oil.", practiceEn: "Gyeran-bap is warm rice mixed with a fried egg, soy sauce and sesame oil.", ko: "따뜻한 밥에 달걀 프라이, 간장, 참기름을 넣고 비벼 먹는 음식이에요." },
+      advanced: { en: "Gyeran-bap is a simple rice dish that mixes warm rice with a fried egg, soy sauce and sesame oil to create a soft and savory meal.", practiceEn: "Gyeran-bap is a simple rice dish that mixes warm rice with a fried egg, soy sauce and sesame oil to create a soft and savory meal.", ko: "따뜻한 밥에 달걀 프라이, 간장, 참기름을 비벼 부드럽고 감칠맛 나는 한 끼를 만드는 간단한 밥 요리예요." },
     },
     ingredients: ["rice", "egg", "soy sauce", "sesame oil", "butter", "dried seaweed", "green onions"],
     options: ["butter", "sesame oil", "dried seaweed", "cheese"],
@@ -217,6 +221,7 @@ const FOODS = [
     desc: {
       beginner: { en: "A rice ball with vegetables.", practiceEn: "Jumeokbap is a rice ball with vegetables.", ko: "밥과 채소를 뭉친 음식이에요." },
       intermediate: { en: "A rice ball made with rice, vegetables and dried seaweed.", practiceEn: "Jumeokbap is a rice ball made with rice, vegetables and dried seaweed.", ko: "밥, 채소, 김을 넣고 동그랗게 뭉친 음식이에요." },
+      advanced: { en: "Jumeokbap is a rice ball made by mixing rice with vegetables and dried seaweed, then shaping the mixture into a small ball with your hands.", practiceEn: "Jumeokbap is a rice ball made by mixing rice with vegetables and dried seaweed, then shaping the mixture into a small ball with your hands.", ko: "밥에 채소와 김을 섞은 뒤 손으로 작은 공처럼 뭉쳐 만든 음식이에요." },
     },
     ingredients: ["rice", "vegetables", "dried seaweed", "sesame oil", "sesame seeds", "carrots"],
     options: ["tuna", "kimchi", "cheese", "dried seaweed"],
@@ -226,6 +231,7 @@ const FOODS = [
     desc: {
       beginner: { en: "Rice with bean sprouts.", practiceEn: "Kongnamul-bap is rice with bean sprouts.", ko: "콩나물을 넣어 지은 밥이에요." },
       intermediate: { en: "Rice cooked with bean sprouts and served with soy sauce.", practiceEn: "Kongnamul-bap is rice cooked with bean sprouts and served with soy sauce.", ko: "콩나물을 넣고 지은 밥에 간장 양념을 곁들여 먹어요." },
+      advanced: { en: "Kongnamul-bap is a rice dish cooked with bean sprouts, and you can add soy sauce and sesame oil to enjoy its mild and nutty flavors.", practiceEn: "Kongnamul-bap is a rice dish cooked with bean sprouts, and you can add soy sauce and sesame oil to enjoy its mild and nutty flavors.", ko: "콩나물을 넣어 지은 밥으로, 간장과 참기름을 넣으면 담백하고 고소한 맛을 즐길 수 있어요." },
     },
     ingredients: ["rice", "bean sprouts", "soy sauce", "sesame oil", "green onions", "garlic"],
     options: ["beef", "mushrooms", "soy sauce", "chili peppers"],
@@ -235,6 +241,7 @@ const FOODS = [
     desc: {
       beginner: { en: "Sweet rice with nuts.", practiceEn: "Yaksik is sweet rice with nuts.", ko: "견과류가 들어간 달콤한 밥이에요." },
       intermediate: { en: "Sweet sticky rice with chestnuts, jujubes and pine nuts.", practiceEn: "Yaksik is sweet sticky rice with chestnuts, jujubes and pine nuts.", ko: "찹쌀에 밤, 대추, 잣을 넣어 달콤하게 만든 음식이에요." },
+      advanced: { en: "Yaksik is a sweet sticky rice dish made with chestnuts, jujubes and pine nuts, while honey and soy sauce give it a rich flavor.", practiceEn: "Yaksik is a sweet sticky rice dish made with chestnuts, jujubes and pine nuts, while honey and soy sauce give it a rich flavor.", ko: "찹쌀에 밤, 대추, 잣을 넣어 만든 달콤한 음식으로, 꿀과 간장이 진한 맛을 더해요." },
     },
     ingredients: ["glutinous rice", "chestnuts", "jujubes", "pine nuts", "honey", "soy sauce", "sesame oil", "brown sugar"],
     options: ["chestnuts", "pine nuts", "nuts", "jujubes"],
@@ -245,6 +252,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A spicy soup with kimchi and pork.", practiceEn: "Kimchi jjigae is a spicy soup with kimchi and pork.", ko: "김치와 돼지고기를 넣은 매운 찌개예요." },
       intermediate: { en: "A hot and spicy stew made with kimchi, pork and tofu.", practiceEn: "Kimchi jjigae is a hot and spicy stew made with kimchi, pork and tofu.", ko: "김치, 돼지고기, 두부를 넣고 끓인 뜨겁고 매운 찌개예요." },
+      advanced: { en: "Kimchi jjigae is a hot stew in which kimchi, pork and tofu are cooked together, allowing the spicy kimchi flavor to spread through the soup.", practiceEn: "Kimchi jjigae is a hot stew in which kimchi, pork and tofu are cooked together, allowing the spicy kimchi flavor to spread through the soup.", ko: "김치, 돼지고기, 두부를 함께 끓여 매콤한 김치 맛이 국물에 어우러지는 뜨거운 찌개예요." },
     },
     ingredients: ["kimchi", "pork", "tofu", "green onions", "onions", "red pepper powder", "garlic"],
     options: ["pork", "tuna", "ramyeon noodles", "tofu"],
@@ -254,6 +262,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A soup with soybean paste and tofu.", practiceEn: "Doenjang jjigae is a soup with soybean paste and tofu.", ko: "된장과 두부를 넣은 찌개예요." },
       intermediate: { en: "A soybean paste stew with tofu and vegetables.", practiceEn: "Doenjang jjigae is a soybean paste stew with tofu and vegetables.", ko: "된장을 풀고 두부와 채소를 넣어 끓인 찌개예요." },
+      advanced: { en: "Doenjang jjigae is a warm stew made with soybean paste, tofu and vegetables, which together create a rich broth with a savory flavor.", practiceEn: "Doenjang jjigae is a warm stew made with soybean paste, tofu and vegetables, which together create a rich broth with a savory flavor.", ko: "된장, 두부, 채소가 어우러져 진하고 감칠맛 나는 국물을 만드는 따뜻한 찌개예요." },
     },
     ingredients: ["doenjang", "tofu", "zucchini", "potatoes", "mushrooms", "onions", "green onions", "chili peppers", "anchovy broth"],
     options: ["tofu", "clams", "mushrooms", "beef"],
@@ -263,6 +272,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A spicy soup with soft tofu.", practiceEn: "Sundubu jjigae is a spicy soup with soft tofu.", ko: "순두부를 넣은 매운 찌개예요." },
       intermediate: { en: "A spicy stew with very soft tofu and an egg.", practiceEn: "Sundubu jjigae is a spicy stew with very soft tofu and an egg.", ko: "아주 부드러운 순두부와 달걀을 넣고 끓인 매운 찌개예요." },
+      advanced: { en: "Sundubu jjigae is a spicy stew that combines very soft tofu with an egg and red pepper powder, giving it a smooth texture and rich flavor.", practiceEn: "Sundubu jjigae is a spicy stew that combines very soft tofu with an egg and red pepper powder, giving it a smooth texture and rich flavor.", ko: "아주 부드러운 순두부에 달걀과 고춧가루를 넣어 부드러운 식감과 진한 맛이 나는 매운 찌개예요." },
     },
     ingredients: ["soft tofu", "egg", "pork", "clams", "red pepper powder", "green onions", "garlic"],
     options: ["clams", "pork", "beef", "mushrooms"],
@@ -272,6 +282,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A hot chicken soup with ginseng.", practiceEn: "Samgyetang is a hot chicken soup with ginseng.", ko: "인삼을 넣은 뜨거운 닭 국이에요." },
       intermediate: { en: "A whole chicken soup with ginseng, rice and jujubes.", practiceEn: "Samgyetang is a soup made with a whole chicken, ginseng, rice and jujubes.", ko: "닭 한 마리 속에 인삼·찹쌀·대추를 넣고 푹 끓인 보양 음식이에요." },
+      advanced: { en: "Samgyetang is a soup made by filling a whole chicken with rice, ginseng and jujubes, then cooking it until the meat becomes soft.", practiceEn: "Samgyetang is a soup made by filling a whole chicken with rice, ginseng and jujubes, then cooking it until the meat becomes soft.", ko: "닭 한 마리 안에 쌀, 인삼, 대추를 넣고 고기가 부드러워질 때까지 끓여 만든 국물 음식이에요." },
     },
     ingredients: ["chicken", "ginseng", "rice", "garlic", "jujubes", "green onions", "chestnuts", "salt"],
     options: ["chestnuts", "jujubes", "glass noodles", "pine nuts"],
@@ -281,6 +292,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A rice cake soup for New Year's Day.", practiceEn: "Tteokguk is a rice cake soup for New Year's Day.", ko: "설날에 먹는 떡국이에요." },
       intermediate: { en: "Rice cake soup that Koreans eat on New Year's Day.", practiceEn: "Tteokguk is rice cake soup that Koreans eat on New Year's Day.", ko: "설날에 먹는 떡국이에요. 가래떡을 얇게 썰어 맑은 국에 끓여요." },
+      advanced: { en: "Tteokguk is a soup that Koreans eat on New Year's Day, with thin rice cake slices, beef and an egg in a warm broth.", practiceEn: "Tteokguk is a soup that Koreans eat on New Year's Day, with thin rice cake slices, beef and an egg in a warm broth.", ko: "한국 사람들이 설날에 먹는 국물 음식으로, 따뜻한 국물에 얇게 썬 떡, 소고기, 달걀이 들어 있어요." },
     },
     ingredients: ["rice cakes", "beef", "egg", "dried seaweed", "green onions", "garlic", "soy sauce"],
     options: ["dumplings", "egg", "beef", "dried seaweed"],
@@ -290,6 +302,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A seaweed soup for birthdays.", practiceEn: "Miyeokguk is a seaweed soup for birthdays.", ko: "생일에 먹는 미역국이에요." },
       intermediate: { en: "Seaweed soup that Koreans eat on their birthday.", practiceEn: "Miyeokguk is seaweed soup that Koreans eat on their birthday.", ko: "생일에 먹는 미역국이에요. 미역과 소고기를 넣고 끓여요." },
+      advanced: { en: "Miyeokguk is a soup that Koreans often eat on their birthday, and its seaweed, beef and sesame oil give it a mild and savory flavor.", practiceEn: "Miyeokguk is a soup that Koreans often eat on their birthday, and its seaweed, beef and sesame oil give it a mild and savory flavor.", ko: "한국 사람들이 생일에 자주 먹는 국으로, 미역, 소고기, 참기름이 담백하고 감칠맛 나는 맛을 내요." },
     },
     ingredients: ["seaweed", "beef", "garlic", "sesame oil", "soy sauce", "salt"],
     options: ["beef", "clams", "tuna", "tofu"],
@@ -300,6 +313,7 @@ const FOODS = [
     desc: {
       beginner: { en: "A warm beef soup.", practiceEn: "Seolleongtang is a warm beef soup.", ko: "따뜻한 소고기 국물이에요." },
       intermediate: { en: "A milky beef soup made with beef bones and green onions.", practiceEn: "Seolleongtang is a milky beef soup made with beef bones and green onions.", ko: "소뼈를 오래 끓인 뽀얀 국물에 소고기와 파를 넣은 음식이에요." },
+      advanced: { en: "Seolleongtang is a milky soup made by cooking beef bones for a long time, and you can add green onions and salt before eating it.", practiceEn: "Seolleongtang is a milky soup made by cooking beef bones for a long time, and you can add green onions and salt before eating it.", ko: "소뼈를 오랫동안 끓여 만든 뽀얀 국물 음식으로, 먹기 전에 파와 소금을 넣을 수 있어요." },
     },
     ingredients: ["beef", "beef bones", "green onions", "salt", "water"],
     options: ["rice", "noodles", "green onions", "salt"],
@@ -310,6 +324,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Glass noodles with vegetables and beef.", practiceEn: "Japchae is a noodle dish with vegetables and beef.", ko: "채소와 소고기를 넣은 당면 요리예요." },
       intermediate: { en: "Glass noodles stir-fried with vegetables and beef.", practiceEn: "Japchae is a dish of glass noodles stir-fried with vegetables and beef.", ko: "당면과 채소, 소고기를 간장 양념에 볶아 만든 음식이에요." },
+      advanced: { en: "Japchae is a noodle dish that combines chewy glass noodles with vegetables and beef, while soy sauce and sesame oil add savory and nutty flavors.", practiceEn: "Japchae is a noodle dish that combines chewy glass noodles with vegetables and beef, while soy sauce and sesame oil add savory and nutty flavors.", ko: "쫄깃한 당면에 채소와 소고기를 넣은 면 요리로, 간장과 참기름이 감칠맛과 고소한 맛을 더해요." },
     },
     ingredients: ["glass noodles", "beef", "spinach", "carrots", "mushrooms", "onions", "soy sauce", "sesame oil", "sugar"],
     options: ["beef", "pork", "mushrooms", "egg"],
@@ -319,6 +334,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Cold noodles in an icy soup.", practiceEn: "Naengmyeon is a cold noodle soup.", ko: "얼음 국물에 든 차가운 국수예요." },
       intermediate: { en: "Cold buckwheat noodles in an icy broth.", practiceEn: "Naengmyeon is a dish of cold buckwheat noodles in an icy broth.", ko: "얼음이 든 시원한 국물에 메밀 면을 넣어 먹는 차가운 국수예요." },
+      advanced: { en: "Naengmyeon is a cold noodle dish served in an icy broth with cucumber, pear and a boiled egg, making it a refreshing meal on hot days.", practiceEn: "Naengmyeon is a cold noodle dish served in an icy broth with cucumber, pear and a boiled egg, making it a refreshing meal on hot days.", ko: "얼음이 든 국물에 오이, 배, 삶은 달걀을 곁들인 차가운 면 요리로, 더운 날 시원하게 먹기 좋아요." },
     },
     ingredients: ["buckwheat noodles", "ice", "cucumber", "pear", "boiled eggs", "radish", "vinegar", "mustard", "beef"],
     options: ["cold soup", "spicy sauce", "boiled eggs", "pear"],
@@ -328,6 +344,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A hot noodle soup with vegetables.", practiceEn: "Kalguksu is a hot noodle soup with vegetables.", ko: "채소를 넣은 뜨거운 국수예요." },
       intermediate: { en: "Knife-cut noodles in a hot chicken or anchovy broth.", practiceEn: "Kalguksu is a noodle soup made with knife-cut noodles and chicken or anchovy broth.", ko: "칼로 썬 면을 뜨거운 닭 육수나 멸치 육수에 넣어 끓인 국수예요." },
+      advanced: { en: "Kalguksu is a noodle soup made by cutting dough into thin strips with a knife, then cooking the noodles in chicken or anchovy broth.", practiceEn: "Kalguksu is a noodle soup made by cutting dough into thin strips with a knife, then cooking the noodles in chicken or anchovy broth.", ko: "반죽을 칼로 가늘게 썬 뒤 그 면을 닭 육수나 멸치 육수에 넣어 끓인 국수예요." },
     },
     ingredients: ["noodles", "chicken", "anchovy broth", "zucchini", "potatoes", "green onions", "garlic", "dried seaweed"],
     options: ["chicken", "clams", "potatoes", "dumplings"],
@@ -337,6 +354,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Noodles with black bean sauce.", practiceEn: "Jajangmyeon is a noodle dish with black bean sauce.", ko: "짜장 소스를 얹은 면이에요." },
       intermediate: { en: "Noodles with a thick black bean sauce.", practiceEn: "Jajangmyeon is a noodle dish with a thick black bean sauce.", ko: "면 위에 춘장으로 만든 걸쭉한 짜장 소스를 얹어 비벼 먹는 음식이에요." },
+      advanced: { en: "Jajangmyeon is a noodle dish topped with a thick black bean sauce containing pork and vegetables, which you mix with the noodles before eating.", practiceEn: "Jajangmyeon is a noodle dish topped with a thick black bean sauce containing pork and vegetables, which you mix with the noodles before eating.", ko: "돼지고기와 채소가 들어간 걸쭉한 짜장 소스를 면 위에 얹어, 먹기 전에 비벼 먹는 면 요리예요." },
     },
     ingredients: ["noodles", "black bean sauce", "pork", "onions", "potatoes", "zucchini", "cucumber", "cabbage"],
     options: ["pork", "squid", "egg", "cucumber"],
@@ -346,6 +364,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Spicy noodles in a hot soup.", practiceEn: "Ramyeon is a spicy noodle soup.", ko: "뜨거운 국물에 든 매운 면이에요." },
       intermediate: { en: "Spicy instant noodles in a hot soup.", practiceEn: "Ramyeon is a spicy soup with instant noodles.", ko: "매운 수프와 함께 끓여 먹는 뜨거운 국물 면이에요." },
+      advanced: { en: "Ramyeon is a spicy noodle soup made by boiling instant noodles with soup powder, and you can add an egg, green onions or cheese.", practiceEn: "Ramyeon is a spicy noodle soup made by boiling instant noodles with soup powder, and you can add an egg, green onions or cheese.", ko: "즉석 면과 수프를 끓여 만든 매운 국물 음식으로, 달걀, 파 또는 치즈를 넣을 수 있어요." },
     },
     ingredients: ["noodles", "soup powder", "egg", "green onions", "kimchi", "cheese", "rice cakes"],
     options: ["cheese", "egg", "rice cakes", "dumplings"],
@@ -356,6 +375,7 @@ const FOODS = [
     desc: {
       beginner: { en: "A spicy noodle dish.", practiceEn: "Bibim-guksu is a spicy noodle dish.", ko: "매운 양념에 비벼 먹는 국수예요." },
       intermediate: { en: "A cold noodle dish with gochujang, cucumber and a boiled egg.", practiceEn: "Bibim-guksu is a cold noodle dish with gochujang, cucumber and a boiled egg.", ko: "차가운 국수에 고추장 양념, 오이, 삶은 달걀을 넣어 비벼 먹어요." },
+      advanced: { en: "Bibim-guksu is a cold noodle dish mixed with gochujang, vinegar and sugar, then topped with cucumber and a boiled egg for a spicy and refreshing meal.", practiceEn: "Bibim-guksu is a cold noodle dish mixed with gochujang, vinegar and sugar, then topped with cucumber and a boiled egg for a spicy and refreshing meal.", ko: "차가운 면에 고추장, 식초, 설탕을 넣고 비빈 뒤 오이와 삶은 달걀을 올려 매콤하고 시원하게 먹는 음식이에요." },
     },
     ingredients: ["noodles", "gochujang", "cucumber", "boiled eggs", "sugar", "vinegar", "sesame oil", "sesame seeds"],
     options: ["cucumber", "boiled eggs", "kimchi", "vegetables"],
@@ -365,6 +385,7 @@ const FOODS = [
     desc: {
       beginner: { en: "A cold noodle soup with beans.", practiceEn: "Kongguksu is a cold noodle soup with beans.", ko: "시원한 콩 국물에 국수를 넣은 음식이에요." },
       intermediate: { en: "A cold noodle soup made with beans and topped with cucumber.", practiceEn: "Kongguksu is a cold noodle soup made with beans and topped with cucumber.", ko: "콩을 갈아 만든 시원한 국물에 국수를 넣고 오이를 얹은 음식이에요." },
+      advanced: { en: "Kongguksu is a cold noodle soup made with ground beans and cucumber, and you can choose salt or sugar to change the flavor of the broth.", practiceEn: "Kongguksu is a cold noodle soup made with ground beans and cucumber, and you can choose salt or sugar to change the flavor of the broth.", ko: "콩을 갈아 만든 국물에 면과 오이를 넣은 차가운 국수로, 소금이나 설탕을 골라 국물 맛을 바꿀 수 있어요." },
     },
     ingredients: ["noodles", "beans", "water", "cucumber", "salt", "sesame seeds"],
     options: ["salt", "sugar", "cucumber", "sesame seeds"],
@@ -375,6 +396,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Sweet beef with soy sauce.", practiceEn: "Bulgogi is sweet beef with soy sauce.", ko: "간장 양념을 한 달콤한 소고기예요." },
       intermediate: { en: "Thin slices of beef in a sweet soy sauce marinade.", practiceEn: "Bulgogi is thin slices of beef in a sweet soy sauce marinade.", ko: "얇게 썬 소고기를 달콤한 간장 양념에 재워 구운 음식이에요." },
+      advanced: { en: "Bulgogi is made by marinating thin slices of beef in soy sauce, sugar and garlic before cooking them, which gives the meat a sweet and savory flavor.", practiceEn: "Bulgogi is made by marinating thin slices of beef in soy sauce, sugar and garlic before cooking them, which gives the meat a sweet and savory flavor.", ko: "얇게 썬 소고기를 간장, 설탕, 마늘 양념에 재운 뒤 익혀 달콤하고 감칠맛이 나게 만든 음식이에요." },
     },
     ingredients: ["beef", "soy sauce", "sugar", "garlic", "onions", "green onions", "sesame oil", "mushrooms", "pear"],
     options: ["beef", "pork", "mushrooms", "glass noodles"],
@@ -384,6 +406,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Grilled ribs with a sweet sauce.", practiceEn: "Galbi is a dish of grilled ribs with a sweet sauce.", ko: "달콤한 양념을 한 구운 갈비예요." },
       intermediate: { en: "Grilled ribs in a sweet and savory sauce.", practiceEn: "Galbi is a dish of grilled ribs in a sweet and savory sauce.", ko: "달콤 짭짤한 양념에 재운 갈비를 구워 먹는 음식이에요." },
+      advanced: { en: "Galbi is a dish of ribs that are marinated in a sweet soy sauce mixture before grilling, so the meat has a rich and savory flavor.", practiceEn: "Galbi is a dish of ribs that are marinated in a sweet soy sauce mixture before grilling, so the meat has a rich and savory flavor.", ko: "갈비를 달콤한 간장 양념에 재운 뒤 구워 고기에서 진하고 감칠맛이 나는 음식이에요." },
     },
     ingredients: ["ribs", "soy sauce", "garlic", "sugar", "onions", "sesame oil", "pear", "green onions"],
     options: ["beef", "pork", "mushrooms", "onions"],
@@ -393,6 +416,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Grilled pork in lettuce.", practiceEn: "Samgyeopsal is grilled pork in lettuce.", ko: "상추에 싸 먹는 구운 돼지고기예요." },
       intermediate: { en: "Grilled pork belly wrapped in lettuce with ssamjang.", practiceEn: "Samgyeopsal is grilled pork belly wrapped in lettuce with ssamjang.", ko: "구운 삼겹살을 상추에 쌈장, 마늘과 함께 싸서 먹는 음식이에요." },
+      advanced: { en: "Samgyeopsal is grilled pork belly that you can wrap in lettuce with garlic and ssamjang, combining juicy meat with fresh vegetables in one bite.", practiceEn: "Samgyeopsal is grilled pork belly that you can wrap in lettuce with garlic and ssamjang, combining juicy meat with fresh vegetables in one bite.", ko: "구운 삼겹살을 마늘, 쌈장과 함께 상추에 싸서, 한 입에 촉촉한 고기와 신선한 채소를 즐기는 음식이에요." },
     },
     ingredients: ["pork belly", "lettuce", "ssamjang", "garlic", "kimchi", "green onions", "salt", "sesame oil"],
     options: ["lettuce", "perilla leaves", "kimchi", "garlic"],
@@ -402,6 +426,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Spicy cabbage. Koreans eat it every day.", practiceEn: "Kimchi is spicy cabbage. Koreans eat it every day.", ko: "매운 배추 반찬이에요. 한국 사람들은 매일 먹어요." },
       intermediate: { en: "Spicy fermented cabbage, the most famous Korean side dish.", practiceEn: "Kimchi is spicy fermented cabbage, the most famous Korean side dish.", ko: "배추를 고춧가루 양념에 절여 익힌, 가장 유명한 한국 반찬이에요." },
+      advanced: { en: "Kimchi is a fermented cabbage dish made with red pepper powder, garlic and salt, and its spicy and sour flavors go well with rice.", practiceEn: "Kimchi is a fermented cabbage dish made with red pepper powder, garlic and salt, and its spicy and sour flavors go well with rice.", ko: "배추에 고춧가루, 마늘, 소금을 넣어 발효시킨 음식으로, 매콤하고 새콤한 맛이 밥과 잘 어울려요." },
     },
     ingredients: ["cabbage", "red pepper powder", "garlic", "salt", "ginger", "green onions", "radish"],
     options: ["cabbage", "radish", "cucumber", "green onions"],
@@ -411,6 +436,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A pancake with green onions.", practiceEn: "Pajeon is a pancake with green onions.", ko: "파를 넣은 전이에요." },
       intermediate: { en: "A crispy green onion pancake.", practiceEn: "Pajeon is a crispy green onion pancake.", ko: "파를 듬뿍 넣어 바삭하게 부친 전이에요." },
+      advanced: { en: "Pajeon is a pancake made by mixing green onions with flour and an egg, then frying the mixture until the edges become crispy and golden.", practiceEn: "Pajeon is a pancake made by mixing green onions with flour and an egg, then frying the mixture until the edges become crispy and golden.", ko: "파에 밀가루와 달걀을 섞은 뒤 가장자리가 바삭하고 노릇해질 때까지 부쳐 만든 전이에요." },
     },
     ingredients: ["green onions", "flour", "egg", "squid", "oil", "soy sauce", "chili peppers"],
     options: ["squid", "kimchi", "cheese", "chili peppers"],
@@ -420,6 +446,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Spicy chicken with cabbage and rice cakes.", practiceEn: "Dakgalbi is spicy chicken with cabbage and rice cakes.", ko: "양배추와 떡을 넣은 매운 닭 요리예요." },
       intermediate: { en: "Spicy stir-fried chicken with cabbage and rice cakes.", practiceEn: "Dakgalbi is spicy stir-fried chicken with cabbage and rice cakes.", ko: "닭고기를 고추장 양념에 양배추, 떡과 함께 볶은 음식이에요." },
+      advanced: { en: "Dakgalbi is a stir-fried chicken dish made with cabbage, rice cakes and gochujang, and you can add cheese to balance its spicy flavor.", practiceEn: "Dakgalbi is a stir-fried chicken dish made with cabbage, rice cakes and gochujang, and you can add cheese to balance its spicy flavor.", ko: "닭고기를 양배추, 떡, 고추장과 함께 볶은 음식으로, 치즈를 넣어 매운맛을 부드럽게 할 수 있어요." },
     },
     ingredients: ["chicken", "gochujang", "cabbage", "sweet potatoes", "rice cakes", "onions", "cheese", "garlic"],
     options: ["cheese", "rice cakes", "sweet potatoes", "ramyeon noodles"],
@@ -429,6 +456,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Crispy chicken with a sweet and spicy sauce.", practiceEn: "Korean fried chicken is crispy chicken with a sweet and spicy sauce.", ko: "달콤하고 매운 소스를 묻힌 바삭한 치킨이에요." },
       intermediate: { en: "Crispy fried chicken with a sweet and spicy sauce.", practiceEn: "Korean fried chicken is crispy fried chicken with a sweet and spicy sauce.", ko: "바삭하게 튀긴 닭에 달콤하고 매운 양념을 묻힌 음식이에요." },
+      advanced: { en: "Korean fried chicken is a crispy dish coated with a sweet and spicy sauce, and you can choose soy garlic sauce for a different flavor.", practiceEn: "Korean fried chicken is a crispy dish coated with a sweet and spicy sauce, and you can choose soy garlic sauce for a different flavor.", ko: "바삭한 닭튀김에 달콤하고 매운 양념을 입힌 음식으로, 다른 맛을 원하면 간장 마늘 양념을 고를 수 있어요." },
     },
     ingredients: ["chicken", "flour", "oil", "gochujang", "soy sauce", "garlic", "honey", "nuts"],
     options: ["spicy sauce", "soy garlic sauce", "honey", "cheese"],
@@ -440,6 +468,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Rice cakes in a spicy red sauce.", practiceEn: "Tteokbokki is a rice cake dish with a spicy red sauce.", ko: "매운 빨간 소스에 든 떡이에요." },
       intermediate: { en: "Chewy rice cakes in a sweet and spicy red sauce.", practiceEn: "Tteokbokki is a dish of chewy rice cakes in a sweet and spicy red sauce.", ko: "쫄깃한 떡을 달콤하고 매운 고추장 소스에 볶은 음식이에요." },
+      advanced: { en: "Tteokbokki is a dish of chewy rice cakes cooked with fish cakes in a sweet and spicy gochujang sauce, and you can add cheese or noodles.", practiceEn: "Tteokbokki is a dish of chewy rice cakes cooked with fish cakes in a sweet and spicy gochujang sauce, and you can add cheese or noodles.", ko: "쫄깃한 떡과 어묵을 달콤하고 매운 고추장 소스에 익힌 음식으로, 치즈나 면을 넣을 수 있어요." },
     },
     ingredients: ["rice cakes", "fish cakes", "gochujang", "sugar", "green onions", "boiled eggs", "red pepper powder", "cabbage"],
     options: ["cheese", "ramyeon noodles", "fish cakes", "boiled eggs", "dumplings"],
@@ -449,6 +478,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Dumplings with meat and vegetables.", practiceEn: "Mandu are dumplings with meat and vegetables.", ko: "고기와 채소를 넣은 만두예요." },
       intermediate: { en: "Korean dumplings filled with meat, tofu and vegetables.", practiceEn: "Mandu are Korean dumplings filled with meat, tofu and vegetables.", ko: "고기, 두부, 채소를 넣고 만두피로 감싼 한국식 만두예요." },
+      advanced: { en: "Mandu are dumplings made by wrapping meat, tofu and vegetables in thin dough, and you can choose kimchi or pork for a different filling.", practiceEn: "Mandu are dumplings made by wrapping meat, tofu and vegetables in thin dough, and you can choose kimchi or pork for a different filling.", ko: "고기, 두부, 채소를 얇은 반죽으로 감싼 만두로, 김치나 돼지고기를 골라 속 재료를 다르게 할 수 있어요." },
     },
     ingredients: ["flour", "pork", "tofu", "kimchi", "green onions", "garlic", "glass noodles", "bean sprouts"],
     options: ["kimchi", "pork", "shrimp", "vegetables"],
@@ -458,6 +488,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Fish cakes on a stick in a hot soup.", practiceEn: "Eomuk is a fish cake dish with hot soup.", ko: "뜨거운 국물에 든 꼬치 어묵이에요." },
       intermediate: { en: "Fish cake skewers in a warm broth.", practiceEn: "Eomuk is a dish of fish cake skewers in a warm broth.", ko: "꼬치에 꿴 어묵을 따뜻한 국물과 함께 먹는 간식이에요." },
+      advanced: { en: "Eomuk is a fish cake dish served on skewers in a warm anchovy broth, and radish and green onions give the soup a savory flavor.", practiceEn: "Eomuk is a fish cake dish served on skewers in a warm anchovy broth, and radish and green onions give the soup a savory flavor.", ko: "어묵을 꼬치에 꿰어 따뜻한 멸치 육수와 함께 먹는 음식으로, 무와 파가 국물에 감칠맛을 더해요." },
     },
     ingredients: ["fish cakes", "radish", "anchovy broth", "green onions", "soy sauce", "garlic"],
     options: ["soy sauce", "spicy sauce", "radish", "chili peppers"],
@@ -467,6 +498,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A sweet pancake with sugar inside.", practiceEn: "Hotteok is a sweet pancake with sugar inside.", ko: "안에 설탕이 든 달콤한 호떡이에요." },
       intermediate: { en: "A sweet pancake filled with brown sugar and nuts.", practiceEn: "Hotteok is a sweet pancake filled with brown sugar and nuts.", ko: "흑설탕과 견과류를 넣어 노릇하게 구운 달콤한 간식이에요." },
+      advanced: { en: "Hotteok is a pancake filled with brown sugar, cinnamon and nuts, which become a warm, sweet filling when the pancake is cooked in oil.", practiceEn: "Hotteok is a pancake filled with brown sugar, cinnamon and nuts, which become a warm, sweet filling when the pancake is cooked in oil.", ko: "흑설탕, 계피, 견과류를 넣은 팬케이크로, 기름에 구우면 속 재료가 따뜻하고 달콤해져요." },
     },
     ingredients: ["flour", "brown sugar", "cinnamon", "nuts", "oil", "sugar"],
     options: ["nuts", "cheese", "vegetables", "honey"],
@@ -476,6 +508,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A fish-shaped bread with red beans.", practiceEn: "Bungeoppang is fish-shaped bread with red beans.", ko: "팥이 든 물고기 모양 빵이에요." },
       intermediate: { en: "A fish-shaped bread filled with sweet red bean paste.", practiceEn: "Bungeoppang is fish-shaped bread filled with sweet red bean paste.", ko: "물고기 모양 틀에 반죽을 붓고 팥앙금을 넣어 구운 겨울 간식이에요." },
+      advanced: { en: "Bungeoppang is fish-shaped bread made by baking batter with sweet red bean paste inside, and you can choose custard cream instead of red beans.", practiceEn: "Bungeoppang is fish-shaped bread made by baking batter with sweet red bean paste inside, and you can choose custard cream instead of red beans.", ko: "반죽 속에 달콤한 팥앙금을 넣어 구운 물고기 모양 빵으로, 팥 대신 슈크림을 고를 수도 있어요." },
     },
     ingredients: ["flour", "red bean paste", "sugar", "egg", "milk", "butter"],
     options: ["red bean paste", "custard cream", "sweet potatoes", "cheese"],
@@ -485,6 +518,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A small bread with an egg on top.", practiceEn: "Gyeran-ppang is bread with an egg on top.", ko: "위에 달걀을 올린 작은 빵이에요." },
       intermediate: { en: "A small sweet bread with a whole egg on top.", practiceEn: "Gyeran-ppang is sweet bread with a whole egg on top.", ko: "작은 빵 반죽 위에 달걀 한 개를 올려 구운 길거리 간식이에요." },
+      advanced: { en: "Gyeran-ppang is a small bread made by baking a whole egg on top of sweet batter, combining soft bread with a warm egg in one snack.", practiceEn: "Gyeran-ppang is a small bread made by baking a whole egg on top of sweet batter, combining soft bread with a warm egg in one snack.", ko: "달콤한 반죽 위에 달걀 한 개를 올려 구운 작은 빵으로, 한 간식에서 부드러운 빵과 따뜻한 달걀을 함께 먹어요." },
     },
     ingredients: ["egg", "flour", "sugar", "milk", "butter", "cheese"],
     options: ["cheese", "ham", "corn", "green onions"],
@@ -494,6 +528,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A sugar candy with a shape in it.", practiceEn: "Dalgona is a sugar candy with a shape in it.", ko: "모양이 찍힌 설탕 과자예요." },
       intermediate: { en: "A thin honeycomb candy with a shape pressed in the middle.", practiceEn: "Dalgona is a thin honeycomb candy with a shape pressed in the middle.", ko: "설탕과 베이킹 소다로 만든 얇은 설탕 과자예요. 가운데 모양을 찍어요." },
+      advanced: { en: "Dalgona is a thin candy made by mixing melted sugar with baking soda, then pressing a shape into the middle before the candy becomes hard.", practiceEn: "Dalgona is a thin candy made by mixing melted sugar with baking soda, then pressing a shape into the middle before the candy becomes hard.", ko: "녹인 설탕에 베이킹 소다를 섞고, 굳기 전에 가운데에 모양을 찍어 만든 얇은 과자예요." },
     },
     ingredients: ["sugar", "baking soda"],
     options: ["a star", "a heart", "an umbrella", "a triangle"],
@@ -505,6 +540,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Shaved ice with red beans and fruit.", practiceEn: "Bingsu is shaved ice with red beans and fruit.", ko: "팥과 과일을 얹은 얼음 디저트예요." },
       intermediate: { en: "Shaved ice topped with red beans, fruit and ice cream.", practiceEn: "Bingsu is shaved ice topped with red beans, fruit and ice cream.", ko: "곱게 간 얼음 위에 팥, 과일, 아이스크림 등을 얹은 여름 디저트예요." },
+      advanced: { en: "Bingsu is a cold dessert made with shaved ice and sweet toppings, and you can choose red beans, fruit or ice cream to create your own combination.", practiceEn: "Bingsu is a cold dessert made with shaved ice and sweet toppings, and you can choose red beans, fruit or ice cream to create your own combination.", ko: "곱게 간 얼음에 달콤한 재료를 얹은 차가운 디저트로, 팥, 과일, 아이스크림을 골라 나만의 조합을 만들 수 있어요." },
     },
     ingredients: ["ice", "milk", "red beans", "fruit", "rice cakes", "condensed milk", "ice cream", "nuts"],
     options: ["red beans", "mango", "strawberries", "ice cream"],
@@ -514,6 +550,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "Half-moon rice cakes for Chuseok.", practiceEn: "Songpyeon are half-moon rice cakes for Chuseok.", ko: "추석에 먹는 반달 모양 떡이에요." },
       intermediate: { en: "Half-moon rice cakes that Koreans eat on Chuseok.", practiceEn: "Songpyeon are half-moon rice cakes that Koreans eat on Chuseok.", ko: "추석에 먹는 반달 모양 떡이에요. 쌀가루 반죽 속에 달콤한 소를 넣어요." },
+      advanced: { en: "Songpyeon are half-moon rice cakes that Koreans eat on Chuseok, made by filling rice flour dough with sweet sesame seeds, beans or chestnuts.", practiceEn: "Songpyeon are half-moon rice cakes that Koreans eat on Chuseok, made by filling rice flour dough with sweet sesame seeds, beans or chestnuts.", ko: "한국 사람들이 추석에 먹는 반달 모양 떡으로, 쌀가루 반죽 안에 달콤한 참깨, 콩 또는 밤을 넣어 만들어요." },
     },
     ingredients: ["rice flour", "sesame seeds", "honey", "beans", "chestnuts", "sugar"],
     options: ["sesame seeds", "beans", "chestnuts", "honey"],
@@ -523,6 +560,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A sweet honey cookie.", practiceEn: "Yakgwa is a sweet honey cookie.", ko: "달콤한 꿀 과자예요." },
       intermediate: { en: "A traditional honey cookie with ginger and cinnamon.", practiceEn: "Yakgwa is a traditional honey cookie with ginger and cinnamon.", ko: "밀가루 반죽을 튀겨 꿀에 재운 전통 과자예요. 생강과 계피 향이 나요." },
+      advanced: { en: "Yakgwa is a traditional cookie made by frying flour dough and soaking it in honey, while ginger and cinnamon add a warm and rich flavor.", practiceEn: "Yakgwa is a traditional cookie made by frying flour dough and soaking it in honey, while ginger and cinnamon add a warm and rich flavor.", ko: "밀가루 반죽을 튀겨 꿀에 담가 만든 전통 과자로, 생강과 계피가 따뜻하고 진한 맛을 더해요." },
     },
     ingredients: ["flour", "honey", "sesame oil", "ginger", "cinnamon", "oil"],
     options: ["honey", "sugar", "ginger", "nuts"],
@@ -532,6 +570,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A sweet rice drink.", practiceEn: "Sikhye is a sweet rice drink.", ko: "달콤한 쌀 음료예요." },
       intermediate: { en: "A sweet rice drink with floating rice grains.", practiceEn: "Sikhye is a sweet rice drink with floating rice grains.", ko: "엿기름으로 만든 달콤한 전통 음료예요. 밥알이 동동 떠 있어요." },
+      advanced: { en: "Sikhye is a sweet rice drink made with malt, and the rice grains floating in the drink give it a soft texture and a mild flavor.", practiceEn: "Sikhye is a sweet rice drink made with malt, and the rice grains floating in the drink give it a soft texture and a mild flavor.", ko: "엿기름으로 만든 달콤한 쌀 음료로, 동동 떠 있는 밥알이 부드러운 식감과 담백한 맛을 더해요." },
     },
     ingredients: ["rice", "malt", "sugar", "ginger", "pine nuts"],
     options: ["pine nuts", "jujubes", "ice", "sugar"],
@@ -541,6 +580,7 @@ const FOODS = [
     desc: {
       beginner:     { en: "A sweet cinnamon drink.", practiceEn: "Sujeonggwa is a sweet cinnamon drink.", ko: "달콤한 계피 음료예요." },
       intermediate: { en: "A cinnamon and ginger punch with dried persimmons.", practiceEn: "Sujeonggwa is a cinnamon and ginger punch with dried persimmons.", ko: "계피와 생강을 끓여 만든 전통 음료예요. 곶감과 잣을 띄워 마셔요." },
+      advanced: { en: "Sujeonggwa is a traditional drink made by boiling cinnamon and ginger with sugar, then adding dried persimmons and pine nuts for a sweet and rich flavor.", practiceEn: "Sujeonggwa is a traditional drink made by boiling cinnamon and ginger with sugar, then adding dried persimmons and pine nuts for a sweet and rich flavor.", ko: "계피와 생강을 설탕과 함께 끓인 뒤 곶감과 잣을 넣어 달콤하고 진한 맛을 내는 전통 음료예요." },
     },
     ingredients: ["cinnamon", "ginger", "dried persimmons", "sugar", "pine nuts"],
     options: ["dried persimmons", "pine nuts", "nuts", "ice"],
@@ -550,6 +590,7 @@ const FOODS = [
     desc: {
       beginner: { en: "A chewy rice cake.", practiceEn: "Injeolmi is a chewy rice cake.", ko: "쫄깃한 떡이에요." },
       intermediate: { en: "A chewy rice cake covered with roasted soybean powder.", practiceEn: "Injeolmi is a chewy rice cake covered with roasted soybean powder.", ko: "찹쌀로 만든 쫄깃한 떡에 볶은 콩가루를 묻힌 음식이에요." },
+      advanced: { en: "Injeolmi is a chewy rice cake made with glutinous rice and covered with roasted soybean powder, which gives the soft rice cake a nutty flavor.", practiceEn: "Injeolmi is a chewy rice cake made with glutinous rice and covered with roasted soybean powder, which gives the soft rice cake a nutty flavor.", ko: "찹쌀로 만든 쫄깃한 떡에 볶은 콩가루를 묻힌 음식으로, 콩가루가 부드러운 떡에 고소한 맛을 더해요." },
     },
     ingredients: ["glutinous rice", "roasted soybean powder", "water", "salt", "sugar"],
     options: ["roasted soybean powder", "sesame seeds", "red bean paste", "honey"],
@@ -559,6 +600,7 @@ const FOODS = [
     desc: {
       beginner: { en: "A small sweet cookie.", practiceEn: "Dasik is a small sweet cookie.", ko: "작고 달콤한 전통 과자예요." },
       intermediate: { en: "A traditional cookie made with grain powder and honey.", practiceEn: "Dasik is a traditional cookie made with grain powder and honey.", ko: "곡물 가루와 꿀을 섞어 모양을 찍어 만든 전통 과자예요." },
+      advanced: { en: "Dasik is a traditional cookie made by mixing grain powder with honey and pressing it into a mold, creating small cookies with pretty shapes.", practiceEn: "Dasik is a traditional cookie made by mixing grain powder with honey and pressing it into a mold, creating small cookies with pretty shapes.", ko: "곡물 가루와 꿀을 섞어 틀에 눌러 찍은 전통 과자로, 예쁜 모양의 작은 과자로 만들어요." },
     },
     ingredients: ["rice flour", "roasted soybean powder", "sesame seeds", "honey"],
     options: ["roasted soybean powder", "sesame seeds", "pine nuts", "rice flour"],
@@ -704,4 +746,97 @@ const WORD_MEANINGS = {
   "ball": "공, 동그란 덩어리",
   "sticky": "찰진",
   "milky": "우유처럼 뽀얀",
+  "add": "추가하다, 넣다",
+  "adding": "추가하는, 넣는",
+  "allowing": "~하게 하는",
+  "balance": "균형을 맞추다, 조화롭게 하다",
+  "batter": "묽은 반죽",
+  "become": "~이 되다",
+  "becomes": "~이 된다",
+  "before": "~전에",
+  "bite": "한 입",
+  "boiling": "끓이는",
+  "bowl": "그릇",
+  "by": "~해서, ~하는 방법으로",
+  "change": "바꾸다",
+  "coated": "입혀진, 묻힌",
+  "colorful": "알록달록한",
+  "combination": "조합",
+  "combines": "함께 섞는다, 결합한다",
+  "combining": "함께 섞는, 결합하는",
+  "containing": "~이 들어 있는",
+  "cookies": "과자들",
+  "cooking": "요리하는, 익히는",
+  "create": "만들다",
+  "creating": "만드는",
+  "cutting": "자르는",
+  "days": "날들",
+  "dessert": "디저트, 후식",
+  "different": "다른",
+  "dough": "반죽",
+  "easy": "쉬운",
+  "eating": "먹는",
+  "edges": "가장자리들",
+  "enjoy": "즐기다",
+  "filling": "속 재료; 채우는",
+  "flavor": "맛",
+  "flavors": "여러 가지 맛",
+  "frying": "튀기거나 볶는",
+  "give": "주다, 더하다",
+  "gives": "준다, 더한다",
+  "giving": "주는, 더하는",
+  "go": "가다 (go well with: ~와 잘 어울리다)",
+  "golden": "노릇한",
+  "grilling": "굽는",
+  "ground": "갈아 놓은",
+  "hands": "손",
+  "hard": "단단한",
+  "instead": "대신에",
+  "into": "~안으로",
+  "its": "그것의",
+  "knife": "칼",
+  "long": "긴, 오랜",
+  "making": "만드는",
+  "many": "많은",
+  "marinated": "양념에 재운",
+  "marinating": "양념에 재우는",
+  "meal": "식사, 한 끼",
+  "melted": "녹인",
+  "mix": "섞다",
+  "mixes": "섞는다",
+  "mixing": "섞는",
+  "mixture": "섞은 것",
+  "mold": "틀",
+  "often": "자주",
+  "one": "하나",
+  "own": "자신만의",
+  "pieces": "조각들",
+  "pressing": "누르는",
+  "pretty": "예쁜",
+  "roll": "말아 놓은 것; 말다",
+  "rolling": "마는",
+  "shapes": "모양들",
+  "shaping": "모양을 만드는",
+  "simple": "간단한",
+  "smooth": "매끄럽고 부드러운",
+  "snack": "간식",
+  "so": "그래서",
+  "soaking": "담가 두는",
+  "spread": "퍼지다",
+  "strips": "가늘고 긴 조각들",
+  "texture": "식감",
+  "them": "그것들을",
+  "then": "그다음에",
+  "through": "~전체에, ~을 통해",
+  "time": "시간",
+  "together": "함께",
+  "toppings": "위에 얹는 재료들",
+  "until": "~할 때까지",
+  "well": "잘",
+  "when": "~할 때",
+  "which": "앞의 내용을 가리키는 말, 그것은",
+  "while": "~하는 동안; 한편",
+  "wrap": "싸다",
+  "wrapping": "싸는",
+  "your": "너의, 여러분의",
 };

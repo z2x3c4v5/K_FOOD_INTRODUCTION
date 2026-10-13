@@ -7,7 +7,7 @@
 ## 연습하는 문장 (워크시트)
 
 ```
-(고른 음식 설명을 주어·동사가 있는 완전한 문장으로 연습 · 초급/중급)
+(고른 음식 설명을 주어·동사가 있는 완전한 문장으로 연습 · 초급/중급/고급)
 It has (재료들).
 You can choose (선택 1) or (선택 2).   ← 골라 먹을 수 있는 것 (2개 고르면 들어감)
 It's (맛).
@@ -17,7 +17,7 @@ It's (맛).
 
 ## 기능 (탭 3개: 둘러보기 → 재료·맛 고르기 → 내가 고른 문장들 연습하기)
 
-- 🍱 **K-FOOD 둘러보기** — 한국 음식 **42가지** 카드. **실제 음식 사진**(42개 모두 `assets/foods/`에 JPEG 파일로 포함, 외부 API·AI 생성·이모지 대체 없음) + 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 설명 문장은 **초급**(짧고 쉬운 문장) / **중급**(조금 더 자세한 문장) 중 고를 수 있음. 이름·설명 문장은 옆의 🔊로 **문장 전체** 듣기, 영어 **단어를 누르면 그 단어만** 들리고 뜻 풍선이 뜸
+- 🍱 **K-FOOD 둘러보기** — 한국 음식 **42가지** 카드. **실제 음식 사진**(42개 모두 `assets/foods/`에 JPEG 파일로 포함, 외부 API·AI 생성·이모지 대체 없음) + 영어 이름 + 한글 이름 + 한 줄 설명(영어·한글). 설명 문장은 **초급**(짧고 쉬운 문장) / **중급**(조금 더 자세한 문장) / **고급**(조리 과정과 특징을 연결한 완전한 문장) 중 고를 수 있음. 이름·설명 문장은 옆의 🔊로 **문장 전체** 듣기, 영어 **단어를 누르면 그 단어만** 들리고 뜻 풍선이 뜸
   - 🍚 밥: Bibimbap · Gimbap · Kimchi fried rice · Gyeran-bap · Jumeokbap · Kongnamul-bap · Yaksik
   - 🍲 국·찌개: Kimchi jjigae · Doenjang jjigae · Sundubu jjigae · Samgyetang · Tteokguk · Miyeokguk · Seolleongtang
   - 🍜 면: Japchae · Naengmyeon · Kalguksu · Jajangmyeon · Ramyeon · Bibim-guksu · Kongguksu
@@ -30,7 +30,7 @@ It's (맛).
   - **골라 먹을 수 있는 것**(토핑·바꿀 수 있는 재료·모양 등) 중 **2개**를 고름 → `You can choose ___ or ___.` (안 고르면 이 문장은 빠짐)
   - 음식마다 어울리는 **맛** 중 **1~2개**를 고름 → `It's ___.` (맛 20가지: spicy · sweet · salty · sour · savory · nutty · hot · warm · cold · refreshing · crispy · crunchy · chewy · soft · juicy · mild · rich · fresh · healthy · delicious)
   - 고를 때마다 영어 문장 + 한글 뜻이 바로 채워지고 읽어 줌 · 🎲 무작위 채우기
-- 🎤 **내가 고른 문장들 연습하기** — 고른 **소개 문장(초급/중급)**, **It has ~.**, **You can choose ~ or ~.**, **It's ~.** 네 문장만 모아 연습. 줄마다 어떤 문장인지 표시(📖 소개 문장 · 🥕 재료 · 🔀 골라 먹기 · 😋 맛), 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 처음부터 끝까지 말하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 점수)
+- 🎤 **내가 고른 문장들 연습하기** — 고른 **소개 문장(초급/중급/고급)**, **It has ~.**, **You can choose ~ or ~.**, **It's ~.** 네 문장만 모아 연습. 줄마다 어떤 문장인지 표시(📖 소개 문장 · 🥕 재료 · 🔀 골라 먹기 · 😋 맛), 🔊 듣기와 🎙️ 말하기 정확도 측정, **🎭 처음부터 끝까지 말하기**(첫 줄부터 차례로 마이크가 켜지고 끝나면 점수)
 - 말하기 **속도 조절** 슬라이더 · 로마자 음식 이름(tteokbokki 등)은 영어 음성이 비슷하게 읽도록 발음을 바꿔 읽음
 
 브라우저 내장 **Web Speech API**(음성 합성·음성 인식)를 사용합니다. (Chrome 권장)
@@ -47,20 +47,20 @@ It's (맛).
 |------|------|
 | `index.html` | 화면 구조(탭·섹션) |
 | `style.css`  | 디자인·K-FOOD 테마 |
-| `data.js`    | 음식 42가지(이름·설명 초급/중급·재료·골라 먹기·맛), 재료·선택지·맛 사전, 단어 뜻 사전 |
+| `data.js`    | 음식 42가지(이름·설명 초급/중급/고급·재료·골라 먹기·맛), 재료·선택지·맛 사전, 단어 뜻 사전 |
 | `app.js`     | 둘러보기·재료/맛 고르기·내가 고른 문장들 연습하기·음성 기능 |
 | `worksheet_친구초대하기.hwpx` | (이전 단원 '친구 초대하기' 워크시트 · 이 앱과는 관계없음) |
 
 ## 음식·재료 추가하기
 
 `data.js`의 `FOODS` 배열에 항목을 추가하면 됩니다. `ingredients`는 `INGREDIENTS`의 `en`, `options`는 `INGREDIENTS` 또는 `CHOICES`의 `en`, `tastes`는 `TASTES`의 `en` 값을 씁니다.
-설명 문장은 `desc.beginner`(초급)와 `desc.intermediate`(중급)에 영어·한글을 각각 쓰고, `assets/foods/<key>.jpg`에 실제 사진을 추가하고 `assets/foods/credits.json` 및 `photo-credits.html`에 저작자·이용 조건을 기재합니다. `wiki`는 사진 갱신 스크립트의 출처 문서 제목입니다. 새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.
+설명 문장은 `desc.beginner`(초급), `desc.intermediate`(중급), `desc.advanced`(고급)에 영어·한글을 각각 쓰고, `assets/foods/<key>.jpg`에 실제 사진을 추가하고 `assets/foods/credits.json` 및 `photo-credits.html`에 저작자·이용 조건을 기재합니다. `wiki`는 사진 갱신 스크립트의 출처 문서 제목입니다. 새 재료는 `INGREDIENTS`에, 음식 이름의 영어 발음은 `SAY_MAP`에 넣어 주세요.
 
 ## 사진 갱신
 
 `python scripts/download-food-photos.py`로 출처 manifest에 기록된 사진을 다시 내려받습니다(Node.js, Python, Pillow 필요). 모든 음식은 기존에 선택한 사진을 유지합니다. 사진이나 출처가 바뀌면 `photo-credits.html`도 맞춰 수정해야 합니다.
 
-음식 설명의 `en`은 둘러보기용 짧은 설명이고, `practiceEn`은 듣기·말하기 연습용 완전한 문장입니다. 초급·중급 모두 `practiceEn`을 작성해야 합니다. 복수 음식명(Mandu, Songpyeon)은 `are`를 사용합니다.
+음식 설명의 `en`은 둘러보기용 짧은 설명이고, `practiceEn`은 듣기·말하기 연습용 완전한 문장입니다. 초급·중급·고급 모두 `practiceEn`을 작성해야 합니다. 복수 음식명(Mandu, Songpyeon)은 `are`를 사용합니다.
 
 ## 디자인
 
@@ -69,3 +69,7 @@ It's (맛).
 ## 분류별 개수와 단어 듣기
 
 밥, 국·찌개, 면, 고기·반찬, 분식·간식, 디저트·음료는 각각 7개씩(총 42개)입니다. 재료·골라 먹기·맛 버튼을 누르면 선택한 영어 단어 또는 어구만 읽습니다. 퀴즈 오답이나 선택 해제 때에도 클릭한 단어만 읽습니다. 완성된 문장은 문장 옆의 🔊 또는 전체 듣기로 재생합니다.
+
+## 고급 설명 문장
+
+42개 음식 모두 조리 과정·재료·맛의 특징을 연결한 고급 문장을 제공합니다. 음식명으로 시작하는 완전한 문장을 둘러보기와 듣기·말하기 연습에 사용합니다. 고급 선택은 브라우저에 저장됩니다.

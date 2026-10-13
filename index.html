@@ -50,13 +50,14 @@
             <span class="level-label">설명 문장</span>
             <button class="level-btn active" data-level="beginner">초급</button>
             <button class="level-btn" data-level="intermediate">중급</button>
+            <button class="level-btn" data-level="advanced">고급</button>
           </div>
         </div>
         <div class="cat-switch" id="food-cats">
           <button class="cat-btn active" data-cat="all">전체</button>
         </div>
         <p class="hint menu-intro">6가지 분류별로 7개씩, 총 42가지 한식을 실제 사진으로 만나 보세요. 먹고 싶은 음식을 고르면 영어 말하기가 시작돼요.</p>
-        <details class="learning-guide"><summary>처음이라면? 사용 방법 보기</summary><p class="hint">42가지 음식 모두 <b>실제 음식 사진</b>으로 살펴봐요. 한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장) 중에서 골라요. 고른 소개 문장은 재료·맛 문장과 함께 <b>🎤 내가 고른 문장들 연습하기</b>에 들어가요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p></details>
+        <details class="learning-guide"><summary>처음이라면? 사용 방법 보기</summary><p class="hint">42가지 음식 모두 <b>실제 음식 사진</b>으로 살펴봐요. 한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장), <b>고급</b>(조리 과정과 특징을 연결한 문장) 중에서 골라요. 고른 소개 문장은 재료·맛 문장과 함께 <b>🎤 내가 고른 문장들 연습하기</b>에 들어가요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p></details>
         <div id="food-grid" class="card-grid five"></div>
       </div>
     </section>
@@ -122,9 +123,15 @@
       <div class="section-block">
         <div class="section-eyebrow" lang="en">LET’S SPEAK · 영어로 말해요</div>
         <h2>내가 고른 문장 연습하기 <span class="count">소개 문장 · 재료 · 골라 먹기 · 맛</span></h2>
-        <p class="hint">내가 고른 <b>소개 문장(초급/중급)</b>, <b>It has ___.</b>, <b>You can choose ___ or ___.</b>, <b>It's ___.</b> 문장을 연습해요. 줄마다 🔊로 듣고 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 처음부터 끝까지 말하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 점수가 나와요. (Chrome 권장)</p>
+        <div class="level-switch" id="practice-level">
+          <span class="level-label">설명 문장</span>
+          <button class="level-btn active" data-level="beginner">초급</button>
+          <button class="level-btn" data-level="intermediate">중급</button>
+          <button class="level-btn" data-level="advanced">고급</button>
+        </div>
+        <p class="hint">내가 고른 <b>소개 문장(초급/중급/고급)</b>, <b>It has ___.</b>, <b>You can choose ___ or ___.</b>, <b>It's ___.</b> 문장을 연습해요. 줄마다 🔊로 듣고 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 처음부터 끝까지 말하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 점수가 나와요. (Chrome 권장)</p>
         <p id="practice-empty" class="practice-empty">
-          아직 고른 문장이 없어요! <b>🍱 K-FOOD 둘러보기</b>에서 음식과 소개 문장(초급/중급)을 고르고 <b>🥕 재료 · 맛 고르기</b>를 먼저 해요.
+          아직 고른 문장이 없어요! <b>🍱 K-FOOD 둘러보기</b>에서 음식과 소개 문장(초급/중급/고급)을 고르고 <b>🥕 재료 · 맛 고르기</b>를 먼저 해요.
         </p>
         <div id="practice-list" class="practice-list"></div>
       </div>

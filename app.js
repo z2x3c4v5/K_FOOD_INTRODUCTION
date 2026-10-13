@@ -2,7 +2,7 @@
  * 6학년 · K-FOOD 소개하기 웹 앱
  * - 🍱 둘러보기 : 음식 카드(영어 + 한글 + 설명) · 종류별 보기 · 음식 고르기
  * - 🥕 재료·맛  : 정말 들어가는 재료 2~4개 + 골라 먹을 수 있는 것 2개 + 어울리는 맛 1~2개 (재료 퀴즈 모드)
- * - 🎤 내가 고른 문장들 연습하기 : 소개 문장(초급/중급) · It has ~ · You can choose ~ · It's ~ 네 문장만
+ * - 🎤 내가 고른 문장들 연습하기 : 소개 문장(초급/중급/고급) · It has ~ · You can choose ~ · It's ~ 네 문장만
  *                 줄마다 말하기 채점 + 처음부터 끝까지 말하기(차례로 마이크)
  * - 음성 출력: Web Speech API (SpeechSynthesis) / 채점: SpeechRecognition
  * ========================================================= */
@@ -172,7 +172,7 @@ function tasteSentence() {
   const ko = items.length === 1 ? `${items[0].koEnd}.` : `${items[0].koMid} ${items[1].koEnd}.`;
   return { en, ko };
 }
-/* 🎤 연습할 문장: 소개 문장(초급/중급) · It has ~ · You can choose ~ · It's ~ */
+/* 🎤 연습할 문장: 소개 문장(초급/중급/고급) · It has ~ · You can choose ~ · It's ~ */
 function chosenLines() {
   const f = findFood(my.food);
   if (!f) return [];
@@ -236,11 +236,12 @@ function makeVisual(food, cls) {
  * 🍱 K-FOOD 둘러보기
  * =========================================================== */
 let currentCat = "all";
-let descLevel = "beginner";   // 음식 설명 문장 난이도: beginner(초급) / intermediate(중급)
-try { const lv = localStorage.getItem("kfood_desc_level"); if (lv === "beginner" || lv === "intermediate") descLevel = lv; } catch (e) {}
-const LEVEL_LABEL = { beginner: "초급", intermediate: "중급" };
+let descLevel = "beginner";   // 음식 설명 문장 난이도: beginner(초급) / intermediate(중급) / advanced(고급)
+try { const lv = localStorage.getItem("kfood_desc_level"); if (["beginner", "intermediate", "advanced"].includes(lv)) descLevel = lv; } catch (e) {}
+const LEVEL_LABEL = { beginner: "초급", intermediate: "중급", advanced: "고급" };
 function descOf(food) { return food.desc[descLevel] || food.desc.beginner; }
 function setDescLevel(lv) {
+  if (!LEVEL_LABEL[lv]) return;
   descLevel = lv;
   try { localStorage.setItem("kfood_desc_level", lv); } catch (e) {}
   document.querySelectorAll(".level-switch .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === lv));
@@ -248,7 +249,7 @@ function setDescLevel(lv) {
   renderFoods(); renderFoodHead();
   if (document.getElementById("tab-practice").classList.contains("active")) renderPractice();
 }
-document.querySelectorAll("#desc-level .level-btn").forEach(btn => btn.addEventListener("click", () => setDescLevel(btn.dataset.level)));
+document.querySelectorAll("#desc-level .level-btn, #practice-level .level-btn").forEach(btn => btn.addEventListener("click", () => setDescLevel(btn.dataset.level)));
 
 /* 음식 설명 (영어 단어 클릭 + 한글 + 🔊 문장 듣기) — 카드와 재료·맛 페이지 머리에 같이 씀 */
 function descBlock(food, hostEl) {
@@ -414,7 +415,7 @@ function renderFoodHead() {
   const ch = document.createElement("button"); ch.className = "btn small ghost"; ch.textContent = "🔁 다른 음식";
   ch.addEventListener("click", () => goTab("explore"));
   const lvl = document.createElement("div"); lvl.className = "level-switch small";
-  ["beginner", "intermediate"].forEach(lv => {
+  Object.keys(LEVEL_LABEL).forEach(lv => {
     const b = document.createElement("button"); b.className = "level-btn" + (descLevel === lv ? " active" : ""); b.dataset.level = lv; b.textContent = LEVEL_LABEL[lv];
     b.addEventListener("click", () => setDescLevel(lv));
     lvl.appendChild(b);
@@ -638,7 +639,9 @@ function speakThen(text, cb) {
   const mySeq = speakSeq + 1;          // 바로 아래 speak() 가 올릴 번호
   let timer = null;
   const finish = () => { if (done) return; done = true; clearTimeout(timer); if (speakSeq === mySeq) cb(); };
-  timer = setTimeout(finish, Math.min(9000, 1500 + text.length * 90));
+  const wordCount = text.trim().split(/\s+/).length;
+  const waitMs = Math.min(60000, 6000 + wordCount * 60000 / (110 * speakRate));
+  timer = setTimeout(finish, waitMs);
   speak(text, null, null, finish);
 }
 function statsText(en, last) {
@@ -784,6 +787,6 @@ function goTab(name) {
 document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => goTab(btn.dataset.tab)));
 document.getElementById("rate").addEventListener("input", e => { speakRate = parseFloat(e.target.value); });
 
-document.querySelectorAll("#desc-level .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === descLevel));
+document.querySelectorAll(".level-switch .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === descLevel));
 renderFoods();
 renderBuilder();

@@ -1,4 +1,4 @@
-# K-FOOD · I'd like to introduce ___ to you. · 한국 음식 소개하기
+# What would you like? · I'd like K-food. · 한식 한 상
 
 6학년 영어 **음식 소개하기** 활동용 웹앱입니다.
 **다양한 한국 음식(K-FOOD) 34가지**를 영어 이름과 한글 이름으로 함께 보고,
@@ -61,3 +61,7 @@ It's (맛).
 `python scripts/download-food-photos.py`로 출처 manifest에 기록된 사진을 다시 내려받습니다(Node.js, Python, Pillow 필요). 모든 음식은 기존에 선택한 사진을 유지합니다. 사진이나 출처가 바뀌면 `photo-credits.html`도 맞춰 수정해야 합니다.
 
 음식 설명의 `en`은 둘러보기용 짧은 설명이고, `practiceEn`은 듣기·말하기 연습용 완전한 문장입니다. 초급·중급 모두 `practiceEn`을 작성해야 합니다. 복수 음식명(Mandu, Songpyeon)은 `are`를 사용합니다.
+
+## 디자인
+
+한지색 바탕, 청자 녹색과 고추장 적색, 전통 창살 문양을 사용한 한식 한 상 디자인입니다. 상단에서 `What would you like?` / `I’d like K-food.`와 실제 음식으로 답하는 `I’d like bibimbap.` 예시를 보여 줍니다. 메뉴·재료·말하기의 3단계 흐름, 34개 실제 사진, 완전한 문장 연습은 그대로 제공됩니다.

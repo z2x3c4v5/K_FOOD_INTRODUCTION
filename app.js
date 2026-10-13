@@ -782,7 +782,7 @@ function goTab(name) {
   if (name === "explore") renderFoods();
   if (name === "build") { lastBuildSpoken = ""; renderBuilder(); }
   if (name === "practice") renderPractice();
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: document.querySelector(".app-header").offsetHeight, behavior: "smooth" });
 }
 document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => goTab(btn.dataset.tab)));
 document.getElementById("rate").addEventListener("input", e => { speakRate = parseFloat(e.target.value); });

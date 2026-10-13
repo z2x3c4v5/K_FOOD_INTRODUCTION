@@ -3,24 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>K-FOOD · I'd like to introduce ___ to you.</title>
+  <title>What would you like? · I'd like K-food.</title>
   <link rel="stylesheet" href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-round.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="app-header">
-    <div class="deco deco1">🥢</div>
-    <div class="deco deco2">🍚</div>
-    <div class="deco deco3">🌶️</div>
-    <div class="confetti"></div>
-    <h1>🍱 K-FOOD · I'd like to introduce ___ to you.</h1>
-    <p class="subtitle">다양한 한국 음식을 보고, 재료와 맛을 골라, 영어로 소개해 봐요!</p>
+    <div class="table-pattern" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="brand-line"><span class="brand-seal" aria-hidden="true">한식</span><span>한식 한 상 <span class="brand-en" lang="en">KOREAN TABLE</span></span></div>
+        <h1 lang="en"><span class="hero-question">What would you like?</span><span class="hero-answer">I'd like <span>K-food.</span></span></h1>
+        <p class="subtitle">오늘은 어떤 한식을 먹고 싶나요?<br>음식을 고르고, 재료와 맛을 영어로 말해 봐요.</p>
+        <div class="hero-expression"><span class="expression-label">오늘의 표현</span><span lang="en">What would you like? <span aria-hidden="true">→</span> I'd like <strong>bibimbap.</strong></span></div>
+      </div>
+      <div class="hero-table" aria-label="비빔밥, 떡볶이, 김밥으로 차린 한식 한 상">
+        <figure class="dish-main"><img src="assets/foods/bibimbap.jpg" alt="채소와 달걀을 올린 비빔밥" width="600" height="400" fetchpriority="high"><figcaption>비빔밥 <span lang="en">Bibimbap</span></figcaption></figure>
+        <figure class="dish-side dish-spicy"><img src="assets/foods/tteokbokki.jpg" alt="매콤한 양념의 떡볶이" width="400" height="300"><figcaption>떡볶이 <span lang="en">Tteokbokki</span></figcaption></figure>
+        <figure class="dish-side dish-roll"><img src="assets/foods/gimbap.jpg" alt="밥과 채소를 김으로 말아 만든 김밥" width="400" height="300"><figcaption>김밥 <span lang="en">Gimbap</span></figcaption></figure>
+        <span class="table-note">정성 가득, 맛있는 우리 음식</span>
+      </div>
+    </div>
   </header>
 
   <nav class="tabs">
-    <button class="tab-btn active" data-tab="explore">🍱 K-FOOD 둘러보기</button>
-    <button class="tab-btn" data-tab="build">🥕 재료 · 맛 고르기 <span id="build-count" class="tab-count">0/2</span></button>
-    <button class="tab-btn" data-tab="practice">🎤 내가 고른 문장들 연습하기</button>
+    <button class="tab-btn active" data-tab="explore"><span class="tab-step">01</span> 한식 메뉴 둘러보기</button>
+    <button class="tab-btn" data-tab="build"><span class="tab-step">02</span> 재료 · 맛 고르기 <span id="build-count" class="tab-count">0/2</span></button>
+    <button class="tab-btn" data-tab="practice"><span class="tab-step">03</span> 내가 고른 문장 연습하기</button>
   </nav>
 
   <div class="toolbar">
@@ -34,7 +43,8 @@
     <!-- ===== 🍱 K-FOOD 둘러보기 ===== -->
     <section id="tab-explore" class="tab-panel active">
       <div class="section-block">
-        <h2>🍱 다양한 한국 음식 <span class="count" id="food-count"></span></h2>
+        <div class="section-eyebrow" lang="en">THE MENU · 우리 음식</div>
+        <h2>오늘은 어떤 한식이 좋을까요? <span class="count" id="food-count"></span></h2>
         <div class="switch-row">
           <div class="level-switch" id="desc-level">
             <span class="level-label">설명 문장</span>
@@ -45,7 +55,8 @@
         <div class="cat-switch" id="food-cats">
           <button class="cat-btn active" data-cat="all">전체</button>
         </div>
-        <p class="hint">34가지 음식 모두 <b>실제 음식 사진</b>으로 살펴봐요. 한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장) 중에서 골라요. 고른 소개 문장은 재료·맛 문장과 함께 <b>🎤 내가 고른 문장들 연습하기</b>에 들어가요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p>
+        <p class="hint menu-intro">34가지 한식을 실제 사진으로 만나 보세요. 먹고 싶은 음식을 고르면 영어 말하기가 시작돼요.</p>
+        <details class="learning-guide"><summary>처음이라면? 사용 방법 보기</summary><p class="hint">34가지 음식 모두 <b>실제 음식 사진</b>으로 살펴봐요. 한국 음식의 <b>영어 이름</b>과 <b>한글 이름</b>을 함께 보고, 🔊를 눌러 영어로 어떻게 읽는지 들어 봐요. 음식을 소개하는 문장은 <b>초급</b>(짧고 쉬운 문장)과 <b>중급</b>(조금 더 자세한 문장) 중에서 골라요. 고른 소개 문장은 재료·맛 문장과 함께 <b>🎤 내가 고른 문장들 연습하기</b>에 들어가요. <b>단어를 누르면 그 단어만</b> 들리고 뜻이 나와요. <b>문장 전체</b>는 옆의 🔊를 눌러 들어요. 소개하고 싶은 음식을 찾았다면 <b>👉 이 음식 소개하기</b>를 눌러요. 그러면 <b>🥕 재료 · 맛 고르기</b>로 넘어가요.</p></details>
         <div id="food-grid" class="card-grid five"></div>
       </div>
     </section>
@@ -53,7 +64,8 @@
     <!-- ===== 🥕 재료 · 맛 고르기 ===== -->
     <section id="tab-build" class="tab-panel">
       <div class="section-block">
-        <h2>🥕 재료 · 맛 고르기 <span class="count">재료 2~4개 · 골라 먹기 2개 · 맛 1~2개</span></h2>
+        <div class="section-eyebrow" lang="en">INGREDIENTS &amp; TASTE</div>
+        <h2>내가 고른 한식, 재료와 맛 살펴보기 <span class="count">재료 2~4개 · 골라 먹기 2개 · 맛 1~2개</span></h2>
         <p class="hint">내가 고른 음식에 <b>정말 들어가는 재료</b> 중에서 소개글에 쓸 재료를 <b>2~4개</b> 고르고, <b>골라 먹을 수 있는 것 2개</b>(You can choose ___ or ___.)와 어울리는 <b>맛 1~2개</b>를 골라요. 문장은 🔊로 전부 들을 수 있고, 단어를 누르면 뜻이 나와요. <b>🧩 재료 퀴즈</b>를 켜면 다른 음식의 재료와 엉뚱한 재료가 섞여 나와요. 들어가지 않는 재료를 누르면 ❌가 뜨고 소개글에는 들어가지 않아요!</p>
 
         <div class="fill-box food-head" id="food-head"></div>
@@ -108,7 +120,8 @@
     <!-- ===== 🎤 내가 고른 문장들 연습하기 ===== -->
     <section id="tab-practice" class="tab-panel">
       <div class="section-block">
-        <h2>🎤 내가 고른 문장들 연습하기 <span class="count">소개 문장 · 재료 · 골라 먹기 · 맛</span></h2>
+        <div class="section-eyebrow" lang="en">LET’S SPEAK · 영어로 말해요</div>
+        <h2>내가 고른 문장 연습하기 <span class="count">소개 문장 · 재료 · 골라 먹기 · 맛</span></h2>
         <p class="hint">내가 고른 <b>소개 문장(초급/중급)</b>, <b>It has ___.</b>, <b>You can choose ___ or ___.</b>, <b>It's ___.</b> 문장을 연습해요. 줄마다 🔊로 듣고 <b>🎙️ 말하기</b>로 정확도를 재요. <b>🎭 처음부터 끝까지 말하기</b>를 누르면 첫 줄부터 차례로 마이크가 켜지고, 끝나면 점수가 나와요. (Chrome 권장)</p>
         <p id="practice-empty" class="practice-empty">
           아직 고른 문장이 없어요! <b>🍱 K-FOOD 둘러보기</b>에서 음식과 소개 문장(초급/중급)을 고르고 <b>🥕 재료 · 맛 고르기</b>를 먼저 해요.
@@ -120,7 +133,7 @@
   </main>
 
   <footer class="app-footer">
-    <span class="voice-status">6학년 영어 · K-FOOD 소개하기 🍱</span>
+    <span class="voice-status">한식 한 상 · What would you like? · I'd like K-food.</span>
     <span class="voice-status">사진: Wikimedia Commons · <a href="photo-credits.html" target="_blank" rel="noopener">사진 출처 및 이용 조건</a></span>
   </footer>
 

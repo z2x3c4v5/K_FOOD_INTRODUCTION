@@ -187,73 +187,50 @@ function chosenLines() {
   return lines;
 }
 
-/* ===========================================================
- * 🖼️ 실제 음식 사진
- *  1순위: 영어 위키백과 문서의 대표 사진 (Wikimedia Commons, 자유 이용 사진)
- *  2순위: AI 생성 사진 (pollinations.ai)
- *  3순위: 이모지 (인터넷이 안 되거나 사진이 없을 때)
- *  가져온 사진 주소는 localStorage 에 저장해 다음에 바로 씀
- * =========================================================== */
-let photoMode = true;
-try { photoMode = localStorage.getItem("kfood_photo") !== "off"; } catch (e) {}
-let photoCache = {};
-try { photoCache = JSON.parse(localStorage.getItem("kfood_photos_v1") || "{}") || {}; } catch (e) {}
-const photoPromises = {};
-function savePhotoCache() { try { localStorage.setItem("kfood_photos_v1", JSON.stringify(photoCache)); } catch (e) {} }
-
-async function fetchWikiThumb(title) {
-  const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(title.replace(/ /g, "_"));
-  const r = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!r.ok) return null;
-  const j = await r.json();
-  if (!j || j.type === "disambiguation" || !j.thumbnail || !j.thumbnail.source) return null;
-  const orig = j.originalimage;
-  if (orig && orig.source && orig.width && orig.width <= 640) return orig.source;
-  return j.thumbnail.source.replace(/\/\d+px-/, "/640px-");
-}
-function photoFor(food) {
-  if (photoCache[food.key]) return Promise.resolve(photoCache[food.key]);
-  if (!photoPromises[food.key]) {
-    photoPromises[food.key] = (async () => {
-      for (const t of (food.wiki || [food.en])) {
-        try { const u = await fetchWikiThumb(t); if (u) { photoCache[food.key] = u; savePhotoCache(); return u; } } catch (e) {}
-      }
-      return null;
-    })();
-  }
-  return photoPromises[food.key];
-}
-function hashSeed(str) { let h = 0; for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0; return h % 100000; }
-function aiImageUrl(food) {
-  const prompt = encodeURIComponent(`a bright, appetizing, realistic photo of Korean food ${food.en}. ${food.desc.intermediate.en} food photography, top view`);
-  return `https://image.pollinations.ai/prompt/${prompt}?width=640&height=400&nologo=true&seed=${hashSeed(food.key)}`;
-}
-/* 이모지 타일 위에 사진을 얹음. 사진이 오면 .has-photo 가 붙어 사진이 보이고 이모지는 작은 배지로 */
+/* 실제 음식 사진은 앱과 함께 배포: 외부 API·브라우저 캐시 없이 표시 */
 function makeVisual(food, cls) {
   const box = document.createElement("div");
   box.className = "visual " + (cls || "");
-  const em = document.createElement("div"); em.className = "emoji"; em.textContent = food.emoji;
-  box.appendChild(em);
-  if (!photoMode) return box;
   const img = document.createElement("img");
-  img.className = "photo"; img.alt = `${food.en} (${food.ko})`; img.loading = "lazy"; img.decoding = "async";
-  let stage = 0;                       // 0: 위키 사진, 1: AI 사진
-  img.addEventListener("load", () => box.classList.add("has-photo"));
-  img.addEventListener("error", () => {
-    if (stage === 0) { stage = 1; if (photoCache[food.key]) { delete photoCache[food.key]; savePhotoCache(); } img.src = aiImageUrl(food); }
-    else { box.classList.remove("has-photo"); img.remove(); }
+  img.className = "photo";
+  img.alt = `${food.en} (${food.ko}) 실제 음식 사진`;
+  img.loading = "lazy";
+  img.decoding = "async";
+  const status = document.createElement("span");
+  status.className = "photo-status";
+  status.textContent = "사진 불러오는 중…";
+  const retry = document.createElement("button");
+  retry.className = "photo-retry";
+  retry.textContent = "사진 다시 보기";
+  retry.hidden = true;
+  const path = `assets/foods/${food.key}.jpg`;
+  img.addEventListener("load", () => {
+    box.classList.add("has-photo");
+    status.hidden = true;
+    retry.hidden = true;
   });
-  box.appendChild(img);
-  photoFor(food).then(u => { if (u) img.src = u; else { stage = 1; img.src = aiImageUrl(food); } });
+  img.addEventListener("error", () => {
+    box.classList.remove("has-photo");
+    status.hidden = false;
+    status.textContent = "사진을 불러오지 못했어요.";
+    retry.hidden = false;
+  });
+  retry.addEventListener("click", () => {
+    status.textContent = "사진 불러오는 중…";
+    retry.hidden = true;
+    img.src = path + "?retry=" + Date.now();
+  });
+  img.src = path;
+  const credit = document.createElement("a");
+  credit.className = "photo-credit";
+  credit.href = `photo-credits.html#${food.key}`;
+  credit.target = "_blank";
+  credit.rel = "noopener";
+  credit.textContent = "사진 출처";
+  credit.setAttribute("aria-label", `${food.ko} 사진 출처 및 이용 조건`);
+  box.append(img, status, retry, credit);
   return box;
 }
-function setPhotoMode(on) {
-  photoMode = on;
-  try { localStorage.setItem("kfood_photo", on ? "on" : "off"); } catch (e) {}
-  document.querySelectorAll("#photo-mode .cat-btn").forEach(b => b.classList.toggle("active", (b.dataset.photo === "on") === on));
-  renderFoods(); renderFoodHead();
-}
-document.querySelectorAll("#photo-mode .cat-btn").forEach(btn => btn.addEventListener("click", () => setPhotoMode(btn.dataset.photo === "on")));
 
 /* ===========================================================
  * 🍱 K-FOOD 둘러보기
@@ -811,6 +788,5 @@ document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click
 document.getElementById("rate").addEventListener("input", e => { speakRate = parseFloat(e.target.value); });
 
 document.querySelectorAll("#desc-level .level-btn").forEach(b => b.classList.toggle("active", b.dataset.level === descLevel));
-document.querySelectorAll("#photo-mode .cat-btn").forEach(b => b.classList.toggle("active", (b.dataset.photo === "on") === photoMode));
 renderFoods();
 renderBuilder();
